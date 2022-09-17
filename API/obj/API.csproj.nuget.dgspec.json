@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\API\\API.csproj": {}
+    "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\api\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\API\\API.csproj": {
+    "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\API\\API.csproj",
+        "projectPath": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\api\\API.csproj",
         "packagesPath": "C:\\Users\\calta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\API\\obj\\",
+        "outputPath": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -48,6 +48,12 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
@@ -241,6 +247,16 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[6.0.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

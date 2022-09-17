@@ -1,4 +1,7 @@
+using Application.Blogs;
+using Application.Core;
 using Infrastructure;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +25,9 @@ builder.Services.AddCors(opt =>
     });
 });
 
+builder.Services.AddMediatR(typeof(BlogList.Handler).Assembly);
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+
 var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
@@ -34,6 +40,7 @@ try
 {
     var context = services.GetRequiredService<DataContext>();
     context.Database.Migrate();
+    await Seed.SeedData(context);
 } 
 catch (Exception ex)
 {
@@ -49,9 +56,9 @@ if (app.Environment.IsDevelopment())
 }
 
 
-app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
+
 
 app.UseAuthorization();
 

@@ -1,32 +1,45 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Application.Blogs;
 using Domain;
-using Infrastructure;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace API.Controllers
 {
     public class BlogController : BaseApiController
     {
-        private readonly DataContext _context;
-        public BlogController(DataContext context)
-        {
-            _context = context;
-        }
+        
 
         [HttpGet]
         public async Task<ActionResult<List<Blog>>> GetBlogs()
         {
-            return await _context.Blogs.ToListAsync();
+            return await Mediator.Send(new BlogList.Query());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Blog>> GetBlog(Guid id)
         {
-            return await _context.Blogs.FindAsync(id);
+            return await Mediator.Send(new BlogDetails.Query{Id = id});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBlog(Blog blog)
+        {
+            return Ok(await Mediator.Send(new BlogCreate.Command {Blog = blog}));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditBlog(Guid id, Blog blog)
+        {
+            blog.Id = id;
+            return Ok(await Mediator.Send(new BlogEdit.Command{Blog = blog}));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteActivity(Guid id)
+        {
+            return Ok(await Mediator.Send(new BlogDelete.Command{Id=id}));
         }
 
     }

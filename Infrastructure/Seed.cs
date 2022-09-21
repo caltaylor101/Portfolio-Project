@@ -18,7 +18,7 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(-2),
                         Description = "Blog 2 months ago",
                         Category = "drinks",
-                        Body = "woop woop"
+                        Body = "Body of 1"
                     },
                     new Blog
                     {
@@ -26,7 +26,7 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(-1),
                         Description = "Blog 1 month ago",
                         Category = "culture",
-                        Body = "woop woop"
+                        Body = "Another body of the 2nd"
 
                     },
                     new Blog
@@ -35,7 +35,7 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(1),
                         Description = "Blog 1 month in future",
                         Category = "music",
-                        Body = "woop woop"
+                        Body = "Some complicated stuff."
 
                     },
                     new Blog

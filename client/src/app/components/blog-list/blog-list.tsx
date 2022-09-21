@@ -17,6 +17,10 @@ const BlogList = () => {
         });
     }, []);
 
+    function handleDeleteActivity(id: string) {
+        setBlogs([...blogs.filter(x => x.id !== id)])
+    }
+
     return (
         <Fragment>
             {blogs.map(blog => {
@@ -45,6 +49,8 @@ const BlogList = () => {
                                     >
                                         <Button style={{ marginTop: "55px" }}>Edit</Button>
                                     </Link>
+
+                                        <Button style={{ marginTop: "55px" }} danger onClick={() => handleDeleteActivity(`${blog.id}`)} >Delete</Button>
                                 </Col>
                             </Card>
                         </Col>

@@ -1,4 +1,4 @@
-import { Row, Col, Card, Button } from "antd";
+import { Col, Card, Button } from "antd";
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -31,9 +31,7 @@ const BlogList = () => {
                                         <Col span={4}><span style={{ color: "white", fontWeight: "lighter" }}>{blog.date}</span></Col>
                                     </Fragment>}
                             >
-
                                 <p>{blog.description}</p>
-
                                 <Col>
                                     <Link
                                         to='/read-blog'
@@ -41,7 +39,6 @@ const BlogList = () => {
                                     >
                                         <Button style={{ marginTop: "55px" }}>Read</Button>
                                     </Link>
-
                                     <Link
                                         to='/edit-blog'
                                         state={blog}
@@ -49,13 +46,11 @@ const BlogList = () => {
                                         <Button style={{ marginTop: "55px" }}>Edit</Button>
                                     </Link>
                                 </Col>
-
                             </Card>
                         </Col>
                     </div >
                 )
             })
-
             };
         </Fragment >
     );

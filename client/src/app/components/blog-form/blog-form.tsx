@@ -1,10 +1,7 @@
 import { Button, Col, Form, Input, Row } from "antd";
-import FormList from "antd/lib/form/FormList";
 import TextArea from "antd/lib/input/TextArea";
-import { Footer } from "antd/lib/layout/layout";
 import { ChangeEvent, Fragment, useState } from "react";
 import { Blog as BlogModel} from "../../models/blog";
-import BlogList from "../blog-list/blog-list";
 
 interface Props
 {

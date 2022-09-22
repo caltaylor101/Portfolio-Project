@@ -2,6 +2,9 @@ import { Button, Col, Form, Input, Row } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { ChangeEvent, Fragment, useState } from "react";
 import { Blog as BlogModel} from "../../models/blog";
+import {v4 as uuid} from 'uuid';
+import agent from "../../api/agent";
+
 
 interface Props
 {
@@ -14,7 +17,11 @@ function BlogForm() {
         setComponentSize(size);
     };
 
+    var date = new Date();
+
     const initialState = {
+        id: '',
+        date: date.toJSON(),
         title: '',
         description: '',
         category: '',
@@ -22,6 +29,7 @@ function BlogForm() {
     }
 
     const [currentBlog, setBlog] = useState(initialState);
+    const [submitting, setSubmitting] = useState(false);
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const {name, value} = event.target;
@@ -35,7 +43,11 @@ function BlogForm() {
 
 
     function handleSubmit() {
-        console.log(currentBlog);
+        setSubmitting(true);
+        currentBlog.id = uuid();
+        agent.Blogs.create(currentBlog).then(() => {
+            setSubmitting(false);
+        })
     }
 
     return (

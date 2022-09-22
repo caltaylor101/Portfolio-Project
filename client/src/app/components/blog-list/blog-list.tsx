@@ -1,25 +1,45 @@
-import { Col, Card, Button } from "antd";
-import axios from "axios";
+import { Col, Card, Button, Spin } from "antd";
 import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Blog as BlogModel } from '../../models/blog';
+import agent from "../../api/agent";
+import { Blog, Blog as BlogModel } from '../../models/blog';
+import LoadingComponent from "../loading/loading";
 import './blog-list.css'
 
 
 
 const BlogList = () => {
     const [blogs, setBlogs] = useState<BlogModel[]>([]);
+    const [submitting, setSubmitting] = useState(false);
+    const [target, setTarget] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:5000/blog').then(response => {
-            console.log(response);
-            setBlogs(response.data);
+        agent.Blogs.list().then(response => {
+            let blogs: Blog[] = [];
+            response.forEach(blog => {
+                console.log(blog.date);
+                blog.date = blog.date.split('T')[0];
+                blogs.push(blog);
+            })
+            setBlogs(blogs);
+            setLoading(false);
         });
     }, []);
 
-    function handleDeleteActivity(id: string) {
-        setBlogs([...blogs.filter(x => x.id !== id)])
+    function handleDeleteBlog(id: string) {
+        setTarget(id);
+        setSubmitting(true);
+        console.log(target);
+        agent.Blogs.delete(id).then(() => {
+            setBlogs([...blogs.filter(x => x.id !== id)]);
+            setSubmitting(false);
+        })
     }
+
+    const [loading, setLoading] = useState(true);
+
+
+    if (loading) return <LoadingComponent content={"Loading..."} />
 
     return (
         <Fragment>
@@ -50,7 +70,14 @@ const BlogList = () => {
                                         <Button style={{ marginTop: "55px" }}>Edit</Button>
                                     </Link>
 
-                                        <Button style={{ marginTop: "55px" }} danger onClick={() => handleDeleteActivity(`${blog.id}`)} >Delete</Button>
+                                    <Button
+                                        style={{ marginTop: "55px" }}
+                                        danger
+                                        onClick={() => handleDeleteBlog(`${blog.id}`) }
+                                        loading={submitting && target === blog.id} >
+                                        Delete
+                                    </Button>
+
                                 </Col>
                             </Card>
                         </Col>

@@ -3,6 +3,7 @@ import FormList from "antd/lib/form/FormList";
 import TextArea from "antd/lib/input/TextArea";
 import { Footer } from "antd/lib/layout/layout";
 import { ChangeEvent, Fragment, useState } from "react";
+import agent from "../../api/agent";
 import { Blog as BlogModel} from "../../models/blog";
 import BlogList from "../blog-list/blog-list";
 
@@ -25,6 +26,8 @@ function BlogEditForm({blog}: Props) {
     }
 
     const [currentBlog, setBlog] = useState(initialState);
+    const [submitting, setSubmitting] = useState(false);
+
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const {name, value} = event.target;
@@ -38,7 +41,10 @@ function BlogEditForm({blog}: Props) {
 
 
     function handleSubmit() {
-        console.log(currentBlog);
+        setSubmitting(true);
+        agent.Blogs.update(blog).then(() => {
+            setSubmitting(false);
+        })
     }
 
     return (

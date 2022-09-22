@@ -1,9 +1,6 @@
 using Application.Blogs;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 
 namespace API.Controllers
 {

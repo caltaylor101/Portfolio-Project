@@ -98,6 +98,17 @@ export default class BlogStore {
         }
     }
 
+    getBlog = async (id: string) => {
+        this.loading = true;
+        try {
+            const selectedBlog = await agent.Blogs.details(id);
+            this.blogRegistry.set(selectedBlog.id, selectedBlog);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
 
 }

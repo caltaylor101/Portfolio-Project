@@ -2,49 +2,40 @@ import { Col, Card, Button, Spin } from "antd";
 import { observer } from "mobx-react-lite";
 import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import agent from "../../api/agent";
-import { Blog, Blog as BlogModel } from '../../models/blog';
-import { useStore } from "../../stores/store";
+import { Blog } from "../../models/blog";
 import LoadingComponent from "../loading/loading";
 import './blog-list.css'
 
+interface Props {
+    blogs: Blog[],
+    loadingInitial: boolean
+}
 
+const BlogListDashboard = ({blogs, loadingInitial}: Props) => {
 
-function BlogList(){
-
+    //const [blogs, setBlogs] = useState<BlogModel[]>([]);
     const [submitting, setSubmitting] = useState(false);
     const [target, setTarget] = useState('');
 
-    const {blogStore} = useStore();
-    const {blogsByDate} = blogStore;
 
-    useEffect(() => {
-        blogStore.loadBlogs();
-    }, [blogStore]);
+    // function handleDeleteBlog(id: string) {
+    //     setTarget(id);
+    //     setSubmitting(true);
+    //     console.log(target);
+    //     agent.Blogs.delete(id).then(() => {
+    //         setBlogs([...blogs.filter(x => x.id !== id)]);
+    //         setSubmitting(false);
+    //     })
+    // }
 
-    function handleDeleteBlog(id: string) {
-        setTarget(id);
-        setSubmitting(true);
-        blogStore.deleteBlog(id);
-        // agent.Blogs.delete(id).then(() => {
-        //     setBlogs([...blogs.filter(x => x.id !== id)]);
-        //     setSubmitting(false);
-        // })
-    }
-
-    function selectBlog(id: string) {
-        blogStore.selectBlog(id);
-    }
-
-
-    if (blogStore.loadingInitial) return <LoadingComponent content={"Loading..."} />
+    if (loadingInitial) return <LoadingComponent content={"Loading..."} />
+    console.log("reloading");
 
     return (
         <Fragment>
-            {blogsByDate.map(blog => {
+            {blogs.map(blog => {
                 return (
                     <div className="blog-list" key={blog.id}>
-
                         <Col xs={{ span: 24 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} >
                             <Card
                                 className="blog-list-card"
@@ -58,7 +49,7 @@ function BlogList(){
                                 <Col>
                                     <Link
                                         to='/read-blog'
-                                        onClick={() => selectBlog(blog.id)}
+                                        state={blog}
                                     >
                                         <Button style={{ marginTop: "55px" }}>Read</Button>
                                     </Link>
@@ -72,8 +63,8 @@ function BlogList(){
                                     <Button
                                         style={{ marginTop: "55px" }}
                                         danger
-                                        onClick={() => handleDeleteBlog(`${blog.id}`) }
-                                        loading={target === blog.id} >
+                                        // onClick={() => handleDeleteBlog(`${blog.id}`) }
+                                        loading={submitting && target === blog.id} >
                                         Delete
                                     </Button>
 
@@ -88,4 +79,4 @@ function BlogList(){
     );
 }
 
-export default observer(BlogList);
+export default observer(BlogListDashboard);

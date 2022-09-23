@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path='/' element={<BlogList />} />
           <Route path="/blogs" element={<BlogList />} />
-          <Route path="/read-blog" element={<BlogDetails blog={location.state}/>} />
+          <Route path="/read-blog" element={<BlogDetails />} />
           <Route path="/blog-form" element={<BlogForm />} />
           <Route path="/edit-blog" element={<BlogEditForm blog={location.state} />} />
         </Routes>

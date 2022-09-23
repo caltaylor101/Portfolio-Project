@@ -119,6 +119,8 @@ function BlogForm() {
                     <Col offset={5} span={1}>
                         <Button type="primary" size="large" onClick={handleSubmit}>Submit</Button>
                     </Col>
+
+                    
                     <Col span={1} style={{marginLeft:"15px"}}>
                         <Button type="primary" danger={true} size="large">Cancel</Button>
                     </Col>

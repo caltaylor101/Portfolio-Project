@@ -285,7 +285,7 @@ FakesAssemblies/
 
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat
-node_modules/
+/client/node_modules/
 
 # Visual Studio 6 build log
 *.plg
@@ -305,14 +305,14 @@ node_modules/
 _Pvt_Extensions
 
 # Paket dependency manager
-.paket/paket.exe
+/client/.paket/paket.exe
 paket-files/
 
 # FAKE - F# Make
-.fake/
+/client/.fake/
 
 # CodeRush personal settings
-.cr/personal
+/client/.cr/personal
 
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
@@ -347,19 +347,19 @@ ASALocalRun/
 *.nvuser
 
 # MFractors (Xamarin productivity tool) working folder
-.mfractor/
+/client/.mfractor/
 
 # Local History for Visual Studio
-.localhistory/
+/client/.localhistory/
 
 # BeatPulse healthcheck temp database
-healthchecksdb
+/client/healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
-MigrationBackup/
+/client/MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
-.ionide/
+/client/.ionide/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
@@ -373,14 +373,14 @@ FodyWeavers.xsd
 Makefile.in
 *.userprefs
 *.usertasks
-config.make
-config.status
-aclocal.m4
-install-sh
-autom4te.cache/
+/client/config.make
+/client/config.status
+/client/aclocal.m4
+/client/install-sh
+/client/autom4te.cache/
 *.tar.gz
-tarballs/
-test-results/
+/client/tarballs/
+/client/test-results/
 
 # Mac bundle stuff
 *.dmg
@@ -388,9 +388,9 @@ test-results/
 
 # content below from: https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
 # General
-.DS_Store
-.AppleDouble
-.LSOverride
+/client/.DS_Store
+/client/.AppleDouble
+/client/.LSOverride
 
 # Icon must end with two \r
 Icon
@@ -400,26 +400,26 @@ Icon
 ._*
 
 # Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
+/client/.DocumentRevisions-V100
+/client/.fseventsd
+/client/.Spotlight-V100
+/client/.TemporaryItems
+/client/.Trashes
+/client/.VolumeIcon.icns
+/client/.com.apple.timemachine.donotpresent
 
 # Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
+/client/.AppleDB
+/client/.AppleDesktop
 Network Trash Folder
 Temporary Items
-.apdisk
+/client/.apdisk
 
 # content below from: https://github.com/github/gitignore/blob/master/Global/Windows.gitignore
 # Windows thumbnail cache files
-Thumbs.db
-ehthumbs.db
-ehthumbs_vista.db
+/client/Thumbs.db
+/client/ehthumbs.db
+/client/ehthumbs_vista.db
 
 # Dump file
 *.stackdump
@@ -457,22 +457,22 @@ $RECYCLE.BIN/
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
+/client/.pnp
+/client/.pnp.js
 
 # testing
-/coverage
+/client/coverage
 
 # production
-/build
+/client/build
 
 # misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+/client/.DS_Store
+/client/.env.local
+/client/.env.development.local
+/client/.env.test.local
+/client/.env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+/client/npm-debug.log*
+/client/yarn-debug.log*
+/client/yarn-error.log*

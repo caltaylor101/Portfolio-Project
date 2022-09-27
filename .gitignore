@@ -636,5 +636,13 @@ $RECYCLE.BIN/
 /client/npm-debug.log*
 /client/yarn-debug.log*
 /client/yarn-error.log*
-*.pdb
-*.dll
+
+API/bin/Debug/net6.0/Infrastructure.dll
+API/bin/Debug/net6.0/API.dll
+API/bin/Debug/net6.0/API.pdb
+API/bin/Debug/net6.0/Application.dll
+API/bin/Debug/net6.0/Application.pdb
+API/bin/Debug/net6.0/Domain.dll
+API/bin/Debug/net6.0/Domain.pdb
+API/bin/Debug/net6.0/Infrastructure.dll
+API/bin/Debug/net6.0/Infrastructure.pdb

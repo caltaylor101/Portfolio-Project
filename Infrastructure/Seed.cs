@@ -18,7 +18,8 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(-2),
                         Description = "Blog 2 months ago",
                         Category = "drinks",
-                        Body = "Body of 1"
+                        Body = "Body of 1",
+                        UrlSuffix = "Test"
                     },
                     new Blog
                     {
@@ -26,7 +27,8 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(-1),
                         Description = "Blog 1 month ago",
                         Category = "culture",
-                        Body = "Another body of the 2nd"
+                        Body = "Another body of the 2nd",
+                        UrlSuffix = "Test"
 
                     },
                     new Blog
@@ -35,7 +37,8 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(1),
                         Description = "Blog 1 month in future",
                         Category = "music",
-                        Body = "Some complicated stuff."
+                        Body = "Some complicated stuff.",
+                        UrlSuffix = "Test"
 
                     },
                     new Blog
@@ -44,7 +47,8 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(2),
                         Description = "Blog 2 months in future",
                         Category = "food",
-                        Body = "woop woop"
+                        Body = "woop woop",
+                        UrlSuffix = "Test"
 
                     },
                     new Blog
@@ -53,7 +57,8 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(3),
                         Description = "Blog 3 months in future",
                         Category = "drinks",
-                        Body = "woop woop"
+                        Body = "woop woop",
+                        UrlSuffix = "Test"
 
                     },
                     new Blog
@@ -62,7 +67,8 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(4),
                         Description = "Blog 4 months in future",
                         Category = "culture",
-                        Body = "woop woop"
+                        Body = "woop woop",
+                        UrlSuffix = "Test"
 
                     },
                     new Blog
@@ -71,7 +77,8 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(5),
                         Description = "Blog 5 months in future",
                         Category = "drinks",
-                        Body = "woop woop"
+                        Body = "woop woop",
+                        UrlSuffix = "Test"
 
                     },
                     new Blog
@@ -80,7 +87,8 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(6),
                         Description = "Blog 6 months in future",
                         Category = "music",
-                        Body = "woop woop"
+                        Body = "woop woop",
+                        UrlSuffix = "Test"
 
                     },
                     new Blog
@@ -89,7 +97,8 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(7),
                         Description = "Blog 7 months in future",
                         Category = "travel",
-                        Body = "woop woop"
+                        Body = "woop woop",
+                        UrlSuffix = "Test"
 
                     },
                     new Blog
@@ -98,7 +107,8 @@ namespace Infrastructure
                         Date = DateTime.Now.AddMonths(8),
                         Description = "Blog 8 months in future",
                         Category = "drinks",
-                        Body = "woop woop"
+                        Body = "woop woop",
+                        UrlSuffix = "Test"
 
                     }
                 };

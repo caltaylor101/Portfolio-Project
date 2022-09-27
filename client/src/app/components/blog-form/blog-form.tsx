@@ -25,7 +25,8 @@ function BlogForm() {
         title: '',
         description: '',
         category: '',
-        body: ''
+        body: '',
+        urlsuffix: '',
     }
 
     const [currentBlog, setBlog] = useState(initialState);

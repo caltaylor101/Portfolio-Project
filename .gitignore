@@ -668,3 +668,12 @@ Application/bin/Debug/net6.0/Domain.dll
 Application/bin/Debug/net6.0/Domain.pdb
 Application/bin/Debug/net6.0/Infrastructure.dll
 Application/bin/Debug/net6.0/Infrastructure.pdb
+Infrastructure/obj/Debug/net6.0/Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+Infrastructure/obj/Debug/net6.0/Infrastructure.assets.cache
+Domain/obj/Debug/net6.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
+Domain/obj/Debug/net6.0/Domain.assets.cache
+Application/obj/Debug/net6.0/Application.GeneratedMSBuildEditorConfig.editorconfig
+Application/obj/Debug/net6.0/Application.assets.cache
+API/obj/Debug/net6.0/project.razor.json
+API/obj/Debug/net6.0/API.GeneratedMSBuildEditorConfig.editorconfig
+API/obj/Debug/net6.0/API.assets.cache

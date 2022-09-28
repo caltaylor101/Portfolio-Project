@@ -3,6 +3,8 @@ import { observer } from "mobx-react-lite";
 import { Fragment, useEffect, useState } from "react";
 import { Blog as BlogModel } from "../../models/blog";
 import { useStore } from "../../stores/store";
+import { useParams } from "react-router-dom";
+import LoadingComponent from "../loading/loading";
 
 interface Props
 {
@@ -12,41 +14,44 @@ interface Props
 const BlogDetails = () => {
 
     const {blogStore} = useStore();
-    const {selectedBlog} = blogStore;
-    const [count, setCount] = useState(1);
-    const [blogId, setBlogId] = useState<string>();
+    const {selectedBlog, loadingInitial} = blogStore;
+    const [currentBlog, setCurrentBlog] = useState<BlogModel | null>(null);
+    const {urlSuffix} = useParams();
         
 
     
     useEffect(() => {
       if (selectedBlog !== undefined)
       {
-        window.sessionStorage.setItem("blog", selectedBlog!.id);
+        window.sessionStorage.setItem("blog", JSON.stringify(selectedBlog));
+        setCurrentBlog(selectedBlog);
       }
-    }, []);
+    }, [selectedBlog]);
 
     useEffect(() => {
+      try
+      {
         if(selectedBlog === undefined)
         {
-          setBlogId(window.sessionStorage.getItem("blog")!);
-          
+          let exampleBlog = JSON.parse(window.sessionStorage.getItem("blog")!);
+          if (exampleBlog === null || exampleBlog.urlSuffix !== urlSuffix)
+          {
+            blogStore.getBlog(urlSuffix!);
+          }
+          setCurrentBlog(exampleBlog);
         }
+      } catch (error) 
+      {
+        console.log(error);
+      }
+        
       }, []);
-    
-    if (blogId) 
-    {
-        blogStore.getBlog(blogId);
-        blogStore.selectBlog(blogId);
-    }
-    
 
-    // useEffect(() => {
-    //     blogStore.getBlog(blogId!);
-    //     blogStore.selectBlog(blogId!);
-    // })
-      
+    if (blogStore.loading) return <LoadingComponent content={"Loading..."} />
+
     return (
       <Fragment>
+        
             <Col xs={{ span: 24 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} style={{marginTop: '50px'}}>
                 <Typography.Title
                     editable
@@ -56,11 +61,11 @@ const BlogDetails = () => {
                         borderBottom: "2px solid white"
                     }}
                 >
-                    {selectedBlog?.title}
+                    {currentBlog?.title}
                 </Typography.Title>
 
                 <Typography.Paragraph className='base-text-color' style={{fontSize: "1.25em"}}>
-                    {selectedBlog?.body}
+                    {currentBlog?.body}
                 </Typography.Paragraph>
 
             </Col>

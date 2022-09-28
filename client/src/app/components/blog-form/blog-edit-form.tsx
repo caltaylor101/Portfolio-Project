@@ -1,33 +1,38 @@
 import { Button, Col, Form, Input, Row } from "antd";
-import FormList from "antd/lib/form/FormList";
 import TextArea from "antd/lib/input/TextArea";
-import { Footer } from "antd/lib/layout/layout";
+import { observer } from "mobx-react-lite";
 import { ChangeEvent, Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import agent from "../../api/agent";
 import { Blog as BlogModel} from "../../models/blog";
-import BlogList from "../blog-list/blog-list";
+import { useStore } from "../../stores/store";
 
 interface Props
 {
     blog: BlogModel
 }
 
-function BlogEditForm({blog}: Props) {
+function BlogEditForm() {
     const [componentSize, setComponentSize] = useState<any>('default');
-    const onFormLayoutChange = ({ size }: any) => {
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const onFormLayoutChange = ({ size }: any, {loading}: any) => {
         setComponentSize(size);
+        setLoading(loading);
     };
 
-    const initialState = blog ?? {
+    const {blogStore} = useStore();
+    const {selectedBlog} = blogStore;
+
+    const initialState = selectedBlog ?? {
         title: '',
         description: '',
         category: '',
-        body: ''
+        body: '',
+        urlSuffix: '',
     }
 
-    const [currentBlog, setBlog] = useState(initialState);
-    const [submitting, setSubmitting] = useState(false);
-
+    const [currentBlog, setBlog] = useState<BlogModel>(initialState as BlogModel);
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const {name, value} = event.target;
@@ -41,11 +46,9 @@ function BlogEditForm({blog}: Props) {
 
 
     function handleSubmit() {
-        setSubmitting(true);
-        agent.Blogs.update(blog).then(() => {
-            setSubmitting(false);
-        })
+        blogStore.updateBlog(currentBlog);
     }
+    const navigate = useNavigate();
 
     return (
         <Fragment>
@@ -54,6 +57,7 @@ function BlogEditForm({blog}: Props) {
             </Col>
 
             <Form 
+            onFinish={() => navigate('/blogs')}
             style={{ paddingBottom: "250px" }}
             labelCol={{
                 span: 4,
@@ -114,9 +118,9 @@ function BlogEditForm({blog}: Props) {
 
                 <Row style={{ paddingTop: "50px" }}>
                     <Col offset={5} span={1}>
-                        <Button type="primary" size="large" onClick={handleSubmit}>Submit</Button>
+                        <Button type="primary" size="large" loading={blogStore.loading} onClick={handleSubmit} htmlType="submit"  >Submit</Button>
                     </Col>
-                    <Col span={1} style={{marginLeft:"15px"}}>
+                    <Col span={1} style={{marginLeft:"35px"}}>
                         <Button type="primary" danger={true} size="large">Cancel</Button>
                     </Col>
                 </Row>
@@ -126,4 +130,4 @@ function BlogEditForm({blog}: Props) {
     );
 }
 
-export default BlogEditForm;
+export default observer(BlogEditForm);

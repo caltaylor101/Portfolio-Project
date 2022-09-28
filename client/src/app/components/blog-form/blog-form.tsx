@@ -26,7 +26,7 @@ function BlogForm() {
         description: '',
         category: '',
         body: '',
-        urlsuffix: '',
+        urlSuffix: '',
     }
 
     const [currentBlog, setBlog] = useState(initialState);
@@ -118,7 +118,7 @@ function BlogForm() {
 
                 <Row style={{ paddingTop: "50px" }}>
                     <Col offset={5} span={1}>
-                        <Button type="primary" size="large" onClick={handleSubmit}>Submit</Button>
+                        <Button type="primary" size="large" onClick={handleSubmit} htmlType='submit'>Submit</Button>
                     </Col>
 
                     

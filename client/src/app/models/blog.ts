@@ -5,5 +5,5 @@ export interface Blog {
     description: string;
     category: string;
     body: string;
-    urlsuffix: string;
+    urlSuffix: string;
 }

@@ -57,14 +57,14 @@ function BlogList(){
                                 <p>{blog.description}</p>
                                 <Col>
                                     <Link
-                                        to='/read-blog'
+                                        to={`/read-blog/${blog.urlSuffix}`}
                                         onClick={() => selectBlog(blog.id)}
                                     >
                                         <Button style={{ marginTop: "55px" }}>Read</Button>
                                     </Link>
                                     <Link
                                         to='/edit-blog'
-                                        state={blog}
+                                        onClick={() => selectBlog(blog.id)}
                                     >
                                         <Button style={{ marginTop: "55px" }}>Edit</Button>
                                     </Link>

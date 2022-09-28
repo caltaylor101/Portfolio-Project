@@ -9,6 +9,8 @@ export default class BlogStore {
     blogRegistry = new Map<string, Blog>();
     loading = false;
     loadingInitial = false;
+    submitting = false;
+
 
     constructor() {
         makeAutoObservable(this)
@@ -64,10 +66,15 @@ export default class BlogStore {
             })
         }
     }
-
+    sleep = (delay: number) => {
+        return new Promise((resolve) => {
+            setTimeout(resolve, delay);
+        })
+    }
     updateBlog = async (blog: Blog) => {
         this.loading = true;
         try {
+            await this.sleep(1000);
             await agent.Blogs.update(blog);
             runInAction(() => {
                 this.blogRegistry.set(blog.id, blog);
@@ -98,14 +105,16 @@ export default class BlogStore {
         }
     }
 
-    getBlog = async (id: string) => {
+    getBlog = async (urlSuffix: string) => {
         this.loading = true;
         try {
-            const selectedBlog = await agent.Blogs.details(id);
+            const selectedBlog = await agent.Blogs.details(urlSuffix);
             this.blogRegistry.set(selectedBlog.id, selectedBlog);
-
+            this.selectBlog(selectedBlog.id);
+            this.loading = false;
         } catch (error) {
             console.log(error);
+            this.loading = false;
         }
     }
 

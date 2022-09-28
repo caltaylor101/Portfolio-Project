@@ -1,6 +1,7 @@
 using Domain;
 using Infrastructure;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Blogs
 {
@@ -9,6 +10,7 @@ namespace Application.Blogs
         public class Query : IRequest<Blog>
         {
             public Guid Id { get; set; }
+            public string UrlSuffix { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Blog>
@@ -21,7 +23,7 @@ namespace Application.Blogs
 
             public async Task<Blog> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Blogs.FindAsync(request.Id);
+                return await _context.Blogs.FirstOrDefaultAsync(x => x.UrlSuffix == request.UrlSuffix);
             }
         }
     }

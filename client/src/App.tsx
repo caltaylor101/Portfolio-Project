@@ -6,10 +6,15 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import BlogForm from './app/components/blog-form/blog-form';
 import BlogEditForm from './app/components/blog-form/blog-edit-form';
 import {v4 as uuid} from 'uuid';
+import { useStore } from './app/stores/store';
 
 function App() {
   
   const location = useLocation();
+
+  const store = useStore();
+
+  const {blogStore} = store;
 
   return (
     <div className="App">
@@ -17,9 +22,11 @@ function App() {
         <Routes>
           <Route path='/' element={<BlogList />} />
           <Route path="/blogs" element={<BlogList />} />
-          <Route path="/read-blog" element={<BlogDetails />} />
+          <Route path={`/read-blog/:urlSuffix`} element={<BlogDetails />} />
+          <Route path={`/read-blog`} element={<BlogDetails />} />
+
           <Route path="/blog-form" element={<BlogForm />} />
-          <Route path="/edit-blog" element={<BlogEditForm blog={location.state} />} />
+          <Route path="/edit-blog" element={<BlogEditForm />} />
         </Routes>
     </div>
   );

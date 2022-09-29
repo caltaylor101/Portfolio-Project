@@ -31,7 +31,17 @@ const requests = {
 
 const Blogs = {
     list: () => requests.get<Blog[]>('/blog'),
-    details: (id: string) => requests.get<Blog>(`/blog/${id}`),
+    details: (urlSuffix: string, id?: string | null) => 
+    {
+        if (id === undefined)
+        {
+            return requests.get<Blog>(`/blog/${urlSuffix}`)
+        }
+        else
+        {
+            return requests.get<Blog>(`/blog/"null"/${id}`)
+        }
+} ,
     create: (blog: Blog) => axios.post<void>('/blog', blog),
     update: (blog: Blog) => axios.put<void>(`/blog/${blog.id}`, blog),
     delete: (id: string) => axios.delete<void>(`/blog/${id}`)

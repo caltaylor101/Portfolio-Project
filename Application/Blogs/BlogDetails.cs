@@ -9,7 +9,7 @@ namespace Application.Blogs
     {
         public class Query : IRequest<Blog>
         {
-            public Guid Id { get; set; }
+            public Guid? Id { get; set; }
             public string UrlSuffix { get; set; }
         }
 
@@ -23,6 +23,10 @@ namespace Application.Blogs
 
             public async Task<Blog> Handle(Query request, CancellationToken cancellationToken)
             {
+                if (request.Id != null)
+                {
+                    return await _context.Blogs.FindAsync(request.Id);
+                }
                 return await _context.Blogs.FirstOrDefaultAsync(x => x.UrlSuffix == request.UrlSuffix);
             }
         }

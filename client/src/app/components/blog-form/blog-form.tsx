@@ -1,13 +1,17 @@
 import { Button, Col, Form, Input, Row } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { ChangeEvent, Fragment, useState } from "react";
-import { Blog as BlogModel} from "../../models/blog";
-import {v4 as uuid} from 'uuid';
+import { Blog as BlogModel } from "../../models/blog";
+import { v4 as uuid } from 'uuid';
 import agent from "../../api/agent";
+import { useNavigate } from "react-router-dom";
+import BlogStore from "../../stores/blogstore";
+import { useStore } from "../../stores/store";
+import { observer } from "mobx-react-lite";
 
 
-interface Props
-{
+
+interface Props {
     blog: BlogModel
 }
 
@@ -31,24 +35,37 @@ function BlogForm() {
 
     const [currentBlog, setBlog] = useState(initialState);
     const [submitting, setSubmitting] = useState(false);
+    const { blogStore } = useStore();
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-        const {name, value} = event.target;
-        setBlog({...currentBlog, [name]: value})
+        const { name, value } = event.target;
+        setBlog({ ...currentBlog, [name]: value })
     }
 
     function handleTextAreaChange(event: ChangeEvent<HTMLTextAreaElement>) {
-        const {name, value} = event.target;
-        setBlog({...currentBlog, [name]: value})
+        const { name, value } = event.target;
+        setBlog({ ...currentBlog, [name]: value })
     }
 
-
+    const navigate = useNavigate();
     function handleSubmit() {
         setSubmitting(true);
         currentBlog.id = uuid();
-        agent.Blogs.create(currentBlog).then(() => {
-            setSubmitting(false);
-        })
+        blogStore.createBlog(currentBlog).then(() => {
+            blogStore.getBlogById(currentBlog.urlSuffix, currentBlog.id).then(() => {
+                navigate(`/read-blog/${blogStore.selectedBlog?.urlSuffix}`);
+                setSubmitting(false);
+            });
+        });
+
+
+        // agent.Blogs.create(currentBlog).then(() => {
+        //     blogStore.getBlogById(currentBlog.urlSuffix, currentBlog.id).then(() => {
+        //         navigate(`/read-blog/${blogStore.selectedBlog?.urlSuffix}`);
+        //         setSubmitting(false);
+        // });
+        // });
+
     }
 
     return (
@@ -57,20 +74,20 @@ function BlogForm() {
                 <h1 className="base-text-color">&nbsp;&nbsp;&nbsp;&nbsp;Post New Blog</h1>
             </Col>
 
-            <Form 
-            style={{ paddingBottom: "250px" }}
-            labelCol={{
-                span: 4,
-            }}
-            wrapperCol={{
-                span: 24,
-            }}
-            layout="horizontal"
-            initialValues={{
-                size: componentSize,
-            }}
-            onValuesChange={onFormLayoutChange}
-            size={componentSize}
+            <Form
+                style={{ paddingBottom: "250px" }}
+                labelCol={{
+                    span: 4,
+                }}
+                wrapperCol={{
+                    span: 24,
+                }}
+                layout="horizontal"
+                initialValues={{
+                    size: componentSize,
+                }}
+                onValuesChange={onFormLayoutChange}
+                size={componentSize}
             >
                 <Form.Item style={{ marginTop: "50px" }}>
                     <Row>
@@ -79,7 +96,7 @@ function BlogForm() {
                         </Col>
                         <Col offset={1} span={12}>
                             <Input placeholder="Title" name='title' value={currentBlog.title} onChange={handleInputChange} />
-                            </Col>
+                        </Col>
                     </Row>
                 </Form.Item>
 
@@ -101,7 +118,7 @@ function BlogForm() {
                         </Col>
                         <Col offset={1} span={12}>
                             <Input placeholder="Category" name='category' value={currentBlog.category} onChange={handleInputChange} />
-                            </Col>
+                        </Col>
                     </Row>
                 </Form.Item>
 
@@ -118,11 +135,11 @@ function BlogForm() {
 
                 <Row style={{ paddingTop: "50px" }}>
                     <Col offset={5} span={1}>
-                        <Button type="primary" size="large" onClick={handleSubmit} htmlType='submit'>Submit</Button>
+                        <Button type="primary" size="large" loading={submitting} onClick={handleSubmit} htmlType='submit' >Submit</Button>
                     </Col>
 
-                    
-                    <Col span={1} style={{marginLeft:"15px"}}>
+
+                    <Col span={1} style={{ marginLeft: "35px" }}>
                         <Button type="primary" danger={true} size="large">Cancel</Button>
                     </Col>
                 </Row>
@@ -132,4 +149,4 @@ function BlogForm() {
     );
 }
 
-export default BlogForm;
+export default observer(BlogForm);

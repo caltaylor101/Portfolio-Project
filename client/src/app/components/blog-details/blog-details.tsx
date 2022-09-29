@@ -14,12 +14,10 @@ interface Props
 const BlogDetails = () => {
 
     const {blogStore} = useStore();
-    const {selectedBlog, loadingInitial} = blogStore;
+    const {selectedBlog} = blogStore;
     const [currentBlog, setCurrentBlog] = useState<BlogModel | null>(null);
     const {urlSuffix} = useParams();
         
-
-    
     useEffect(() => {
       if (selectedBlog !== undefined)
       {

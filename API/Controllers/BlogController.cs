@@ -14,6 +14,11 @@ namespace API.Controllers
             return await Mediator.Send(new BlogList.Query());
         }
 
+        [HttpGet("{urlSuffix}/{id}")]
+        public async Task<ActionResult<Blog>> GetBlog(string urlSuffix, Guid? id)
+        {
+            return await Mediator.Send(new BlogDetails.Query{UrlSuffix = urlSuffix, Id = id});
+        }
         [HttpGet("{urlSuffix}")]
         public async Task<ActionResult<Blog>> GetBlog(string urlSuffix)
         {

@@ -47,6 +47,7 @@ function BlogEditForm() {
 
     function handleSubmit() {
         blogStore.updateBlog(currentBlog);
+        blogStore.selectedBlog = currentBlog;
     }
     const navigate = useNavigate();
 
@@ -57,7 +58,7 @@ function BlogEditForm() {
             </Col>
 
             <Form 
-            onFinish={() => navigate('/blogs')}
+            onFinish={() => navigate(`/read-blog/${currentBlog.urlSuffix}`)}
             style={{ paddingBottom: "250px" }}
             labelCol={{
                 span: 4,

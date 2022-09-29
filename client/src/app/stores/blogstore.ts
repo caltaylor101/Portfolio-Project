@@ -118,6 +118,19 @@ export default class BlogStore {
         }
     }
 
+    getBlogById = async (urlSuffix="null", id: string) => {
+        this.loading = true;
+        try {
+            const selectedBlog = await agent.Blogs.details(urlSuffix, id);
+            this.blogRegistry.set(selectedBlog.id, selectedBlog);
+            this.selectBlog(selectedBlog.id);
+            this.loading = false;
+        } catch (error) {
+            console.log(error);
+            this.loading = false;
+        }
+    }
+
 
 
 }

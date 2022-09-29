@@ -1,4 +1,5 @@
 using Domain;
+using FluentValidation;
 using Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +17,20 @@ namespace Application.Blogs
         {
             private int suffixExtender = 1;
             private readonly DataContext _context;
+
             public Handler(DataContext context)
             {
                 _context = context;
+            }
+
+            
+
+            public class CommandValidator : AbstractValidator<Command>
+            {
+                public CommandValidator()
+                {
+                    RuleFor(x => x.Blog).SetValidator(new BlogValidator());
+                }
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)

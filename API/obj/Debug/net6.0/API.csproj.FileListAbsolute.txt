@@ -63,3 +63,6 @@ C:\Users\calta\Desktop\Portfolio\Portfolio-Project\api\bin\Debug\net6.0\MediatR.
 C:\Users\calta\Desktop\Portfolio\Portfolio-Project\api\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\calta\Desktop\Portfolio\Portfolio-Project\api\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\calta\Desktop\Portfolio\Portfolio-Project\api\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\calta\Desktop\Portfolio\Portfolio-Project\api\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\calta\Desktop\Portfolio\Portfolio-Project\api\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Users\calta\Desktop\Portfolio\Portfolio-Project\api\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll

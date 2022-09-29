@@ -1,5 +1,8 @@
 using Application.Blogs;
 using Application.Core;
+using Domain;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +12,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+
+// builder.Services.AddFluentValidation(config =>
+// {
+//     //Validation change. 
+//     config.ConfigureClientsideValidation(enabled: false);
+//     config.RegisterValidatorsFromAssemblyContaining<BlogCreate>();
+// });
+//These 2 lines replace the AddFluentValidation code.
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<BlogCreate>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

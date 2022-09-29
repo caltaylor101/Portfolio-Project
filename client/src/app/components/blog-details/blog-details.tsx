@@ -52,7 +52,6 @@ const BlogDetails = () => {
         
             <Col xs={{ span: 24 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} style={{marginTop: '50px'}}>
                 <Typography.Title
-                    editable
                     level={1}
                     className='base-text-color'
                     style={{

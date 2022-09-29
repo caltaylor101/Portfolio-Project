@@ -20,6 +20,16 @@ export default class BlogStore {
         return Array.from(this.blogRegistry.values()).sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
     }
 
+    get groupedBlogs() {
+        return Object.entries(
+            this.blogsByDate.reduce((blogs, blog) => {
+                const date = blog.date;
+                blogs[date] = blogs[date] ? [...blogs[date], blog] : [blog];
+                return blogs;
+            }, {} as {[key: string]: Blog[]} )
+        )
+    }
+
     loadBlogs = async () => {
         this.setLoadingInitial(true);
         try {

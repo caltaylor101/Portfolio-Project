@@ -11,10 +11,6 @@ import { observer } from "mobx-react-lite";
 
 
 
-interface Props {
-    blog: BlogModel
-}
-
 function BlogForm() {
     const [componentSize, setComponentSize] = useState<any>('default');
     const onFormLayoutChange = ({ size }: any) => {

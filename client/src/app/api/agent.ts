@@ -1,6 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
+import { history } from '../..';
+import { RouteLinks } from '../../App-Routes';
 import { Blog } from '../models/blog';
+
+const routeLinks = new RouteLinks();
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -24,6 +28,7 @@ axios.interceptors.response.use(async response => {
             break;
         case 404: 
             toast.error('not found');
+            history.push(routeLinks.notFound);
             break;
         case 500:
             toast.error('server errors');

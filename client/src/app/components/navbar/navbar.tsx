@@ -13,9 +13,12 @@ const NavBar = () => {
             key: 'submenu',
             children: [{ label: 'item-4', key: 'submenu-item-1' }],
         },
+        { label: <Link to="/errors">Errors</Link>, key: 'item-6', children: null },
+
 
         { label: '', key: 'blank2', children: null, style: { paddingLeft: '45%', opacity: '0', cursor: 'default' } },
         { label: <Link to="/blog-form"><Button type='primary' className='success-btn' >Post Blog</Button></Link>, key: 'item-5', children: null },
+
     ];
 
     return (

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Core;
 using Domain;
 using Infrastructure;
 using MediatR;
@@ -11,9 +12,9 @@ namespace Application.Blogs
 {
     public class BlogList
     {
-        public class Query : IRequest<List<Blog>> { } //parameters go in the brackets
+        public class Query : IRequest<Result<List<Blog>>> { } //parameters go in the brackets
 
-        public class Handler : IRequestHandler<Query, List<Blog>>
+        public class Handler : IRequestHandler<Query, Result<List<Blog>>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -21,9 +22,9 @@ namespace Application.Blogs
                 _context = context;
             }
 
-            public async Task<List<Blog>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<Blog>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Blogs.ToListAsync();
+                return Result<List<Blog>>.Success(await _context.Blogs.ToListAsync());
             }
         }
     }

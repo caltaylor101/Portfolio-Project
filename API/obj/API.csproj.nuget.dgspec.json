@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\api\\API.csproj": {}
+    "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\api\\API.csproj": {
+    "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\api\\API.csproj",
+        "projectUniqueName": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\api\\API.csproj",
+        "projectPath": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\API\\API.csproj",
         "packagesPath": "C:\\Users\\calta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\api\\obj\\",
+        "outputPath": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

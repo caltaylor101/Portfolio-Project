@@ -7,6 +7,8 @@ import BlogForm from './app/components/blog-form/blog-form';
 import BlogEditForm from './app/components/blog-form/blog-edit-form';
 import {v4 as uuid} from 'uuid';
 import { useStore } from './app/stores/store';
+import TestErrors from './app/errors/TestError';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   
@@ -18,6 +20,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer position='bottom-right' hideProgressBar/>
       <NavBar />
         <Routes>
           <Route path='/' element={<BlogList />} />
@@ -27,6 +30,8 @@ function App() {
 
           <Route path="/blog-form" element={<BlogForm />} />
           <Route path="/edit-blog" element={<BlogEditForm />} />
+          <Route path="/errors" element={<TestErrors />} />
+
         </Routes>
     </div>
   );

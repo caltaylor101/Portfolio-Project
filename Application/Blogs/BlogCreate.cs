@@ -1,3 +1,4 @@
+using Application.Core;
 using Domain;
 using FluentValidation;
 using Infrastructure;
@@ -8,12 +9,12 @@ namespace Application.Blogs
 {
     public class BlogCreate
     {
-        public class Command : IRequest
+        public class Command : IRequest<Result<Unit>>
         {
             public Blog Blog { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private int suffixExtender = 1;
             private readonly DataContext _context;
@@ -33,7 +34,7 @@ namespace Application.Blogs
                 }
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 //Create the UrlSuffix from the Title of the blog
                 request.Blog.UrlSuffix = RemoveWhitespace(request.Blog.Title);
@@ -54,9 +55,11 @@ namespace Application.Blogs
 
                 _context.Blogs.Add(request.Blog);
 
-                await _context.SaveChangesAsync();
+                var result = await _context.SaveChangesAsync() > 0;
 
-                return Unit.Value;
+                if (!result) return Result<Unit>.Failure("Failed to create the blog");
+
+                return Result<Unit>.Success(Unit.Value);
             }
 
 

@@ -1,3 +1,4 @@
+using API.Middleware;
 using Application.Blogs;
 using Application.Core;
 using Domain;
@@ -63,7 +64,13 @@ catch (Exception ex)
     logger.LogError(ex, "An error occurred during migration.");
 }
 
+
+
 // Configure the HTTP request pipeline.
+
+app.UseMiddleware<ExceptionMiddleware>();
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

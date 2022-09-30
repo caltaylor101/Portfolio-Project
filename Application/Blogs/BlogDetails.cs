@@ -30,7 +30,6 @@ namespace Application.Blogs
                 }
                 return Result<Blog>.Success(await _context.Blogs.FirstOrDefaultAsync(x => x.UrlSuffix == request.UrlSuffix));
 
-
             }
         }
     }

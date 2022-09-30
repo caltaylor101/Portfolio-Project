@@ -1,3 +1,4 @@
+using Application.Core;
 using AutoMapper;
 using Domain;
 using Infrastructure;
@@ -7,12 +8,12 @@ namespace Application.Blogs
 {
     public class BlogEdit
     {
-        public class Command : IRequest
+        public class Command : IRequest<Result<Unit>>
         {
             public Blog Blog { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -22,15 +23,19 @@ namespace Application.Blogs
                 _context = context;
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 Blog blog = await _context.Blogs.FindAsync(request.Blog.Id);
 
+                if (blog == null) return null;
+
                 _mapper.Map(request.Blog, blog);
 
-                await _context.SaveChangesAsync();
+                var result = await _context.SaveChangesAsync() > 0;
 
-                return Unit.Value;
+                if (!result) return Result<Unit>.Failure("Failed to update blog");
+
+                return Result<Unit>.Success(Unit.Value);
             }
         }
     }

@@ -9,6 +9,6 @@ namespace Domain
         public string Description { get; set; }
         public string Category { get; set; }
         public string Body { get; set; }
-        public string? UrlSuffix { get; set; }
+        public string UrlSuffix { get; set; }
     }
 }

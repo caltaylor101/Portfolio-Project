@@ -1,0 +1,8 @@
+@import '~antd/dist/antd.css';
+
+.site-result-demo-error-icon {
+  color: red;
+}
+[data-theme="dark"] .site-result-demo-error-icon {
+  color: #a61d24;
+}

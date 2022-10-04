@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tyWiW6AA93D2CDCAND9GqcyCwhg2acCBE+N84Z8kGKjUg1jaNE+wGy/H56KRq1W6HngxXbuET+D8RPJ9q9I5cQ==",
+  "dgSpecHash": "iurh8M2WlopUA8lpzT9ZEv1FiYgGw7II2+4hnvkXp8234VTe3WSzyKDnugKyfj0HCFOIR1oO8aLWzYY3Dcsvlw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\calta\\Desktop\\Portfolio\\Portfolio-Project\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\calta\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\calta\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

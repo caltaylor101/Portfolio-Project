@@ -23,10 +23,11 @@ builder.Services.AddControllers();
 // });
 //These 2 lines replace the AddFluentValidation code.
 builder.Services.AddFluentValidationAutoValidation();
+// builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<BlogCreate>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+// builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(opt => 
 {

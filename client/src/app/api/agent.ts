@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { history } from '../..';
 import { RouteLinks } from '../../App-Routes';
 import { Blog } from '../models/blog';
+import { store } from '../stores/store';
 
 const routeLinks = new RouteLinks();
 
@@ -18,10 +19,24 @@ axios.interceptors.response.use(async response => {
         await sleep(1000);
         return response;
 }, (error: AxiosError) => {
-    const {data, status} = error.response!;
+    const {data, status, config}: { data: any; status: number, config: any} = error.response!;
     switch (status) {
         case 400:
-            toast.error('bad request');
+            if (typeof data === 'string') {
+                toast.error(data);
+            }
+            if (config.method === 'get' && data.errors.hasOwnProperty('id')) {
+                    history.push(routeLinks.notFound);
+            }
+            if (data.errors) {
+                const modalStateErrors = [];
+                for (const key in data.errors) {
+                    if (data.errors[key]) {
+                        modalStateErrors.push(data.errors[key])
+                    }
+                }
+                throw modalStateErrors.flat();
+            }
             break;
         case 401: 
             toast.error('unauthorized');
@@ -31,6 +46,8 @@ axios.interceptors.response.use(async response => {
             history.push(routeLinks.notFound);
             break;
         case 500:
+            store.commonStore.setServerError(data);
+            history.push(routeLinks.serverError);
             toast.error('server errors');
             break;
     }

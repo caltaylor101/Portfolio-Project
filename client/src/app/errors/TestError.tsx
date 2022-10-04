@@ -1,10 +1,12 @@
-import React from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { Header } from 'antd/lib/layout/layout';
 import { Button, Row } from 'antd';
+import ValidationErrors from './ValidationErrors';
 
 export default function TestErrors() {
     const baseUrl = 'http://localhost:5000/'
+    const [errors, setErrors] = useState(null);
 
     function handleNotFound() {
         axios.get(baseUrl + 'buggy/not-found').catch(err => console.log(err.response));
@@ -23,11 +25,11 @@ export default function TestErrors() {
     }
 
     function handleBadGuid() {
-        axios.get(baseUrl + 'blog/notaguid/notaguid').catch(err => console.log(err.response));
+        axios.get(baseUrl + 'blog/notaguid/notaguid').catch(err => console.log(err));
     }
 
     function handleValidationError() {
-        axios.post(baseUrl + 'blog', {}).catch(err => console.log(err.response));
+        axios.post(baseUrl + 'blog', {}).catch(err => setErrors(err));
     }
 
     return (
@@ -43,6 +45,9 @@ export default function TestErrors() {
                     <Button onClick={handleBadGuid} >Bad Guid</Button>
                 </Button.Group>
             </Row>
+            {errors && 
+                <ValidationErrors errors={errors} />
+            }
         </>
     )
 }

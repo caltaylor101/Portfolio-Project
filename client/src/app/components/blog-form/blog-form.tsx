@@ -1,11 +1,8 @@
 import { Button, Col, Form, Input, Row } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { ChangeEvent, Fragment, useState } from "react";
-import { Blog as BlogModel } from "../../models/blog";
 import { v4 as uuid } from 'uuid';
-import agent from "../../api/agent";
 import { useNavigate } from "react-router-dom";
-import BlogStore from "../../stores/blogstore";
 import { useStore } from "../../stores/store";
 import { observer } from "mobx-react-lite";
 

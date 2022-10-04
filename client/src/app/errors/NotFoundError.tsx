@@ -18,7 +18,7 @@ export default function NotFound() {
         <Row>
             <Col span={16} offset={4}>
                     <Result
-                        style={{backgroundColor:' #D3D3D3'}}
+                        style={{backgroundColor:' #C3C3C3', marginTop: '25px', paddingBottom: '15%'}}
                         className='base-text-color'
                         status="404"
                         title="404"

@@ -11,6 +11,7 @@ import TestErrors from './app/errors/TestError';
 import { ToastContainer } from 'react-toastify';
 import NotFoundError from './app/errors/NotFoundError';
 import { RouteLinks } from './App-Routes';
+import ServerError from './app/errors/ServerError';
 
 
 function App() {
@@ -37,6 +38,8 @@ function App() {
           <Route path={routeLinks.blogEditForm} element={<BlogEditForm />} />
           <Route path={routeLinks.testErrors} element={<TestErrors />} />
           <Route path={routeLinks.notFound} element={<NotFoundError />} />
+          <Route path={routeLinks.serverError} element={<ServerError />} />
+
 
         </Routes>
     </div>

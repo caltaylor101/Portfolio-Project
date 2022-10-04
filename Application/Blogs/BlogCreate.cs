@@ -26,14 +26,6 @@ namespace Application.Blogs
 
             
 
-            public class CommandValidator : AbstractValidator<Command>
-            {
-                public CommandValidator()
-                {
-                    RuleFor(x => x.Blog).SetValidator(new BlogValidator());
-                }
-            }
-
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 //Create the UrlSuffix from the Title of the blog

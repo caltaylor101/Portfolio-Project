@@ -7,5 +7,7 @@ export class  RouteLinks {
     blogForm = "/blog-form";
     blogEditForm = "/edit-blog";
     testErrors = "/errors";
+    serverError = "/server-error";
     notFound = "*";
+
 }

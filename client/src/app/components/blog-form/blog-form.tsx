@@ -1,18 +1,26 @@
-import { Button, Col, Form, Input, Row } from "antd";
-import TextArea from "antd/lib/input/TextArea";
+import { Alert, Button, Col, Row } from "antd";
 import { ChangeEvent, Fragment, useState } from "react";
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../stores/store";
 import { observer } from "mobx-react-lite";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import TextArea from "antd/lib/input/TextArea";
+import * as Yup from 'yup';
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 
 
 function BlogForm() {
+    
     const [componentSize, setComponentSize] = useState<any>('default');
     const onFormLayoutChange = ({ size }: any) => {
         setComponentSize(size);
     };
+
+    const validationSchema = Yup.object({
+        title: Yup.string().required('The blog title is required')
+    })
 
     var date = new Date();
 
@@ -26,26 +34,25 @@ function BlogForm() {
         urlSuffix: '',
     }
 
-    const [currentBlog, setBlog] = useState(initialState);
     const [submitting, setSubmitting] = useState(false);
     const { blogStore } = useStore();
+    const [blog, setBlog] = useState(initialState);
 
-    function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-        const { name, value } = event.target;
-        setBlog({ ...currentBlog, [name]: value })
-    }
 
     function handleTextAreaChange(event: ChangeEvent<HTMLTextAreaElement>) {
         const { name, value } = event.target;
-        setBlog({ ...currentBlog, [name]: value })
+        setBlog({ ...blog, [name]: value })
     }
 
     const navigate = useNavigate();
+
+
     function handleSubmit() {
+        console.log(blog);
         setSubmitting(true);
-        currentBlog.id = uuid();
-        blogStore.createBlog(currentBlog).then(() => {
-            blogStore.getBlogById(currentBlog.urlSuffix, currentBlog.id).then(() => {
+        blog.id = uuid();
+        blogStore.createBlog(blog).then(() => {
+            blogStore.getBlogById(blog.urlSuffix, blog.id).then(() => {
                 navigate(`/read-blog/${blogStore.selectedBlog?.urlSuffix}`);
                 setSubmitting(false);
             });
@@ -60,84 +67,76 @@ function BlogForm() {
         // });
 
     }
-
+    {/* <form class="ant-form ant-form-horizontal ant-form-default */ }
     return (
         <Fragment>
             <Col offset={4} span={14} style={{ borderBottom: "2px solid white", marginTop: "50px" }}>
                 <h1 className="base-text-color">&nbsp;&nbsp;&nbsp;&nbsp;Post New Blog</h1>
             </Col>
+            <Row>
+                <Col span={16} offset={4}>
+                    <Formik validationSchema={validationSchema} initialValues={blog} onSubmit={(values: any) => console.log(values)}>
+                        {({ handleSubmit }: any) => (
+                            <Form
+                                className="ant-form ant-form-horizontal ant-form-default"
+                                style={{ paddingBottom: "250px" }}
+                            >
+                                <Row>
+                                    <Col offset={3} span={1}>
+                                        <label style={{ color: "white" }}>Title: </label>
+                                    </Col>
+                                    <Col offset={1} span={12}>
+                                        <Field className='ant-input' placeholder="Title" name='title' />
+                                        <ErrorMessage name='title' render={error =>
+                                            <Fragment>
+                                                <Alert message="Blog title required." type="error" showIcon />
+                                            </Fragment>
+                                        } />
+                                    </Col>
+                                </Row>
 
-            <Form
-                style={{ paddingBottom: "250px" }}
-                labelCol={{
-                    span: 4,
-                }}
-                wrapperCol={{
-                    span: 24,
-                }}
-                layout="horizontal"
-                initialValues={{
-                    size: componentSize,
-                }}
-                onValuesChange={onFormLayoutChange}
-                size={componentSize}
-            >
-                <Form.Item style={{ marginTop: "50px" }}>
-                    <Row>
-                        <Col offset={3} span={1}>
-                            <label style={{ color: "white" }}>Title: </label>
-                        </Col>
-                        <Col offset={1} span={12}>
-                            <Input placeholder="Title" name='title' value={currentBlog.title} onChange={handleInputChange} />
-                        </Col>
-                    </Row>
-                </Form.Item>
+                                <Row>
+                                    <Col offset={3} span={1}>
+                                        <label className="base-text-color">Description: </label>
+                                    </Col>
+                                    <Col offset={1} span={12}>
+                                        <Field className='ant-input' rows={4} placeholder="Description" name='description' />
+                                    </Col>
+                                </Row>
 
-                <Form.Item initialValue={"Description"}>
-                    <Row>
-                        <Col offset={3} span={1}>
-                            <label className="base-text-color">Description: </label>
-                        </Col>
-                        <Col offset={1} span={12}>
-                            <TextArea rows={4} placeholder="Description" name='description' value={currentBlog.description} onChange={handleTextAreaChange} />
-                        </Col>
-                    </Row>
-                </Form.Item>
+                                <Row>
+                                    <Col offset={3} span={1}>
+                                        <label style={{ color: "white" }}>Category: </label>
+                                    </Col>
+                                    <Col offset={1} span={12}>
+                                        <Field className='ant-input' placeholder="Category" name='category' />
+                                    </Col>
+                                </Row>
 
-                <Form.Item initialValue="Category">
-                    <Row>
-                        <Col offset={3} span={1}>
-                            <label style={{ color: "white" }}>Category: </label>
-                        </Col>
-                        <Col offset={1} span={12}>
-                            <Input placeholder="Category" name='category' value={currentBlog.category} onChange={handleInputChange} />
-                        </Col>
-                    </Row>
-                </Form.Item>
+                                <Row>
+                                    <Col offset={3} span={1}>
+                                        <label className="base-text-color">Body: </label>
+                                    </Col>
+                                    <Col offset={1} span={12}>
+                                        <Field className='ant-input' rows={12} placeholder="Body" name='body' />
+                                    </Col>
+                                </Row>
 
-                <Form.Item initialValue={"Body"}>
-                    <Row>
-                        <Col offset={3} span={1}>
-                            <label className="base-text-color">Body: </label>
-                        </Col>
-                        <Col offset={1} span={12}>
-                            <TextArea rows={12} placeholder="Body" name='body' value={currentBlog.body} onChange={handleTextAreaChange} />
-                        </Col>
-                    </Row>
-                </Form.Item>
-
-                <Row style={{ paddingTop: "50px" }}>
-                    <Col offset={5} span={1}>
-                        <Button type="primary" size="large" loading={submitting} onClick={handleSubmit} htmlType='submit' >Submit</Button>
-                    </Col>
+                                <Row style={{ paddingTop: "50px" }}>
+                                    <Col offset={5} span={1}>
+                                        <Button type="primary" size="large" loading={submitting} onClick={() => handleSubmit} htmlType='submit' >Submit</Button>
+                                    </Col>
 
 
-                    <Col span={1} style={{ marginLeft: "35px" }}>
-                        <Button type="primary" danger={true} size="large">Cancel</Button>
-                    </Col>
-                </Row>
-            </Form>
-
+                                    <Col span={1} style={{ marginLeft: "35px" }}>
+                                        <Button type="primary" danger={true} size="large">Cancel</Button>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        )}
+                    </Formik>
+                </Col>
+            </Row>
         </Fragment>
     );
 }

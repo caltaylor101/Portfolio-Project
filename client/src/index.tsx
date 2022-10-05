@@ -10,6 +10,10 @@ import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 
 export const history = createBrowserHistory();
 
+export function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

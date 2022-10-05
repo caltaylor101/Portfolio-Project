@@ -1,25 +1,31 @@
-import { Alert, Button, Col, Row } from "antd";
+import { Button, Col, Row, Select } from "antd";
 import { ChangeEvent, Fragment, useState } from "react";
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../stores/store";
 import { observer } from "mobx-react-lite";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import TextArea from "antd/lib/input/TextArea";
+import { Formik, Form } from "formik";
 import * as Yup from 'yup';
-import { CloseCircleOutlined } from "@ant-design/icons";
+import TextInput from "../form-components/TextInput";
+import TextArea from "../form-components/TextArea";
+import Submit from "../form-components/Submit";
+import SelectInput from "../form-components/SelectInput";
+import { values } from "mobx";
+import { Blog } from "../../models/blog";
 
 
 
 function BlogForm() {
-    
-    const [componentSize, setComponentSize] = useState<any>('default');
-    const onFormLayoutChange = ({ size }: any) => {
-        setComponentSize(size);
-    };
+    const navigate = useNavigate();
+    // const onFormLayoutChange = ({ size }: any) => {
+    //     setComponentSize(size);
+    // };
 
     const validationSchema = Yup.object({
-        title: Yup.string().required('The blog title is required')
+        title: Yup.string().required(),
+        description: Yup.string().required(),
+        category: Yup.string().required(),
+        body: Yup.string().required(),
     })
 
     var date = new Date();
@@ -34,29 +40,31 @@ function BlogForm() {
         urlSuffix: '',
     }
 
-    const [submitting, setSubmitting] = useState(false);
+    const options = [
+        { label: 'Game-Dev', value: 'Game-Dev' },
+        { label: 'React', value: 'React' }
+    ]
+
+    // const [submitting, setSubmitting] = useState(false);
+    // const [blog, setBlog] = useState(initialState);
+
     const { blogStore } = useStore();
-    const [blog, setBlog] = useState(initialState);
+    blogStore.selectedBlog = initialState;
 
+    // function handleTextAreaChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    //     const { name, value } = event.target;
+    //     setBlog({ ...blog, [name]: value })
+    // }
 
-    function handleTextAreaChange(event: ChangeEvent<HTMLTextAreaElement>) {
-        const { name, value } = event.target;
-        setBlog({ ...blog, [name]: value })
-    }
-
-    const navigate = useNavigate();
-
-
-    function handleSubmit() {
-        console.log(blog);
-        setSubmitting(true);
+    function handleFormSubmit(blog: Blog) {
         blog.id = uuid();
         blogStore.createBlog(blog).then(() => {
             blogStore.getBlogById(blog.urlSuffix, blog.id).then(() => {
                 navigate(`/read-blog/${blogStore.selectedBlog?.urlSuffix}`);
-                setSubmitting(false);
             });
         });
+
+
 
 
         // agent.Blogs.create(currentBlog).then(() => {
@@ -75,63 +83,28 @@ function BlogForm() {
             </Col>
             <Row>
                 <Col span={16} offset={4}>
-                    <Formik validationSchema={validationSchema} initialValues={blog} onSubmit={(values: any) => console.log(values)}>
-                        {({ handleSubmit }: any) => (
+                    <Formik validationSchema={validationSchema} initialValues={blogStore.selectedBlog} onSubmit={(values) => handleFormSubmit(values)}>
+                        {({ handleSubmit, isValid, isSubmitting, dirty }: any) => (
                             <Form
                                 className="ant-form ant-form-horizontal ant-form-default"
-                                style={{ paddingBottom: "250px" }}
+                                style={{ paddingBottom: "250px", marginTop: "20px" }}
                             >
-                                <Row>
-                                    <Col offset={3} span={1}>
-                                        <label style={{ color: "white" }}>Title: </label>
-                                    </Col>
-                                    <Col offset={1} span={12}>
-                                        <Field className='ant-input' placeholder="Title" name='title' />
-                                        <ErrorMessage name='title' render={error =>
-                                            <Fragment>
-                                                <Alert message="Blog title required." type="error" showIcon />
-                                            </Fragment>
-                                        } />
-                                    </Col>
-                                </Row>
+                                <TextInput label='Title:' name='title' placeholder='Title' />
+                                <TextArea label='Description:' rows={4} name='description' placeholder='Description' />
+                                <SelectInput placeholder="Category" name='category' label='Category:' options={options}  />
+                                <TextArea label='Body' rows={15} name='body' placeholder='Body' />
 
-                                <Row>
-                                    <Col offset={3} span={1}>
-                                        <label className="base-text-color">Description: </label>
-                                    </Col>
-                                    <Col offset={1} span={12}>
-                                        <Field className='ant-input' rows={4} placeholder="Description" name='description' />
-                                    </Col>
-                                </Row>
+                                <Submit dirty={dirty} isValid={isValid} isSubmitting={isSubmitting} handleSubmit={handleSubmit} />
 
-                                <Row>
-                                    <Col offset={3} span={1}>
-                                        <label style={{ color: "white" }}>Category: </label>
-                                    </Col>
-                                    <Col offset={1} span={12}>
-                                        <Field className='ant-input' placeholder="Category" name='category' />
-                                    </Col>
-                                </Row>
-
-                                <Row>
-                                    <Col offset={3} span={1}>
-                                        <label className="base-text-color">Body: </label>
-                                    </Col>
-                                    <Col offset={1} span={12}>
-                                        <Field className='ant-input' rows={12} placeholder="Body" name='body' />
-                                    </Col>
-                                </Row>
-
-                                <Row style={{ paddingTop: "50px" }}>
+                                {/* <Row style={{ paddingTop: "50px" }}>
                                     <Col offset={5} span={1}>
-                                        <Button type="primary" size="large" loading={submitting} onClick={() => handleSubmit} htmlType='submit' >Submit</Button>
+                                        <Button type="primary" size="large" loading={blogStore.submitting} onClick={handleSubmit} htmlType='submit' >Submit</Button>
                                     </Col>
-
 
                                     <Col span={1} style={{ marginLeft: "35px" }}>
                                         <Button type="primary" danger={true} size="large">Cancel</Button>
                                     </Col>
-                                </Row>
+                                </Row> */}
                             </Form>
                         )}
                     </Formik>

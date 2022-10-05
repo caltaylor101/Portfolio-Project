@@ -16,7 +16,6 @@ namespace Application.Blogs
             RuleFor(x => x.Date).NotEmpty();
             RuleFor(x => x.Category).NotEmpty();
             RuleFor(x => x.Body).NotEmpty();
-            RuleFor(x => x.UrlSuffix).NotEmpty();
         }
     }
 }

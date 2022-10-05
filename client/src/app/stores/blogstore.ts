@@ -17,18 +17,25 @@ export default class BlogStore {
     }
 
     get blogsByDate() {
-        return Array.from(this.blogRegistry.values()).sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+        try
+        {
+            return Array.from(this.blogRegistry.values()).sort((a, b) => (a.date.getTime()) - (b.date.getTime()));
+        }
+        catch
+        {
+            return Array.from(this.blogRegistry.values());
+        }
     }
 
-    get groupedBlogs() {
-        return Object.entries(
-            this.blogsByDate.reduce((blogs, blog) => {
-                const date = blog.date;
-                blogs[date] = blogs[date] ? [...blogs[date], blog] : [blog];
-                return blogs;
-            }, {} as {[key: string]: Blog[]} )
-        )
-    }
+    // get groupedBlogs() {
+    //     return Object.entries(
+    //         this.blogsByDate.reduce((blogs, blog) => {
+    //             const date = blog.date.toISOString().split('T')[0];
+    //             blogs[date] = blogs[date] ? [...blogs[date], blog] : [blog];
+    //             return blogs;
+    //         }, {} as {[key: string]: Blog[]} )
+    //     )
+    // }
 
     loadBlogs = async () => {
         this.setLoadingInitial(true);
@@ -37,7 +44,6 @@ export default class BlogStore {
 
             runInAction(() => {
                 blogs.forEach(blog => {
-                    blog.date = blog.date.split('T')[0];
                     this.blogRegistry.set(blog.id, blog);
                 });
                 this.setLoadingInitial(false);

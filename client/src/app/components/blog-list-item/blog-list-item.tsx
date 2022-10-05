@@ -15,12 +15,10 @@ const BlogListItem = ({ blog }: Props) => {
     const { blogStore } = useStore();
     const { blogsByDate } = blogStore;
 
-    const [submitting, setSubmitting] = useState(false);
     const [target, setTarget] = useState('');
 
     function handleDeleteBlog(id: string) {
         setTarget(id);
-        setSubmitting(true);
         blogStore.deleteBlog(id);
         // agent.Blogs.delete(id).then(() => {
         //     setBlogs([...blogs.filter(x => x.id !== id)]);
@@ -44,7 +42,7 @@ const BlogListItem = ({ blog }: Props) => {
                     title={
                         <Fragment>
                             <Col span={16} style={{ color: "white" }}>{blog.title}</Col>
-                            <Col span={4}><span style={{ color: "white", fontWeight: "lighter" }}>{blog.date}</span></Col>
+                            <Col span={4}><span style={{ color: "white", fontWeight: "lighter" }}>{blog.date.toString().split('T')[0]}</span></Col>
                         </Fragment>}
                 >
                     <p>{blog.description}</p>

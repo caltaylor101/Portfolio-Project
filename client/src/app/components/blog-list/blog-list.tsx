@@ -16,7 +16,7 @@ function BlogList(){
 
     useEffect(() => {
         blogStore.loadBlogs();
-    }, [blogStore]);
+    }, []);
 
     
 

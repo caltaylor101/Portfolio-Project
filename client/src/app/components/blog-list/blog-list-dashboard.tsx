@@ -42,7 +42,7 @@ const BlogListDashboard = ({blogs, loadingInitial}: Props) => {
                                 title={
                                     <Fragment>
                                         <Col span={16} style={{ color: "white" }}>{blog.title}</Col>
-                                        <Col span={4}><span style={{ color: "white", fontWeight: "lighter" }}>{blog.date}</span></Col>
+                                        <Col span={4}><span style={{ color: "white", fontWeight: "lighter" }}>{blog.date.toString().split('T')[1]}</span></Col>
                                     </Fragment>}
                             >
                                 <p>{blog.description}</p>

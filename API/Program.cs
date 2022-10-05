@@ -1,3 +1,4 @@
+using API.Extensions;
 using API.Middleware;
 using Application.Blogs;
 using Application.Core;

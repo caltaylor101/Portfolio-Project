@@ -1,11 +1,41 @@
 using Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure
 {
     public class Seed
     {
-        public static async Task SeedData(DataContext context)
+        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
+            if (!userManager.Users.Any())
+            {
+                var users = new List<AppUser>
+                {
+                    new AppUser{
+                        DisplayName = "Bob",
+                        UserName = "bob",
+                        Email = "bob@test.com"
+                        },
+                        new AppUser{
+                        DisplayName = "Jackson",
+                        UserName = "JackOLantern",
+                        Email = "jack@test.com"
+                        },
+                        new AppUser{
+                        DisplayName = "Emily",
+                        UserName = "EmiWoo",
+                        Email = "emily@test.com"
+                        }
+                };
+
+                foreach (var user in users)
+                {
+                    await userManager.CreateAsync(user, "Password1-1");
+                }
+
+                
+            }
+
             if (!context.Blogs.Any())
             {
 

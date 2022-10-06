@@ -7,6 +7,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,8 +61,9 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
     context.Database.Migrate();
-    await Seed.SeedData(context);
+    await Seed.SeedData(context, userManager);
 } 
 catch (Exception ex)
 {

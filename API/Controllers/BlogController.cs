@@ -1,5 +1,6 @@
 using Application.Blogs;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -21,6 +22,7 @@ namespace API.Controllers
 
             return HandleResult(result);
         }
+
         [HttpGet("{urlSuffix}")]
         public async Task<ActionResult<Blog>> GetBlog(string urlSuffix)
         {
@@ -29,12 +31,14 @@ namespace API.Controllers
             return HandleResult(result);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateBlog(Blog blog)
         {
             return HandleResult(await Mediator.Send(new BlogCreate.Command {Blog = blog}));
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditBlog(Guid id, Blog blog)
         {
@@ -42,6 +46,7 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new BlogEdit.Command{Blog = blog}));
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteActivity(Guid id)
         {

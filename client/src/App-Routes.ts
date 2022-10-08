@@ -9,5 +9,5 @@ export class  RouteLinks {
     testErrors = "/errors";
     serverError = "/server-error";
     notFound = "*";
-
+    login = "/login";
 }

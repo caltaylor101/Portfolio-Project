@@ -21,7 +21,7 @@ function BlogList(){
     
 
 
-    if (blogStore.loadingInitial) return <LoadingComponent content={"Loading..."} />
+    if (blogStore.loadingInitial) return <LoadingComponent content={"Loading Blogs..."} />
 
     return (
         <Fragment>

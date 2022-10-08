@@ -1,6 +1,4 @@
 import { Row, Col, Button } from "antd";
-import { useField } from "formik";
-import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
 import { RouteLinks } from "../../../App-Routes";
 import { useStore } from "../../stores/store";
@@ -8,8 +6,8 @@ import { useStore } from "../../stores/store";
 interface Props {
     handleSubmit: any;
     isSubmitting: any
-    dirty: any;
-    isValid: any;
+    dirty?: any;
+    isValid?: any;
 }
 const routeLinks = new RouteLinks();
 
@@ -18,7 +16,7 @@ const routeLinks = new RouteLinks();
 export default function Submit(props: Props) {
     const { blogStore } = useStore();
     const navigate = useNavigate();
-
+    if (props.isValid === null) props.isValid = true;
 
     return (
         <Row style={{ paddingTop: "50px" }}>

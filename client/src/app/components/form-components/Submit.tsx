@@ -22,13 +22,19 @@ export default observer(function Submit(props: Props) {
     return (
         <Row style={{ paddingTop: "50px" }}>
             
-            <Col offset={5} xs={3} span={1}>
+            <Col offset={5} xs={3} md={1} span={1}>
                 <Button disabled={props.isSubmitting || !props.dirty || !props.isValid} type="primary" size="large" loading={props.isSubmitting} onClick={props.handleSubmit} htmlType='submit' >Submit</Button>
             </Col>
 
 
             <Col span={1} style={{ marginLeft: "50px" }}>
+                {!modalStore.modal.open ? 
+                <Button type="primary" danger={true} size="large" onClick={() => navigate(routeLinks.blogList)} >Cancel</Button>
+                :
                 <Button type="primary" danger={true} size="large" onClick={() => modalStore.closeModal()} >Cancel</Button>
+                
+            }
+                
             </Col>
         </Row>
     )

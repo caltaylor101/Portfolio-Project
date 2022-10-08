@@ -15,6 +15,7 @@ import LoginForm from './app/components/users/login-form';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import LoadingComponent from './app/components/loading/loading';
+import ModalContainer from './app/components/modals/modal-container';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
   return (
     <div className="App">
       <ToastContainer position='bottom-right' hideProgressBar/>
+      <ModalContainer />
       <NavBar />
         <Routes>
           <Route path={routeLinks.home} element={<BlogList />} />

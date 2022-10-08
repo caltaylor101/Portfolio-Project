@@ -8,7 +8,7 @@ import './navbar.css';
 
 export default observer(function NavBar() {
     const routeLinks = new RouteLinks();
-    const { userStore } = useStore();
+    const { userStore, modalStore } = useStore();
     const items = [
         { label: '', key: 'blank1', children: null, style: { paddingLeft: '15%', opacity: '0', cursor: 'default' } },
         { label: <Link to={routeLinks.home}>Home</Link>, key: 'item-1', children: null },
@@ -19,18 +19,26 @@ export default observer(function NavBar() {
             key: 'submenu',
             children: [{ label: 'item-4', key: 'submenu-item-1' }],
         },
-        { label: <Link to={routeLinks.testErrors}>Errors</Link>, key: 'item-6', children: null },
+        { label: <Link to={routeLinks.testErrors}>Errors</Link>, key: 'item-5', children: null },
     ];
     //This adds the login or logged in buttons to the navbar. The blank label helps adjust the buttons to the correct spot on the page. 
     if (!userStore.isLoggedIn) 
     {
         items.push({ label: '', key: 'blank2', children: null, style: { paddingLeft: '45%', opacity: '0', cursor: 'default' } },
-        { label: <Link to={routeLinks.login}><Button type='primary' className='success-btn' >Login</Button></Link>, key: 'item-5', children: null })
+        { label: <Button type='primary' className='success-btn' onClick={() => modalStore.openModal(<LoginForm />)} >Login</Button>, key: 'item-6', children: null },
+        { label: <Button type='primary' className='success-btn' onClick={() => modalStore.openModal(<LoginForm />)} >Register</Button>, key: 'item-7', children: null },
+
+        
+        )
     }
     else
     {
-        items.push({ label: '', key: 'blank2', children: null, style: { paddingLeft: '45%', opacity: '0', cursor: 'default' } },
-        { label: <Link to="/blog-form"><Button type='primary' className='success-btn' >Post Blog</Button></Link>, key: 'item-5', children: null })
+        items.push({ label: '', key: 'blank3', children: null, style: { paddingLeft: '45%', opacity: '0', cursor: 'default' } },
+        { label: <Link to={routeLinks.blogForm}><Button type='primary' className='success-btn' >Post Blog</Button></Link>, key: 'item-8', children: null },
+        { label: <Button type='primary' className='success-btn' onClick={userStore.logout} >Logout</Button>, key: 'item-9', children: null },
+
+        
+        )
     }
         
     

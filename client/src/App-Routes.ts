@@ -10,4 +10,5 @@ export class  RouteLinks {
     serverError = "/server-error";
     notFound = "*";
     login = "/login";
+    register = "/register";
 }

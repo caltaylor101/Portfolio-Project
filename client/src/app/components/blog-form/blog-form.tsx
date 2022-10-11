@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../stores/store";
@@ -42,7 +42,10 @@ function BlogForm() {
     ]
 
     const { blogStore } = useStore();
-    blogStore.selectedBlog = initialState;
+
+    useEffect(() => {
+        blogStore.selectedBlog = initialState;
+    }, []);
 
     function handleFormSubmit(blog: Blog) {
         blog.id = uuid();
@@ -59,7 +62,7 @@ function BlogForm() {
             </Col>
             <Row>
                 <Col span={16} offset={4}>
-                    <Formik validationSchema={validationSchema} initialValues={blogStore.selectedBlog} onSubmit={(values) => handleFormSubmit(values)}>
+                    <Formik validationSchema={validationSchema} initialValues={blogStore.selectedBlog!} onSubmit={(values) => handleFormSubmit(values)}>
                         {({ handleSubmit, isValid, isSubmitting, dirty }: any) => (
                             <Form
                                 className="ant-form ant-form-horizontal ant-form-default"

@@ -32,9 +32,6 @@ axios.interceptors.response.use(async response => {
             if (typeof data === 'string') {
                 toast.error(data);
             }
-            if (config.method === 'get' && data.errors.hasOwnProperty('id')) {
-                    history.push(routeLinks.notFound);
-            }
             if (data.errors) {
                 const modalStateErrors = [];
                 for (const key in data.errors) {

@@ -13,7 +13,7 @@ export default observer(function LoginForm() {
     return (
         <Fragment>
             <Typography>
-                <Title style={{color: 'blue', textAlign: 'center'}}>Login</Title>
+                <Title style={{color: 'white', textAlign: 'center'}}>Login</Title>
             </Typography>
             <Formik
                 initialValues={{ email: '', password: '', error: null }}
@@ -21,12 +21,12 @@ export default observer(function LoginForm() {
             >
                 {({ handleSubmit, isValid, isSubmitting, dirty, errors }) => (
                     <Form style={{ marginTop: '50px' }} className="ant-form ant-form-horizontal ant-form-default" onSubmit={handleSubmit} autoComplete='off'>
-                        <TextInput label='Email:' name='email' placeholder="Email" />
-                        <TextInput label='Password:' name='password' placeholder="Password" type="password" />
+                        <TextInput gutterV={32} gutterH={0} label='Email:' name='email' placeholder="Email" />
+                        <TextInput gutterV={32} gutterH={0} label='Password:' name='password' placeholder="Password" type="password" />
                         {errors.error &&
                             <Row>
-                                <Col offset={5} span={12}>
-                                    <Alert type="error" message={'Invalid email or password.'} style={{ padding: '0', paddingLeft: '10px', marginBottom: '10px' }} />
+                                <Col offset={6} span={12}>
+                                    <Alert type="error" message={errors.error} style={{ padding: '0', paddingLeft: '10px', marginBottom: '10px' }} />
                                 </Col>
                             </Row>
                         }

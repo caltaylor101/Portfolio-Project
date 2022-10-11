@@ -18,10 +18,12 @@ export default function SelectInput(props: Props) {
     const [field, meta, helpers] = useField(props.name);
     return (
         <Row>
-            <Col offset={3} span={1}>
+            <Col xs={0} sm={0} md={3}  />
+            <Col span={1}>
                 <label style={{ color: "white" }}>{props.label} </label>
             </Col>
-            <Col offset={1} span={12}>
+            <Col md={2} lg={2}></Col>
+            <Col xs={24} sm={24} md={16} lg={12} >
                 <Form.Item help={meta.touched && !!meta.error ? <Alert type="error" message={capitalizeFirstLetter(props.name) + ' is a required field'} style={{ padding: '0', paddingLeft: '10px' }} /> : null}>
                     <Select onChange={(value) => helpers.setValue(value)} value={field.value} options={props.options} onBlur={() => helpers.setTouched(true)} placeholder={props.placeholder} />
                 </Form.Item>

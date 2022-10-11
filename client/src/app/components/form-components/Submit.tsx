@@ -9,6 +9,7 @@ interface Props {
     isSubmitting: any
     dirty?: any;
     isValid?: any;
+    submitSize?: any;
 }
 const routeLinks = new RouteLinks();
 
@@ -18,11 +19,12 @@ export default observer(function Submit(props: Props) {
     const { modalStore } = useStore();
     const navigate = useNavigate();
     if (props.isValid === null) props.isValid = true;
+    if (props.submitSize === null) props.submitSize = 1;
 
     return (
         <Row style={{ paddingTop: "50px" }}>
             
-            <Col offset={5} xs={3} md={1} span={1}>
+            <Col offset={5} xs={props.submitSize} sm={props.submitSize} md={props.submitSize} lg={props.submitSize} xl={props.submitSize} xxl={props.submitSize}>
                 <Button disabled={props.isSubmitting || !props.dirty || !props.isValid} type="primary" size="large" loading={props.isSubmitting} onClick={props.handleSubmit} htmlType='submit' >Submit</Button>
             </Col>
 

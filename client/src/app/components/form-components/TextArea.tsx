@@ -15,10 +15,13 @@ export default function TextArea(props: Props) {
 
     return (
         <Row>
-            <Col offset={3} span={1}>
+            <Col xs={0} sm={0} md={3}  />
+            <Col span={1}>
                 <label className="base-text-color">{props.label}</label>
             </Col>
-            <Col offset={1} span={12}>
+            {/* <Col offset={1} span={12}> */}
+            <Col md={2} lg={2}></Col>
+            <Col xs={24} sm={24} md={16} lg={12} >
                 <Form.Item validateStatus={meta.touched && !!meta.error ? 'error' : 'success'} help={meta.touched && !!meta.error ? <Alert type="error" message={capitalizeFirstLetter(props.name) + ' is a required field'} style={{ padding: '0', paddingLeft: '10px' }} /> : null}>
                     <Input.TextArea {...field} {...props} />
                 </Form.Item>

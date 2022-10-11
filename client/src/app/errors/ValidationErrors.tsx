@@ -5,7 +5,7 @@ import './ValidationErrors.css';
 
 
 interface Props {
-    errors: string[];
+    errors: any;
 }
 
 export default function ValidationErrors({ errors }: Props) {
@@ -20,12 +20,12 @@ export default function ValidationErrors({ errors }: Props) {
             <Row>
                 <Col span={16} offset={4}>
                     <Result
-                        style={{ backgroundColor: ' #D3D3D3', marginTop: '25px' }}
+                        style={{ backgroundColor: ' #E3D3D3', marginBottom:'10px', border: '1px solid #666666' }}
                         status="error"
                         title="Submission Failed"
                         subTitle={errors && (
                             <Row style={{ marginTop: '10px', borderTop: '1px dashed', borderBottom: '1px dashed' }}>
-                                {errors.map((err: any, index) => (
+                                {errors.map((err: any, index:any) => (
                                     <Fragment key={index}>
 
                                         <Col span={1} style={{ padding: '10px' }}>
@@ -36,10 +36,10 @@ export default function ValidationErrors({ errors }: Props) {
                                                     textAlign: 'left'
                                                 }}
                                             >
-                                                <CloseCircleOutlined className="site-result-demo-error-icon" style={{ marginTop: '3px' }} />
+                                                <CloseCircleOutlined className="site-result-demo-error-icon"  />
                                             </Text>
                                         </Col>
-                                        <Col span={23} style={{ textAlign: 'left', padding: '10px', paddingLeft: '0' }}>
+                                        <Col span={16} style={{ textAlign: 'left', padding: '10px', paddingLeft: '0' }}>
                                             <Text
                                                 strong
                                                 style={{

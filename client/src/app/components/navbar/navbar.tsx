@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { RouteLinks } from "../../../App-Routes";
 import { useStore } from "../../stores/store";
 import LoginForm from "../users/login-form";
+import RegisterForm from "../users/register-form";
 import './navbar.css';
 
 export default observer(function NavBar() {
@@ -26,7 +27,7 @@ export default observer(function NavBar() {
     {
         items.push({ label: '', key: 'blank2', children: null, style: { paddingLeft: '45%', opacity: '0', cursor: 'default' } },
         { label: <Button type='primary' className='success-btn' onClick={() => modalStore.openModal(<LoginForm />)} >Login</Button>, key: 'item-6', children: null },
-        { label: <Button type='primary' className='success-btn' onClick={() => modalStore.openModal(<LoginForm />)} >Register</Button>, key: 'item-7', children: null },
+        { label: <Button type='primary' className='success-btn' onClick={() => modalStore.openModal(<RegisterForm />)} >Register</Button>, key: 'item-7', children: null },
 
         
         )
@@ -36,7 +37,7 @@ export default observer(function NavBar() {
         items.push({ label: '', key: 'blank3', children: null, style: { paddingLeft: '45%', opacity: '0', cursor: 'default' } },
         { label: <Link to={routeLinks.blogForm}><Button type='primary' className='success-btn' >Post Blog</Button></Link>, key: 'item-8', children: null },
         { label: <Button type='primary' className='success-btn' onClick={userStore.logout} >Logout</Button>, key: 'item-9', children: null },
-
+        
         
         )
     }

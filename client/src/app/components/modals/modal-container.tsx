@@ -7,7 +7,7 @@ export default observer(function ModalContainer() {
     const { modalStore } = useStore();
     const { Paragraph } = Typography;
     return (
-        <Modal open={modalStore.modal.open} onCancel={modalStore.closeModal} centered footer={null}>
+    <Modal style={{backgroundColor: '#333333 !important'}} open={modalStore.modal.open} onCancel={modalStore.closeModal} centered footer={null}>
                 {modalStore.modal.body}
         </Modal>
     )

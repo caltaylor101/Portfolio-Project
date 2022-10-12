@@ -38,12 +38,25 @@ namespace API.Controllers
                 return ValidationProblem();
             }
 
+
+
             var user = new AppUser
             {
                 DisplayName = registerDto.DisplayName,
                 Email = registerDto.Email,
                 UserName = registerDto.Username
             };
+
+            foreach (var validator in _userManager.PasswordValidators)
+            {
+                var validatorResult = await validator.ValidateAsync(_userManager, user, registerDto.Password);
+
+                if (!validatorResult.Succeeded)
+                {
+                    ModelState.AddModelError("Password", "Password too weak.");
+                    return ValidationProblem();
+                }
+            }
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
@@ -52,7 +65,7 @@ namespace API.Controllers
                 return CreateUserObject(user);
             }
 
-            return BadRequest("Problem with user registration.");
+            return ValidationProblem("Problem with user registration.");
         }
 
         [HttpPost("login")]
@@ -92,6 +105,6 @@ namespace API.Controllers
             return CreateUserObject(user);
         }
 
-        
+
     }
 }

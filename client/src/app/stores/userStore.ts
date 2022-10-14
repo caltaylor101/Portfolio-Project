@@ -19,12 +19,13 @@ export default class UserStore {
         return !!this.user;
     }
 
-    login = async (creds: UserFormValues) => {
+    login = async (creds: UserFormValues, isBackRedirect: boolean) => {
         try {
             const user = await agent.Account.login(creds);
             store.commonStore.setToken(user.token);
             runInAction(() => this.user = user);
-            history.push(this.routeLinks.blogList);
+            if (isBackRedirect) history.back();
+            else history.push(this.routeLinks.blogList);
             store.modalStore.closeModal();
             
         } catch (error) {

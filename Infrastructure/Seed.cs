@@ -7,9 +7,10 @@ namespace Infrastructure
     {
         public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
+            var users = new List<AppUser>();
             if (!userManager.Users.Any())
             {
-                var users = new List<AppUser>
+                users = new List<AppUser>
                 {
                     new AppUser{
                         DisplayName = "Bob",
@@ -32,9 +33,8 @@ namespace Infrastructure
                 {
                     await userManager.CreateAsync(user, "Password1-1");
                 }
-
-                
             }
+
 
             if (!context.Blogs.Any())
             {
@@ -49,7 +49,8 @@ namespace Infrastructure
                         Description = "Blog 2 months ago",
                         Category = "drinks",
                         Body = "Body of 1",
-                        UrlSuffix = "Test"
+                        UrlSuffix = "Test",
+                        AppUser = users[0]
                     },
                     new Blog
                     {
@@ -58,8 +59,8 @@ namespace Infrastructure
                         Description = "Blog 1 month ago",
                         Category = "culture",
                         Body = "Another body of the 2nd",
-                        UrlSuffix = "Test"
-
+                        UrlSuffix = "Test",
+                        AppUser = users[0]
                     },
                     new Blog
                     {
@@ -68,7 +69,8 @@ namespace Infrastructure
                         Description = "Blog 1 month in future",
                         Category = "music",
                         Body = "Some complicated stuff.",
-                        UrlSuffix = "Test"
+                        UrlSuffix = "Test",
+                        AppUser = users[0]
 
                     },
                     new Blog
@@ -78,7 +80,9 @@ namespace Infrastructure
                         Description = "Blog 2 months in future",
                         Category = "food",
                         Body = "woop woop",
-                        UrlSuffix = "Test"
+                        UrlSuffix = "Test",
+                        AppUser = users[1]
+
 
                     },
                     new Blog
@@ -88,7 +92,9 @@ namespace Infrastructure
                         Description = "Blog 3 months in future",
                         Category = "drinks",
                         Body = "woop woop",
-                        UrlSuffix = "Test"
+                        UrlSuffix = "Test",
+                        AppUser = users[0]
+
 
                     },
                     new Blog
@@ -98,7 +104,9 @@ namespace Infrastructure
                         Description = "Blog 4 months in future",
                         Category = "culture",
                         Body = "woop woop",
-                        UrlSuffix = "Test"
+                        UrlSuffix = "Test",
+                        AppUser = users[1]
+
 
                     },
                     new Blog
@@ -108,7 +116,9 @@ namespace Infrastructure
                         Description = "Blog 5 months in future",
                         Category = "drinks",
                         Body = "woop woop",
-                        UrlSuffix = "Test"
+                        UrlSuffix = "Test",
+                        AppUser = users[2]
+
 
                     },
                     new Blog
@@ -118,7 +128,9 @@ namespace Infrastructure
                         Description = "Blog 6 months in future",
                         Category = "music",
                         Body = "woop woop",
-                        UrlSuffix = "Test"
+                        UrlSuffix = "Test",
+                        AppUser = users[0]
+
 
                     },
                     new Blog
@@ -128,7 +140,9 @@ namespace Infrastructure
                         Description = "Blog 7 months in future",
                         Category = "travel",
                         Body = "woop woop",
-                        UrlSuffix = "Test"
+                        UrlSuffix = "Test",
+                        AppUser = users[2]
+
 
                     },
                     new Blog
@@ -138,7 +152,9 @@ namespace Infrastructure
                         Description = "Blog 8 months in future",
                         Category = "drinks",
                         Body = "woop woop",
-                        UrlSuffix = "Test"
+                        UrlSuffix = "Test",
+                        AppUser = users[2]
+
 
                     }
                 };

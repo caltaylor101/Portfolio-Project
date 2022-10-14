@@ -26,7 +26,7 @@ export default observer(function NavBar() {
     if (!userStore.isLoggedIn) 
     {
         items.push({ label: '', key: 'blank2', children: null, style: { paddingLeft: '45%', opacity: '0', cursor: 'default' } },
-        { label: <Button type='primary' className='success-btn' onClick={() => modalStore.openModal(<LoginForm />)} >Login</Button>, key: 'item-6', children: null },
+        { label: <Button type='primary' className='success-btn' onClick={() => modalStore.openModal(<LoginForm isBackRedirect={false} />)} >Login</Button>, key: 'item-6', children: null },
         { label: <Button type='primary' className='success-btn' onClick={() => modalStore.openModal(<RegisterForm />)} >Register</Button>, key: 'item-7', children: null },
 
         

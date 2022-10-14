@@ -2,7 +2,7 @@ import './App.css';
 import NavBar from './app/components/navbar/navbar';
 import BlogList from './app/components/blog-list/blog-list';
 import BlogDetails from './app/components/blog-details/blog-details';
-import { Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import BlogForm from './app/components/blog-form/blog-form';
 import BlogEditForm from './app/components/blog-form/blog-edit-form';
 import { useStore } from './app/stores/store';
@@ -16,6 +16,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import LoadingComponent from './app/components/loading/loading';
 import ModalContainer from './app/components/modals/modal-container';
+import { PrivateRoute } from './app/components/private-route/private-route';
 
 
 function App() {
@@ -34,24 +35,24 @@ function App() {
 
   return (
     <div className="App">
-      <ToastContainer position='bottom-right' hideProgressBar/>
+      <ToastContainer position='bottom-right' hideProgressBar />
       <ModalContainer />
       <NavBar />
-        <Routes>
-          <Route path={routeLinks.home} element={<BlogList />} />
+      <Routes>
+        <Route path={routeLinks.home} element={<BlogList />} />
           <Route path={routeLinks.blogList} element={<BlogList />} />
-          <Route path={routeLinks.blogDetails} element={<BlogDetails />} />
-          {/* <Route path={`/read-blog`} element={<BlogDetails />} /> */}
+        <Route path={routeLinks.blogDetails} element={<BlogDetails />} />
+        {/* <Route path={`/read-blog`} element={<BlogDetails />} /> */}
 
-          <Route path={routeLinks.blogForm} element={<BlogForm />} />
-          <Route path={routeLinks.blogEditForm} element={<BlogEditForm />} />
-          <Route path={routeLinks.testErrors} element={<TestErrors />} />
-          <Route path={routeLinks.notFound} element={<NotFoundError />} />
-          <Route path={routeLinks.serverError} element={<ServerError />} />
-          <Route path={routeLinks.login} element={<LoginForm />} />
+        <Route path={routeLinks.blogForm} element={<PrivateRoute><BlogForm /></PrivateRoute>} />
+        <Route path={routeLinks.blogEditForm} element={<BlogEditForm />} />
+        <Route path={routeLinks.testErrors} element={<TestErrors />} />
+        <Route path={routeLinks.notFound} element={<NotFoundError />} />
+        <Route path={routeLinks.serverError} element={<ServerError />} />
+        <Route path={routeLinks.login} element={<LoginForm isBackRedirect={true} />} />
 
 
-        </Routes>
+      </Routes>
     </div>
   );
 }

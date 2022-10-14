@@ -1,4 +1,5 @@
 using Application.Core;
+using Application.Interfaces;
 using Domain;
 using FluentValidation;
 using Infrastructure;
@@ -18,16 +19,29 @@ namespace Application.Blogs
         {
             private int suffixExtender = 1;
             private readonly DataContext _context;
+            private readonly IUserAccessor _userAccessor;
 
-            public Handler(DataContext context)
+            public Handler(DataContext context, IUserAccessor userAccessor)
             {
                 _context = context;
+                _userAccessor = userAccessor;
             }
 
             
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
+
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
+
+                var author = new BlogAuthor 
+                {
+                    AppUser = user,
+                    Blog = request.Blog
+                };
+
+                request.Blog.Authors.Add(author);
+
                 //Create the UrlSuffix from the Title of the blog
                 request.Blog.UrlSuffix = RemoveWhitespace(request.Blog.Title);
                 //Get the current blog

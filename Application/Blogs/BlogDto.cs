@@ -1,7 +1,8 @@
+using Application.Profiles;
 
-namespace Domain
+namespace Application.Blogs
 {
-    public class Blog
+    public class BlogDto
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
@@ -10,6 +11,5 @@ namespace Domain
         public string Category { get; set; }
         public string Body { get; set; }
         public string UrlSuffix { get; set; }
-        public ICollection<BlogAuthor> Authors { get; set; } = new List<BlogAuthor>();
     }
 }

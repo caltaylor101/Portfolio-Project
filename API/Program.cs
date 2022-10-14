@@ -2,6 +2,8 @@ using API.Extensions;
 using API.Middleware;
 using Application.Blogs;
 using Application.Core;
+using Application.Interfaces;
+using Architecture.Security;
 using Domain;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -49,6 +51,7 @@ builder.Services.AddCors(opt =>
 
 builder.Services.AddMediatR(typeof(BlogList.Handler).Assembly);
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+builder.Services.AddScoped<IUserAccessor, UserAccessor>();
 
 var app = builder.Build();
 

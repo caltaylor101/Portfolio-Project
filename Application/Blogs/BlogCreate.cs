@@ -32,8 +32,9 @@ namespace Application.Blogs
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-                request.Blog.AuthorId = user.Id;
-                request.Blog.AuthorName = user.DisplayName;
+                request.Blog.AppUser = user;
+                // request.Blog.AuthorId = user.Id;
+                // request.Blog.AuthorName = user.DisplayName;
 
                 //Create the UrlSuffix from the Title of the blog
                 request.Blog.UrlSuffix = RemoveWhitespace(request.Blog.Title);

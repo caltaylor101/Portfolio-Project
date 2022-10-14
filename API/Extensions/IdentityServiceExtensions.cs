@@ -1,10 +1,12 @@
 
 using System.Text;
 using API.Services;
+using Architecture.Security;
 using Domain;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -34,6 +36,15 @@ namespace API.Extensions
                         ValidateAudience = false
                     };
                 });
+
+            services.AddAuthorization(opt => 
+            {
+                opt.AddPolicy("IsBlogAuthor", policy => {
+                    policy.Requirements.Add(new IsAuthorRequirement());
+                });
+            });
+
+            services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
 
             services.AddScoped<TokenService>();
 

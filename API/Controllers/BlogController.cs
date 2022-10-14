@@ -7,7 +7,7 @@ namespace API.Controllers
 {
     public class BlogController : BaseApiController
     {
-        
+
 
         [HttpGet]
         public async Task<IActionResult> GetBlogs()
@@ -18,7 +18,7 @@ namespace API.Controllers
         [HttpGet("{urlSuffix}/{id}")]
         public async Task<IActionResult> GetBlog(string urlSuffix, Guid? id)
         {
-            var result = await Mediator.Send(new BlogDetails.Query{UrlSuffix = urlSuffix, Id = id});
+            var result = await Mediator.Send(new BlogDetails.Query { UrlSuffix = urlSuffix, Id = id });
 
             return HandleResult(result);
         }
@@ -26,8 +26,8 @@ namespace API.Controllers
         [HttpGet("{urlSuffix}")]
         public async Task<ActionResult<Blog>> GetBlog(string urlSuffix)
         {
-            var result =  await Mediator.Send(new BlogDetails.Query{UrlSuffix = urlSuffix});
-            
+            var result = await Mediator.Send(new BlogDetails.Query { UrlSuffix = urlSuffix });
+
             return HandleResult(result);
         }
 
@@ -35,29 +35,29 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBlog(Blog blog)
         {
-            return HandleResult(await Mediator.Send(new BlogCreate.Command {Blog = blog}));
+            return HandleResult(await Mediator.Send(new BlogCreate.Command { Blog = blog }));
         }
 
-        [Authorize]
+        [Authorize(Policy = "IsBlogAuthor")]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditBlog(Guid id, Blog blog)
         {
             blog.Id = id;
-            return HandleResult(await Mediator.Send(new BlogEdit.Command{Blog = blog}));
+            return HandleResult(await Mediator.Send(new BlogEdit.Command { Blog = blog }));
         }
 
-        [Authorize]
+        [Authorize(Policy = "IsBlogAuthor")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteActivity(Guid id)
         {
-            return HandleResult(await Mediator.Send(new BlogDelete.Command{Id=id}));
+            return HandleResult(await Mediator.Send(new BlogDelete.Command { Id = id }));
         }
 
         [HttpGet("UserBlogs")]
         public async Task<IActionResult> GetUserBlogs(Guid? appUserId)
         {
-            var result =  await Mediator.Send(new UserBlogList.Query());
-            
+            var result = await Mediator.Send(new UserBlogList.Query());
+
             return HandleResult(result);
         }
 

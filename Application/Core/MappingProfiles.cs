@@ -9,6 +9,8 @@ namespace Application.Core
         public MappingProfiles()
         {
             CreateMap<Blog, Blog>();
+
+
             CreateMap<Blog, BlogDto>();
         }
     }

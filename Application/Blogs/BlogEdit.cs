@@ -27,6 +27,8 @@ namespace Application.Blogs
             {
                 Blog blog = await _context.Blogs.FindAsync(request.Blog.Id);
 
+                request.Blog.AppUser = blog.AppUser;
+                
                 if (blog == null) return null;
 
                 _mapper.Map(request.Blog, blog);

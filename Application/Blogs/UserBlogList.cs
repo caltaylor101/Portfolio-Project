@@ -30,9 +30,12 @@ namespace Application.Blogs
 
             public async Task<Result<List<BlogDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                    var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-                    request.AppUser = user;
+                request.AppUser = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
                 var blogs = await _context.Blogs.Where(x => x.AppUser == request.AppUser).ToListAsync();
+                foreach (var blog in blogs) 
+                {
+                    Console.WriteLine(blog.AppUser.Id);
+                }
                 var blogsToReturn = _mapper.Map<List<BlogDto>>(blogs);
                 return Result<List<BlogDto>>.Success(blogsToReturn);
             }

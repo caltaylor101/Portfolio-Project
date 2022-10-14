@@ -53,5 +53,13 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new BlogDelete.Command{Id=id}));
         }
 
+        [HttpGet("UserBlogs")]
+        public async Task<IActionResult> GetUserBlogs(Guid? appUserId)
+        {
+            var result =  await Mediator.Send(new UserBlogList.Query());
+            
+            return HandleResult(result);
+        }
+
     }
 }

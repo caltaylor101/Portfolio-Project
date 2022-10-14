@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Core;
-using AutoMapper;
 using Domain;
 using Infrastructure;
 using MediatR;
@@ -13,25 +12,19 @@ namespace Application.Blogs
 {
     public class BlogList
     {
-        public class Query : IRequest<Result<List<BlogDto>>> { } //parameters go in the brackets
+        public class Query : IRequest<Result<List<Blog>>> { } //parameters go in the brackets
 
-        public class Handler : IRequestHandler<Query, Result<List<BlogDto>>>
+        public class Handler : IRequestHandler<Query, Result<List<Blog>>>
         {
             private readonly DataContext _context;
-            private readonly IMapper _mapper;
-            public Handler(DataContext context, IMapper mapper)
+            public Handler(DataContext context)
             {
-                _mapper = mapper;
                 _context = context;
             }
 
-            public async Task<Result<List<BlogDto>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<Blog>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var blogs = await _context.Blogs.Include(a => a.Authors).ToListAsync(cancellationToken);
-
-                var blogsToReturn = _mapper.Map<List<BlogDto>>(blogs);
-
-                return Result<List<BlogDto>>.Success(blogsToReturn);
+                return Result<List<Blog>>.Success(await _context.Blogs.ToListAsync());
             }
         }
     }

@@ -1,3 +1,5 @@
+using Domain;
+
 namespace API.DTOs
 {
     public class UserDto
@@ -6,5 +8,6 @@ namespace API.DTOs
         public string Token { get; set; }
         public string Username { get; set; }
         public string Image { get; set; }
+        public ICollection<Blog> Blogs { get; set; }
     }
 }

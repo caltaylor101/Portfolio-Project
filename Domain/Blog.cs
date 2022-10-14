@@ -10,6 +10,7 @@ namespace Domain
         public string Category { get; set; }
         public string Body { get; set; }
         public string UrlSuffix { get; set; }
-        public ICollection<BlogAuthor> Authors { get; set; } = new List<BlogAuthor>();
+        public string AuthorId { get; set; }
+        public string AuthorName { get; set; }
     }
 }

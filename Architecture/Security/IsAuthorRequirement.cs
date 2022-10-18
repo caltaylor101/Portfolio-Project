@@ -31,7 +31,7 @@ namespace Architecture.Security
             if (userId == null) return Task.CompletedTask;
             var blogId = Guid.Parse(_httpContextAccessor.HttpContext?.Request.RouteValues.SingleOrDefault(x => x.Key == "id").Value?.ToString());
             // var blog = _dbContext.Blogs.FindAsync(blogId).Result;
-            var blog = _dbContext.Blogs.Include(x => x.AppUser).Where(x => x.AppUser.Id == userId).FirstOrDefaultAsync().Result;
+            var blog = _dbContext.Blogs.Include(x => x.AppUser).Where(x => x.AppUser.Id == userId && x.Id == blogId).FirstOrDefaultAsync().Result;
             if (blog == null) return Task.CompletedTask;
 
             if (blog.AppUser.Id == userId)

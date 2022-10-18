@@ -1,8 +1,10 @@
 using Application.Core;
+using Application.Interfaces;
 using AutoMapper;
 using Domain;
 using Infrastructure;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Blogs
 {
@@ -17,9 +19,12 @@ namespace Application.Blogs
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
-            public Handler(DataContext context, IMapper mapper)
+            private readonly IUserAccessor _userAccessor;
+
+            public Handler(DataContext context, IMapper mapper, IUserAccessor userAccessor)
             {
                 _mapper = mapper;
+                _userAccessor = userAccessor;
                 _context = context;
             }
 
@@ -27,7 +32,7 @@ namespace Application.Blogs
             {
                 Blog blog = await _context.Blogs.FindAsync(request.Blog.Id);
 
-                request.Blog.AppUser = blog.AppUser;
+                request.Blog.AppUser = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
                 
                 if (blog == null) return null;
 

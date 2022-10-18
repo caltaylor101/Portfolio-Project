@@ -1,7 +1,7 @@
 import { Button, Col, Row } from "antd";
 import { Form, Formik } from "formik";
 import { observer } from "mobx-react-lite";
-import { ChangeEvent, Fragment, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import agent from "../../api/agent";
 import { Blog as BlogModel } from "../../models/blog";
@@ -20,6 +20,10 @@ function BlogEditForm() {
     const navigate = useNavigate();
     const { blogStore } = useStore();
     const { selectedBlog } = blogStore;
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
 
     const initialState = selectedBlog ?? {
         title: '',
@@ -52,7 +56,7 @@ function BlogEditForm() {
     return (
         <Fragment>
             <Col offset={3} span={14} style={{ borderBottom: "2px solid white", marginTop: "50px" }}>
-                <h1 className="base-text-color">&nbsp;&nbsp;&nbsp;&nbsp;Post New Blog</h1>
+                <h1 className="base-text-color">&nbsp;&nbsp;&nbsp;&nbsp;Edit Your Blog</h1>
             </Col>
             <Formik validationSchema={validationSchema} initialValues={currentBlog} onSubmit={(values) => handleFormSubmit(values)}>
                 {({ handleSubmit, isValid, isSubmitting, dirty }: any) => (

@@ -68,7 +68,7 @@ const BlogListItem = ({ blog }: Props) => {
                             to='/edit-blog'
                             onClick={() => selectBlog(blog.id)}
                         >
-                            <Button style={{ marginTop: "55px" }}>Edit</Button>
+                            <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id)}>Edit</Button>
                         </Link>
 
                         <Button

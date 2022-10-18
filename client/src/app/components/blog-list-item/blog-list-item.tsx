@@ -1,4 +1,4 @@
-import { Col, Card, Button } from "antd";
+import { Col, Card, Button, Typography, Row } from "antd";
 import { observer } from "mobx-react-lite";
 import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
@@ -36,13 +36,22 @@ const BlogListItem = ({ blog }: Props) => {
             <Col xs={{ span: 24 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} >
 
                 <Card className="blog-list-card">
-
+                    <Row>
+                        <Col span={12}>
+                            <Typography.Title underline className="base-text-color" level={1}>{blog.title}</Typography.Title>
+                        </Col>
+                        
+                    </Row>
                 <Card
                     className="blog-list-card"
                     title={
                         <Fragment>
-                            <Col span={16} style={{ color: "white" }}>{blog.title}</Col>
-                            <Col span={4}><span style={{ color: "white", fontWeight: "lighter" }}>{blog.date.toString().split('T')[0]}</span></Col>
+                            <Row>
+                            <Col span={12}><span style={{ color: "white", fontWeight: "lighter" }}>Published on: {blog.date.toString().split('T')[0]}</span></Col>
+                            <Col span={12}>
+                            <Typography.Title style={{ textAlign: 'right' }} className='base-text-color' level={4}>By: {blog.appUser}</Typography.Title>
+                            </Col>
+                            </Row>
                         </Fragment>}
                 >
                     <p>{blog.description}</p>

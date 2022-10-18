@@ -6,4 +6,5 @@ export interface Blog {
     category: string;
     body: string;
     urlSuffix: string;
+    appUser?: string;
 }

@@ -105,6 +105,14 @@ namespace API.Controllers
             return CreateUserObject(user);
         }
 
+        [Authorize]
+        [HttpGet("bio")]
+        public async Task<ActionResult<string>> GetCurrentUserBio() 
+        {
+            var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+            return user.Bio;
+        }
+
 
     }
 }

@@ -70,6 +70,7 @@ const requests = {
 
 const Blogs = {
     list: () => requests.get<Blog[]>('/blog'),
+    userBlogList: () => requests.get<Blog[]>('/blog/UserBlogs'),
     details: (urlSuffix: string, id?: string | null) => 
     {
         if (id === undefined)
@@ -89,8 +90,8 @@ const Blogs = {
 const Account = {
     current: () => requests.get<User>('/account'),
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
-    register: (user: UserFormValues) => requests.post<User>('/account/register', user)
-
+    register: (user: UserFormValues) => requests.post<User>('/account/register', user),
+    bio: () => requests.get<string>('/account/bio')
 }
 
 const agent = {

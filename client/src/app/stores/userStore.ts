@@ -9,6 +9,7 @@ import { history } from '../..';
 export default class UserStore {
     
     user: User | null = null
+    bio: string | null = null
     routeLinks = new RouteLinks();
 
     constructor() {
@@ -44,6 +45,15 @@ export default class UserStore {
         try {
             const user = await agent.Account.current();
             runInAction(() => this.user = user)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    getBio = async () => {
+        try {
+            const bio = await agent.Account.bio();
+            runInAction(() => this.bio = bio);
         } catch (error) {
             console.log(error);
         }

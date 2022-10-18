@@ -5,21 +5,18 @@ import BlogListItem from "../blog-list-item/blog-list-item";
 import LoadingComponent from "../loading/loading";
 import './blog-list.css'
 
+interface Props {
+    isUserDashboard: boolean
+}
 
 
-function BlogList(){
-
-    
-
+function BlogList({isUserDashboard}: Props){
     const {blogStore} = useStore();
     const {blogsByDate} = blogStore;
 
     useEffect(() => {
-        blogStore.loadBlogs();
+        blogStore.loadBlogs(isUserDashboard);
     }, []);
-
-    
-
 
     if (blogStore.loadingInitial) return <LoadingComponent content={"Loading Blogs..."} />
 
@@ -32,7 +29,7 @@ function BlogList(){
                     </Fragment>
                 )
             })
-            };
+            }
         </Fragment >
     );
 }

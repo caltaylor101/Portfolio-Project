@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import LoadingComponent from './app/components/loading/loading';
 import ModalContainer from './app/components/modals/modal-container';
 import { PrivateRoute } from './app/components/private-route/private-route';
+import MyProfile from './app/components/profile-dashboard/current-user-dashboard';
 
 
 function App() {
@@ -39,8 +40,8 @@ function App() {
       <ModalContainer />
       <NavBar />
       <Routes>
-        <Route path={routeLinks.home} element={<BlogList />} />
-          <Route path={routeLinks.blogList} element={<BlogList />} />
+        <Route path={routeLinks.home} element={<BlogList isUserDashboard={false} />} />
+          <Route path={routeLinks.blogList} element={<BlogList isUserDashboard={false}/>} />
         <Route path={routeLinks.blogDetails} element={<BlogDetails />} />
         {/* <Route path={`/read-blog`} element={<BlogDetails />} /> */}
 
@@ -50,8 +51,8 @@ function App() {
         <Route path={routeLinks.notFound} element={<NotFoundError />} />
         <Route path={routeLinks.serverError} element={<ServerError />} />
         <Route path={routeLinks.login} element={<LoginForm isBackRedirect={true} />} />
-
-
+        <Route path={routeLinks.myProfile} element={<MyProfile />} />
+        
       </Routes>
     </div>
   );

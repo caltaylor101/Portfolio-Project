@@ -15,17 +15,20 @@ namespace Infrastructure
                     new AppUser{
                         DisplayName = "Bob",
                         UserName = "bob",
-                        Email = "bob@test.com"
+                        Email = "bob@test.com",
+                        Bio = "My name is bob and I am awesome"
                         },
                         new AppUser{
                         DisplayName = "Jackson",
                         UserName = "JackOLantern",
-                        Email = "jack@test.com"
+                        Email = "jack@test.com", 
+                        Bio = "My name is jack"
                         },
                         new AppUser{
                         DisplayName = "Emily",
                         UserName = "EmiWoo",
-                        Email = "emily@test.com"
+                        Email = "emily@test.com",
+                        Bio = "I am emily WOOOO!"
                         }
                 };
 

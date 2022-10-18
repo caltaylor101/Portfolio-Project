@@ -4,7 +4,7 @@ import { Blog } from "../models/blog";
 import { v4 as uuid } from 'uuid';
 
 export default class BlogStore {
-    // blogs: Blog[] = [];
+    blogs: Blog[] = [];
     selectedBlog: Blog | undefined = undefined;
     blogRegistry = new Map<string, Blog>();
     loading = false;
@@ -37,11 +37,18 @@ export default class BlogStore {
     //     )
     // }
 
-    loadBlogs = async () => {
+    loadBlogs = async (isUserDashboard: boolean) => {
         this.setLoadingInitial(true);
         try {
-            const blogs = await agent.Blogs.list();
-
+            if (!isUserDashboard)
+            {
+                this.blogs = await agent.Blogs.list();
+            }
+            else
+            {
+                this.blogs = await agent.Blogs.userBlogList();
+            }
+            const blogs = this.blogs;
             runInAction(() => {
                 blogs.forEach(blog => {
                     this.blogRegistry.set(blog.id, blog);

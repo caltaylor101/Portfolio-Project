@@ -62,11 +62,12 @@ function BlogForm() {
             </Col>
             <Row>
                 <Col span={16} offset={4}>
-                    <Formik validationSchema={validationSchema} initialValues={blogStore.selectedBlog!} onSubmit={(values) => handleFormSubmit(values)}>
+                    <Formik validationSchema={validationSchema} initialValues={initialState} onSubmit={(values) => handleFormSubmit(values)}>
                         {({ handleSubmit, isValid, isSubmitting, dirty }: any) => (
                             <Form
                                 className="ant-form ant-form-horizontal ant-form-default"
                                 style={{ paddingBottom: "250px", marginTop: "20px" }}
+                                onSubmit={handleSubmit}
                             >
                                 <TextInput label='Title:' name='title' placeholder='Title' />
                                 <TextArea label='Description:' rows={4} name='description' placeholder='Description' />

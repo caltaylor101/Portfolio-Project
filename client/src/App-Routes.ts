@@ -11,4 +11,5 @@ export class  RouteLinks {
     notFound = "*";
     login = "/login";
     register = "/register";
+    myProfile = "/my-profile";
 }

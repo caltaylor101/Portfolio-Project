@@ -15,6 +15,7 @@ namespace Infrastructure
 
         }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Photo> Photos { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

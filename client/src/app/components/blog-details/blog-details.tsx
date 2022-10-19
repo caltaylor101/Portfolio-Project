@@ -6,6 +6,9 @@ import { useStore } from "../../stores/store";
 import { useParams } from "react-router-dom";
 import LoadingComponent from "../loading/loading";
 import Paragraph from "antd/lib/typography/Paragraph";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { coldarkDark, coy, dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { nightOwl } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 interface Props {
   blog: BlogModel
@@ -53,7 +56,6 @@ const BlogDetails = () => {
   if (blogStore.loading) return <LoadingComponent content={"Loading..."} />
   return (
     <Fragment>
-
       <Col xs={{ span: 24 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} style={{ marginTop: '50px' }}>
         <Typography.Title
           level={1}
@@ -64,10 +66,8 @@ const BlogDetails = () => {
         >
           {currentBlog?.title}
         </Typography.Title>
-
         <Paragraph style={{
           borderBottom: "2px dashed white"
-
         }}>
           <Typography.Title
             level={3}
@@ -85,31 +85,16 @@ const BlogDetails = () => {
           >
             {currentBlog?.description}
           </Typography.Text>
-
         </Paragraph>
-
-        <Paragraph code={true} className='base-text-color'>
-          test stuff
-          <br/> and more
-        </Paragraph>
-
         {myBody?.map((text, key) => {
           if (text.split("<code>").length > 1)
           {
             testFunction();
             let myFormattedCode = myCode?.at(codeCount)?.split((/[\n]/));
-            
             return (
-              <Paragraph code={true} className='base-text-color'>
-                {myFormattedCode?.map((text) => (
-                  <Fragment>{text}
-                    function testFunction () {`
-                    hello function`
-                    }
-                    <br />&nbsp;
-                  </Fragment>
-                ))}
-              </Paragraph>
+              <SyntaxHighlighter language="javascript" style={nightOwl}>
+                {myCode?.at(codeCount)!}
+              </SyntaxHighlighter>
             )
           }
           else if (text.split("</code>").length > 1)
@@ -124,10 +109,7 @@ const BlogDetails = () => {
             </Paragraph>
             )
           }
-            
       })}
-
-
       </Col>
     </Fragment>
   );

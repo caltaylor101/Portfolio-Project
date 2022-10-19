@@ -3,6 +3,7 @@ using API.Middleware;
 using Application.Blogs;
 using Application.Core;
 using Application.Interfaces;
+using Architecture.Photos;
 using Architecture.Security;
 using Domain;
 using FluentValidation;
@@ -52,6 +53,9 @@ builder.Services.AddCors(opt =>
 builder.Services.AddMediatR(typeof(BlogList.Handler).Assembly);
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 builder.Services.AddScoped<IUserAccessor, UserAccessor>();
+
+builder.Services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));
 
 var app = builder.Build();
 

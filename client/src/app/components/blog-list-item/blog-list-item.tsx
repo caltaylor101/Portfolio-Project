@@ -1,6 +1,6 @@
 import { Col, Card, Button, Typography, Row } from "antd";
 import { observer } from "mobx-react-lite";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Blog } from "../../models/blog";
 import { useStore } from "../../stores/store";
@@ -12,8 +12,9 @@ interface Props {
 const BlogListItem = ({ blog }: Props) => {
 
 
-    const { blogStore } = useStore();
+    const { blogStore, userStore } = useStore();
     const { blogsByDate } = blogStore;
+
 
     const [target, setTarget] = useState('');
 
@@ -64,21 +65,25 @@ const BlogListItem = ({ blog }: Props) => {
                         >
                             <Button style={{ marginTop: "55px" }}>Read</Button>
                         </Link>
-                        <Link
-                            to='/edit-blog'
-                            onClick={() => selectBlog(blog.id)}
-                        >
-                            <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id)}>Edit</Button>
-                        </Link>
 
-                        <Button
-                            style={{ marginTop: "55px" }}
-                            danger
-                            onClick={() => handleDeleteBlog(`${blog.id}`)}
-                            loading={target === blog.id} >
-                            Delete
-                        </Button>
+                        {blog.appUser == userStore.user?.username &&
+                            <Fragment>
+                                <Link
+                                    to='/edit-blog'
+                                    onClick={() => selectBlog(blog.id)}
+                                >
+                                    <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id)}>Edit</Button>
+                                </Link>
 
+                                <Button
+                                    style={{ marginTop: "55px" }}
+                                    danger
+                                    onClick={() => handleDeleteBlog(`${blog.id}`)}
+                                    loading={target === blog.id} >
+                                    Delete
+                                </Button>
+                            </Fragment>
+                        }
                     </Col>
                 </Card>
             </Col>

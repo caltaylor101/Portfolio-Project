@@ -29,7 +29,7 @@ export default observer(function Submit(props: Props) {
             </Col>
 
 
-            <Col span={1} style={{ marginLeft: "50px" }}>
+            <Col span={1} style={{ marginLeft: "10px" }}>
                 {!modalStore.modal.open ? 
                 <Button type="primary" danger={true} size="large" onClick={() => navigate(routeLinks.blogList)} >Cancel</Button>
                 :

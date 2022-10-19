@@ -18,6 +18,9 @@ namespace Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<Blog>(entity => {
+                entity.Property(x => x.Body).HasColumnType("blob");
+            });
         }
     }
 }

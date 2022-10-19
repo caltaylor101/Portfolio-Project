@@ -40,8 +40,17 @@ const BlogDetails = () => {
 
   }, []);
 
-  if (blogStore.loading) return <LoadingComponent content={"Loading..."} />
+  let myCode = currentBlog?.body.match(/(?<=<code>\s+).*?(?=\s+<\/code>)/gs);
+  let myBody = currentBlog?.body.split((/[\n]/));
+  let codeCount = -1;
+  let isCode = false;
 
+  function testFunction() {
+    isCode = true;
+    codeCount += 1;
+  }
+
+  if (blogStore.loading) return <LoadingComponent content={"Loading..."} />
   return (
     <Fragment>
 
@@ -79,9 +88,45 @@ const BlogDetails = () => {
 
         </Paragraph>
 
-        <Typography.Paragraph className='base-text-color' style={{ fontSize: "1.5em" }}>
-          {currentBlog?.body}
-        </Typography.Paragraph>
+        <Paragraph code={true} className='base-text-color'>
+          test stuff
+          <br/> and more
+        </Paragraph>
+
+        {myBody?.map((text, key) => {
+          if (text.split("<code>").length > 1)
+          {
+            testFunction();
+            let myFormattedCode = myCode?.at(codeCount)?.split((/[\n]/));
+            
+            return (
+              <Paragraph code={true} className='base-text-color'>
+                {myFormattedCode?.map((text) => (
+                  <Fragment>{text}
+                    function testFunction () {`
+                    hello function`
+                    }
+                    <br />&nbsp;
+                  </Fragment>
+                ))}
+              </Paragraph>
+            )
+          }
+          else if (text.split("</code>").length > 1)
+          {
+            isCode = false;
+          }
+          else if (!isCode)
+          {
+            return (
+            <Paragraph key={key} className="base-text-color" style={{ fontSize: "1.5em" }}>
+              {text}
+            </Paragraph>
+            )
+          }
+            
+      })}
+
 
       </Col>
     </Fragment>

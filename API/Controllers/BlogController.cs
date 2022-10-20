@@ -56,8 +56,8 @@ namespace API.Controllers
         [HttpGet("UserBlogs")]
         public async Task<IActionResult> GetUserBlogs(Guid? appUserId)
         {
-            var result = await Mediator.Send(new UserBlogList.Query());
 
+            var result = await Mediator.Send(new UserBlogList.Query());
             return HandleResult(result);
         }
 

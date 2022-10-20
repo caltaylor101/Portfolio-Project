@@ -54,6 +54,7 @@ namespace Application.Blogs
                 }
 
                 _context.Blogs.Add(request.Blog);
+                user.Blogs.Add(request.Blog);
 
                 var result = await _context.SaveChangesAsync() > 0;
 

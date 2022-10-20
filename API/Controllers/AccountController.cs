@@ -1,6 +1,8 @@
 using System.Security.Claims;
 using API.DTOs;
 using API.Services;
+using Application.Blogs;
+using AutoMapper;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -9,17 +11,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
+
     [ApiController]
     [Route("[controller]")]
     public class AccountController : ControllerBase
     {
+
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly TokenService _tokenService;
+        private readonly IMapper _mapper;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService, IMapper mapper)
         {
             _tokenService = tokenService;
+            _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -114,6 +120,18 @@ namespace API.Controllers
         {
             var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
             return user.Bio;
+        }
+
+        [Authorize]
+        [HttpGet("my-blogs")]
+        public async Task<ActionResult<ICollection<MyBlogsDto>>> GetCurrentUserBlogs()
+        {
+            var user = await _userManager.Users.Include(b => b.Blogs)
+                .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+           var blogsToReturn = _mapper.Map<List<MyBlogsDto>>(user.Blogs);
+            
+            return blogsToReturn;
+
         }
 
 

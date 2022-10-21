@@ -84,7 +84,14 @@ const Blogs = {
 } ,
     create: (blog: Blog) => axios.post<void>('/blog', blog),
     update: (blog: Blog) => axios.put<void>(`/blog/${blog.id}`, blog),
-    delete: (id: string) => axios.delete<void>(`/blog/${id}`)
+    delete: (id: string) => axios.delete<void>(`/blog/${id}`),
+    uploadPhoto: (file: Blob) => {
+        let formData = new FormData();
+        formData.append('File', file);
+        return axios.post('photo', formData, {
+            headers: {'Content-type': 'mulitpart/form-data'}
+        })
+    }
 }
 
 const Account = {

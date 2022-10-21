@@ -154,7 +154,17 @@ export default class BlogStore {
         }
     }
 
-
+    uploadPhoto = async (file: Blob) => {
+        try {
+            const response = await agent.Blogs.uploadPhoto(file);
+            const photo = response.data;
+            runInAction(() => {
+                // thi
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 }
 

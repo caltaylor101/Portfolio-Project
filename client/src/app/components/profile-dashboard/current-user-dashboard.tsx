@@ -1,15 +1,14 @@
-import { Tabs, Statistic, Descriptions, PageHeader, Button, Avatar, Image, Row, Col, Typography } from "antd";
+import { PageHeader, Button, Avatar, Image, Row, Col, Typography } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import { observer } from "mobx-react-lite";
 import { Fragment } from "react";
 import { useStore } from "../../stores/store";
 import BlogList from "../blog-list/blog-list";
+import PhotoUploadWidget from "../image-upload/photo-upload-widget";
 import "./current-user-dashboard.css";
 
 export default observer(function MyProfile() {
     const { Title, Paragraph } = Typography;
-    const { TabPane } = Tabs;
-    const column = 2;
     const { userStore } = useStore();
     if (userStore.bio === null) 
     {
@@ -75,6 +74,7 @@ export default observer(function MyProfile() {
                         <BlogList isUserDashboard={true} />
                     </Col>
                 </Row>
+
 
             </PageHeader>
         </Fragment>

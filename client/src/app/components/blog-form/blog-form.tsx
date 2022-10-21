@@ -11,6 +11,7 @@ import TextArea from "../form-components/TextArea";
 import Submit from "../form-components/Submit";
 import SelectInput from "../form-components/SelectInput";
 import { Blog } from "../../models/blog";
+import PhotoUploadWidget from "../image-upload/photo-upload-widget";
 
 
 
@@ -66,7 +67,7 @@ function BlogForm() {
                         {({ handleSubmit, isValid, isSubmitting, dirty }: any) => (
                             <Form
                                 className="ant-form ant-form-horizontal ant-form-default"
-                                style={{ paddingBottom: "250px", marginTop: "20px" }}
+                                style={{ paddingBottom: "50px", marginTop: "20px" }}
                                 onSubmit={handleSubmit}
                             >
                                 <TextInput label='Title:' name='title' placeholder='Title' />
@@ -77,8 +78,10 @@ function BlogForm() {
                             </Form>
                         )}
                     </Formik>
+                    
                 </Col>
             </Row>
+            <PhotoUploadWidget />
         </Fragment>
     );
 }

@@ -7,4 +7,10 @@ export interface Blog {
     body: string;
     urlSuffix: string;
     appUser?: string;
+    photos?: Photo[];
+}
+
+export interface Photo {
+    id: string;
+    url: string;
 }

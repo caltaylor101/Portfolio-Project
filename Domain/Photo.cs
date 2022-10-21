@@ -11,6 +11,5 @@ namespace Domain
         public string Url { get; set; }
         public bool IsProfilePicture { get; set; }
         public bool IsMainProfilePicture { get; set; }
-
     }
 }

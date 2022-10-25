@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class IdentityAdded : Migration
+    public partial class PhotoBlogsRelation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,10 +44,16 @@ namespace Infrastructure.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Body",
                 table: "Blogs",
-                type: "TEXT",
+                type: "blob",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "TEXT");
+
+            migrationBuilder.AddColumn<string>(
+                name: "AppUserId",
+                table: "Blogs",
+                type: "TEXT",
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
@@ -196,6 +202,37 @@ namespace Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Photos",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Url = table.Column<string>(type: "TEXT", nullable: true),
+                    IsProfilePicture = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsMainProfilePicture = table.Column<bool>(type: "INTEGER", nullable: false),
+                    BlogId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    AppUserId = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Photos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Photos_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Photos_Blogs_BlogId",
+                        column: x => x.BlogId,
+                        principalTable: "Blogs",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Blogs_AppUserId",
+                table: "Blogs",
+                column: "AppUserId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -232,10 +269,31 @@ namespace Infrastructure.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Photos_AppUserId",
+                table: "Photos",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Photos_BlogId",
+                table: "Photos",
+                column: "BlogId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Blogs_AspNetUsers_AppUserId",
+                table: "Blogs",
+                column: "AppUserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Blogs_AspNetUsers_AppUserId",
+                table: "Blogs");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -252,10 +310,21 @@ namespace Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Photos");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Blogs_AppUserId",
+                table: "Blogs");
+
+            migrationBuilder.DropColumn(
+                name: "AppUserId",
+                table: "Blogs");
 
             migrationBuilder.AlterColumn<string>(
                 name: "UrlSuffix",
@@ -304,7 +373,7 @@ namespace Infrastructure.Migrations
                 nullable: false,
                 defaultValue: "",
                 oldClrType: typeof(string),
-                oldType: "TEXT",
+                oldType: "blob",
                 oldNullable: true);
         }
     }

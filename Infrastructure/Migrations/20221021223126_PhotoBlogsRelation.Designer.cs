@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221014051456_BlogAuthor")]
-    partial class BlogAuthor
+    [Migration("20221021223126_PhotoBlogsRelation")]
+    partial class PhotoBlogsRelation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,7 +99,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Body")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("blob");
 
                     b.Property<string>("Category")
                         .HasColumnType("TEXT");
@@ -121,6 +121,35 @@ namespace Infrastructure.Migrations
                     b.HasIndex("AppUserId");
 
                     b.ToTable("Blogs");
+                });
+
+            modelBuilder.Entity("Domain.Photo", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("BlogId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsMainProfilePicture")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsProfilePicture")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("BlogId");
+
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -260,6 +289,19 @@ namespace Infrastructure.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("Domain.Photo", b =>
+                {
+                    b.HasOne("Domain.AppUser", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("Domain.Blog", "Blog")
+                        .WithMany("Images")
+                        .HasForeignKey("BlogId");
+
+                    b.Navigation("Blog");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -314,6 +356,13 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
                     b.Navigation("Blogs");
+
+                    b.Navigation("Photos");
+                });
+
+            modelBuilder.Entity("Domain.Blog", b =>
+                {
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

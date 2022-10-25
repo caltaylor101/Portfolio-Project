@@ -40,6 +40,7 @@ export default class BlogStore {
     loadBlogs = async (isUserDashboard: boolean) => {
         this.setLoadingInitial(true);
         try {
+            console.log("This is the user dashboard reload!!!");
             if (!isUserDashboard)
             {
                 this.blogs = await agent.Blogs.list();

@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
-import { Fragment, useEffect} from "react";
+import { Fragment, useEffect, useState} from "react";
+import { Blog } from "../../models/blog";
 import { useStore } from "../../stores/store";
 import BlogListItem from "../blog-list-item/blog-list-item";
 import LoadingComponent from "../loading/loading";
@@ -14,15 +15,18 @@ function BlogList({isUserDashboard}: Props){
     const {blogStore} = useStore();
     const {blogsByDate} = blogStore;
 
+    let blogsToReturn = blogsByDate;
+
     useEffect(() => {
+        blogStore.blogRegistry.clear();
         blogStore.loadBlogs(isUserDashboard);
-    }, []);
+    }, [isUserDashboard]);
 
     if (blogStore.loadingInitial) return <LoadingComponent content={"Loading Blogs..."} />
 
     return (
         <Fragment>
-            {blogsByDate.map(blog => {
+            {blogsToReturn.map(blog => {
                 return (
                     <Fragment key={blog.id}>
                         <BlogListItem blog={blog} />

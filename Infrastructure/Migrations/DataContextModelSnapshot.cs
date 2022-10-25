@@ -293,9 +293,11 @@ namespace Infrastructure.Migrations
                         .WithMany("Photos")
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("Domain.Blog", null)
+                    b.HasOne("Domain.Blog", "Blog")
                         .WithMany("Images")
                         .HasForeignKey("BlogId");
+
+                    b.Navigation("Blog");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

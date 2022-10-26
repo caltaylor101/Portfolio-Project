@@ -27,6 +27,7 @@ namespace Architecture.Security
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsAuthorRequirement requirement)
         {
+            Console.WriteLine("WHOAH");
             var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null) return Task.CompletedTask;
             var blogId = Guid.Parse(_httpContextAccessor.HttpContext?.Request.RouteValues.SingleOrDefault(x => x.Key == "id").Value?.ToString());
@@ -37,6 +38,7 @@ namespace Architecture.Security
             {
                 context.Succeed(requirement);
             }
+            
             return Task.CompletedTask;
         }
     }

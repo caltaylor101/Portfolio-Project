@@ -13,6 +13,7 @@ namespace Application.Photos
         public class Command : IRequest<Result<Photo>>
         {
             public IFormFile File { get; set; }
+            public bool isProfilePicture { get; set; }
         }
         public class Handler : IRequestHandler<Command, Result<Photo>>
         {
@@ -38,10 +39,11 @@ namespace Application.Photos
                 var photo = new Photo
                 {
                     Url = photoUploadResult.Url,
-                    Id = photoUploadResult.PublicId
+                    Id = photoUploadResult.PublicId,
+                    IsProfilePicture = request.isProfilePicture
                 };
 
-                if (!user.Photos.Any(x => x.IsMainProfilePicture)) photo.IsMainProfilePicture = true;
+                if (!user.Photos.Any(x => x.IsMainProfilePicture) && request.isProfilePicture) photo.IsMainProfilePicture = true;
 
                 user.Photos.Add(photo);
 

@@ -131,9 +131,20 @@ namespace API.Controllers
            var blogsToReturn = _mapper.Map<List<MyBlogsDto>>(user.Blogs);
             
             return blogsToReturn;
-
         }
 
+        [Authorize]
+        [HttpGet("get-user-profile")]
+        public async Task<ActionResult<Application.Profiles.Profile>> GetCurrentUserProfile()
+        {
+            var user = await _userManager.Users.Include(i => i.Photos)
+                .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
 
+            var userToReturn = _mapper.Map<Application.Profiles.Profile>(user);
+
+            return userToReturn;
+        }
+
+        
     }
 }

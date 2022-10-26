@@ -4,10 +4,7 @@ import { observer } from "mobx-react-lite";
 import { Fragment } from "react";
 import { useStore } from "../../stores/store";
 import BlogList from "../blog-list/blog-list";
-import PhotoUploadWidget from "../image-upload/photo-upload-widget";
 import "./current-user-dashboard.css";
-
-
 
 export default observer(function MyProfile() {
     const { Title, Paragraph } = Typography;
@@ -19,7 +16,6 @@ export default observer(function MyProfile() {
     return (
         <Fragment>
             <PageHeader
-                
                 className="site-page-header-responsive base-text-color"
                 onBack={() => window.history.back()}
                 title="Title"
@@ -55,7 +51,6 @@ export default observer(function MyProfile() {
                                 
                             </div>
                         </Content>
-
                     </Col>
                     <Col offset={1} span={12} style={{backgroundColor:'#333333', padding: '10px'}}>
                         <Title className='base-text-color' level={2}>Bio: </Title>
@@ -76,8 +71,6 @@ export default observer(function MyProfile() {
                         <BlogList isUserDashboard={true} />
                     </Col>
                 </Row>
-
-
             </PageHeader>
         </Fragment>
     )

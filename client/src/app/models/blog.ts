@@ -1,3 +1,5 @@
+import { Photo } from "./photo";
+
 export interface Blog {
     id: string;
     title: string;
@@ -8,9 +10,4 @@ export interface Blog {
     urlSuffix: string;
     appUser?: string;
     photos?: Photo[];
-}
-
-export interface Photo {
-    id: string;
-    url: string;
 }

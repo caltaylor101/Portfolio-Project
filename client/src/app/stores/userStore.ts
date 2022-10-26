@@ -20,6 +20,14 @@ export default class UserStore {
         return !!this.user;
     }
 
+    setImage = (image: string) => {
+        if (this.user) this.user.image = image;
+    }
+
+    setDisplayName = (name: string) => {
+        if (this.user) this.user.displayName = name;
+    }
+
     login = async (creds: UserFormValues, isBackRedirect: boolean) => {
         try {
             const user = await agent.Account.login(creds);
@@ -70,5 +78,7 @@ export default class UserStore {
             throw error;
         }
     }
+
+    
 
 }

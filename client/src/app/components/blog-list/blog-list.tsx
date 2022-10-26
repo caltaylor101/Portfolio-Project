@@ -15,8 +15,6 @@ function BlogList({isUserDashboard}: Props){
     const {blogStore} = useStore();
     const {blogsByDate} = blogStore;
 
-    let blogsToReturn = blogsByDate;
-
     useEffect(() => {
         blogStore.blogRegistry.clear();
         blogStore.loadBlogs(isUserDashboard);
@@ -26,7 +24,7 @@ function BlogList({isUserDashboard}: Props){
 
     return (
         <Fragment>
-            {blogsToReturn.map(blog => {
+            {blogsByDate.map(blog => {
                 return (
                     <Fragment key={blog.id}>
                         <BlogListItem blog={blog} />

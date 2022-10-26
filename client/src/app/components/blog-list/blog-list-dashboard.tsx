@@ -63,7 +63,7 @@ const BlogListDashboard = ({blogs, loadingInitial}: Props) => {
                                     <Button
                                         style={{ marginTop: "55px" }}
                                         danger
-                                        // onClick={() => handleDeleteBlog(`${blog.id}`) }
+                                        //onClick={() => handleDeleteBlog(`${blog.id}`) }
                                         loading={submitting && target === blog.id} >
                                         Delete
                                     </Button>

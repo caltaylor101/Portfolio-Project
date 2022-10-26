@@ -40,7 +40,6 @@ export default class BlogStore {
     loadBlogs = async (isUserDashboard: boolean) => {
         this.setLoadingInitial(true);
         try {
-            console.log("This is the user dashboard reload!!!");
             if (!isUserDashboard)
             {
                 this.blogs = await agent.Blogs.list();
@@ -155,17 +154,7 @@ export default class BlogStore {
         }
     }
 
-    uploadPhoto = async (file: Blob) => {
-        try {
-            const response = await agent.Blogs.uploadPhoto(file);
-            const photo = response.data;
-            runInAction(() => {
-                // thi
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    
 
 }
 

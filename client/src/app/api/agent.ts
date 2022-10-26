@@ -1,8 +1,11 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import { request } from 'http';
 import { toast } from 'react-toastify';
 import { history } from '../..';
 import { RouteLinks } from '../../App-Routes';
 import { Blog } from '../models/blog';
+import { Photo } from '../models/photo';
+import { Profile } from '../models/profile';
 import { User, UserFormValues } from '../models/user';
 import { store } from '../stores/store';
 
@@ -85,6 +88,14 @@ const Blogs = {
     create: (blog: Blog) => axios.post<void>('/blog', blog),
     update: (blog: Blog) => axios.put<void>(`/blog/${blog.id}`, blog),
     delete: (id: string) => axios.delete<void>(`/blog/${id}`),
+    
+}
+
+const Account = {
+    current: () => requests.get<User>('/account'),
+    login: (user: UserFormValues) => requests.post<User>('/account/login', user),
+    register: (user: UserFormValues) => requests.post<User>('/account/register', user),
+    bio: () => requests.get<string>('/account/bio'),
     uploadPhoto: (file: Blob) => {
         let formData = new FormData();
         formData.append('File', file);
@@ -94,16 +105,18 @@ const Blogs = {
     }
 }
 
-const Account = {
-    current: () => requests.get<User>('/account'),
-    login: (user: UserFormValues) => requests.post<User>('/account/login', user),
-    register: (user: UserFormValues) => requests.post<User>('/account/register', user),
-    bio: () => requests.get<string>('/account/bio')
+const Profiles = {
+    current: () => requests.get<Profile>('/account/get-user-profile'),
+    get: (username: string) => requests.get<Profile>(`/profile/${username}`),
+    setMainPhoto: (id: string) => requests.post(`/photo/${id}/setMain`, {}),
+    deletePhoto: (id: string) => requests.delete(`/photo/${id}`),
+    updateProfile: (profile: Partial<Profile>) => requests.put(`/profiles`, profile)
 }
 
 const agent = {
     Blogs,
-    Account
+    Account,
+    Profiles
 }
 
 export default agent;

@@ -12,6 +12,7 @@ import Submit from "../form-components/Submit";
 import SelectInput from "../form-components/SelectInput";
 import { Blog } from "../../models/blog";
 import PhotoUploadWidget from "../image-upload/photo-upload-widget";
+import BlogPhotos from "../image-display/blogPhotos";
 
 
 
@@ -74,14 +75,16 @@ function BlogForm() {
                                 <TextArea label='Description:' rows={4} name='description' placeholder='Description' />
                                 <SelectInput placeholder="Category" name='category' label='Category:' options={options}  />
                                 <TextArea label='Body' rows={15} name='body' placeholder='Body' />
-                                <Submit dirty={dirty} isValid={isValid} isSubmitting={isSubmitting} handleSubmit={handleSubmit} />
+                                <Col offset={2}>
+                                    <Submit dirty={dirty} isValid={isValid} isSubmitting={isSubmitting} handleSubmit={handleSubmit} />
+                                </Col>
                             </Form>
                         )}
                     </Formik>
-                    
                 </Col>
             </Row>
             <PhotoUploadWidget />
+            <BlogPhotos />
         </Fragment>
     );
 }

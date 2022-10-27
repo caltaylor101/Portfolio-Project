@@ -5,5 +5,5 @@ export interface Profile {
     displayName: string,
     bio: string,
     profileImage: string,
-    images: Photo[],
+    photos: Photo[],
 }

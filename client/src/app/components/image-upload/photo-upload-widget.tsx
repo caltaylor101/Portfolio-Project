@@ -1,13 +1,17 @@
 import { EditOutlined, EllipsisOutlined, SettingOutlined, UploadOutlined } from "@ant-design/icons";
 import { Avatar, Card, Col, Row, Image, Upload, Button } from "antd";
 import Meta from "antd/lib/card/Meta";
+import { observer } from "mobx-react-lite";
 import { Fragment, useEffect, useState } from "react";
+import { useStore } from "../../stores/store";
 import PhotoWidgetDropzone from "./photo-widget-dropzone";
 import './photo-widget.css';
 import PhotoWidgetCropper from "./PhotoWidgetCropper";
 
 
-export default function PhotoUploadWidget() {
+export default observer(function PhotoUploadWidget() {
+
+    const {profileStore: { isCurrentUser, uploadPhoto}} = useStore();
     const [files, setFiles] = useState<any>([]);
     const [cropper, setCropper] = useState<Cropper>();
     const outerDiv = {
@@ -18,7 +22,7 @@ export default function PhotoUploadWidget() {
 
     function onCrop() {
         if (cropper) {
-            cropper.getCroppedCanvas().toBlob(blob => console.log(blob));
+            cropper.getCroppedCanvas().toBlob(blob => uploadPhoto(blob!));
         }
     }
 
@@ -112,4 +116,4 @@ export default function PhotoUploadWidget() {
             
         </Fragment>
     )
-}
+})

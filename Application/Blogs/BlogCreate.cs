@@ -33,9 +33,7 @@ namespace Application.Blogs
             {
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
                 request.Blog.AppUser = user;
-                // request.Blog.AuthorId = user.Id;
-                // request.Blog.AuthorName = user.DisplayName;
-
+                
                 //Create the UrlSuffix from the Title of the blog
                 request.Blog.UrlSuffix = RemoveWhitespace(request.Blog.Title);
                 //Get the current blog

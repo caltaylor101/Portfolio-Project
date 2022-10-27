@@ -49,7 +49,7 @@ export default class ProfileStore {
             const photo = response.data;
             runInAction(() => {
                 if (this.profile) {
-                    this.profile.images?.push(photo);
+                    this.profile.photos?.push(photo);
                     if (photo.isProfilePicture && photo.isMainProfilePicture)
                     {
                         store.userStore.setImage(photo.url);
@@ -72,9 +72,9 @@ export default class ProfileStore {
             await agent.Profiles.setMainPhoto(photo.id);
             store.userStore.setImage(photo.url);
             runInAction(() => {
-                if (this.profile && this.profile.images) {
-                    this.profile.images.find(p => p.isMainProfilePicture)!.isMainProfilePicture = false;
-                    this.profile.images.find(p => p.id === photo.id)!.isMainProfilePicture = true;
+                if (this.profile && this.profile.photos) {
+                    this.profile.photos.find(p => p.isMainProfilePicture)!.isMainProfilePicture = false;
+                    this.profile.photos.find(p => p.id === photo.id)!.isMainProfilePicture = true;
                     this.profile.profileImage = photo.url;
                     this.loading = false;
                 }
@@ -91,7 +91,7 @@ export default class ProfileStore {
             await agent.Profiles.deletePhoto(photo.id);
             runInAction(() => {
                 if (this.profile) {
-                    this.profile.images = this.profile.images?.filter(p => p.id !== photo.id);
+                    this.profile.photos = this.profile.photos?.filter(p => p.id !== photo.id);
                     this.loading = false;
                 }
             })

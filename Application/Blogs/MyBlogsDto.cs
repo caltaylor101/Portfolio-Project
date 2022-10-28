@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Photos;
+using Domain;
 
 namespace Application.Blogs
 {
@@ -14,5 +16,7 @@ namespace Application.Blogs
         public string Category { get; set; }
         public string Body { get; set; }
         public string UrlSuffix { get; set; }
+        public ICollection<PhotoDto> Photos { get; set; }
+
     }
 }

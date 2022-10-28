@@ -13,5 +13,6 @@ namespace Application.Blogs
         public string Body { get; set; }
         public string UrlSuffix { get; set; }
         public string AppUser { get; set; }
+
     }
 }

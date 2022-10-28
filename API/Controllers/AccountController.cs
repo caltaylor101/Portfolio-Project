@@ -3,7 +3,9 @@ using API.DTOs;
 using API.Services;
 using Application.Blogs;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Domain;
+using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +23,11 @@ namespace API.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly TokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly DataContext _context;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService, IMapper mapper)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService, IMapper mapper, DataContext context)
         {
+            _context = context;
             _tokenService = tokenService;
             _mapper = mapper;
             _userManager = userManager;
@@ -124,11 +128,11 @@ namespace API.Controllers
 
         [Authorize]
         [HttpGet("my-blogs")]
-        public async Task<ActionResult<ICollection<MyBlogsDto>>> GetCurrentUserBlogs()
+        public async Task<ActionResult<List<MyBlogsDto>>> GetCurrentUserBlogs()
         {
-            var user = await _userManager.Users.Include(b => b.Blogs)
+            var user = await _userManager.Users.Include(b => b.Blogs).Include(i => i.Photos)
                 .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
-           var blogsToReturn = _mapper.Map<List<MyBlogsDto>>(user.Blogs);
+            var blogsToReturn = _mapper.Map<List<MyBlogsDto>>(user.Blogs);
             
             return blogsToReturn;
         }
@@ -141,13 +145,6 @@ namespace API.Controllers
                 .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
 
             var userToReturn = _mapper.Map<Application.Profiles.Profile>(user);
-            List<Photo> test = new List<Photo>();
-            foreach (var photo in userToReturn.Photos)
-            {
-                test.Add(_mapper.Map<Photo>(photo));
-            }
-
-            userToReturn.Photos = test;
 
             return userToReturn;
         }

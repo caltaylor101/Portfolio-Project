@@ -57,6 +57,11 @@ builder.Services.AddScoped<IUserAccessor, UserAccessor>();
 builder.Services.AddScoped<IPhotoAccessor, PhotoAccessor>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));
 
+
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+
 var app = builder.Build();
 
 using var scope = app.Services.CreateScope();

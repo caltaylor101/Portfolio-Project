@@ -1,4 +1,5 @@
 using Application.Core;
+using AutoMapper;
 using Domain;
 using Infrastructure;
 using MediatR;
@@ -8,27 +9,33 @@ namespace Application.Blogs
 {
     public class BlogDetails
     {
-        public class Query : IRequest<Result<Blog>>
+        public class Query : IRequest<Result<MyBlogsDto>>
         {
             public Guid? Id { get; set; }
             public string UrlSuffix { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Result<Blog>>
+        public class Handler : IRequestHandler<Query, Result<MyBlogsDto>>
         {
             private readonly DataContext _context;
-            public Handler(DataContext context)
+        private readonly IMapper _mapper;
+            public Handler(DataContext context, IMapper mapper)
             {
+                _mapper = mapper;
                 _context = context;
             }
 
-            public async Task<Result<Blog>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<MyBlogsDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 if (request.Id != null)
                 {
-                    return Result<Blog>.Success(await _context.Blogs.FindAsync(request.Id));
+                    var blog = await _context.Blogs.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Id == request.Id);
+                    var blogToReturn = _mapper.Map<MyBlogsDto>(blog);
+                    return Result<MyBlogsDto>.Success(blogToReturn);
                 }
-                return Result<Blog>.Success(await _context.Blogs.FirstOrDefaultAsync(x => x.UrlSuffix == request.UrlSuffix));
+                var urlBlog = await _context.Blogs.FindAsync(request.Id);
+                    var urlBlogToReturn = _mapper.Map<MyBlogsDto>(urlBlog);
+                return Result<MyBlogsDto>.Success(urlBlogToReturn);
 
             }
         }

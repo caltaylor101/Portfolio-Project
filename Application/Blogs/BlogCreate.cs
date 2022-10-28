@@ -38,12 +38,11 @@ namespace Application.Blogs
                 //Get the current blog
                 Task<Blog> currentBlog = _context.Blogs.FirstOrDefaultAsync(x => x.UrlSuffix == request.Blog.UrlSuffix);
 
-                System.Console.WriteLine("TEST " + request.Blog.Photos);
-
                 foreach (var image in request.Blog.Photos)
                 {
                     var photo = _context.Photos.FirstOrDefaultAsync(x => x.Url == image.Url);
                     photo.Result.Blog = request.Blog;
+                    photo.Result.Order = image.Order;
                 }
                 request.Blog.Photos = null;
 

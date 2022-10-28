@@ -24,7 +24,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{urlSuffix}")]
-        public async Task<ActionResult<Blog>> GetBlog(string urlSuffix)
+        public async Task<IActionResult> GetBlog(string urlSuffix)
         {
             var result = await Mediator.Send(new BlogDetails.Query { UrlSuffix = urlSuffix });
 
@@ -56,7 +56,6 @@ namespace API.Controllers
         [HttpGet("UserBlogs")]
         public async Task<IActionResult> GetUserBlogs(Guid? appUserId)
         {
-
             var result = await Mediator.Send(new UserBlogList.Query());
             return HandleResult(result);
         }

@@ -18,7 +18,7 @@ namespace Application.Blogs
         public class Handler : IRequestHandler<Query, Result<MyBlogsDto>>
         {
             private readonly DataContext _context;
-        private readonly IMapper _mapper;
+            private readonly IMapper _mapper;
             public Handler(DataContext context, IMapper mapper)
             {
                 _mapper = mapper;

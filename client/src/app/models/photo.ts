@@ -6,5 +6,6 @@ export interface Photo {
     isProfilePicture: boolean,
     isMainProfilePicture: boolean,
     blog?: Blog,
-    blogId?: string
+    blogId?: string,
+    order?: number
 }

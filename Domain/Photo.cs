@@ -15,5 +15,6 @@ namespace Domain
         public Blog? Blog { get; set; }
         [ForeignKey("Blog")]
         public Guid? BlogId { get; set; }
+        public int? Order { get; set; }
     }
 }

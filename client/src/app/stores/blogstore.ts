@@ -77,16 +77,25 @@ export default class BlogStore {
         this.loading = true;
         blog.id = uuid();
 
+        //Find the position of the image tags fro the form.
         const blog_image_posititions = blog.body.match(/(<image_\d>)/gs);
+        //Initialize an array
         const photos_to_add = [] as Photo[];
+        //Loop through the image positions
         blog_image_posititions?.forEach(element => {
-            let splitArray = element.match(/(\d)/);
-            if (splitArray?.length! >= 1)
-            {
-                photos![splitArray![0] as any].blog = blog;
-                photos_to_add.push(photos![splitArray![0] as any]);
+            //Get the digit in an array
+            let photoIndexes = element.match(/(\d)/);
+            //Check if something is there
+            if (photoIndexes?.length! >= 1)
+                //Attach the photo at that index to the blog
+                photos![photoIndexes![0] as any].blog = blog;
+                //Order the picture
+                photos![photoIndexes![0] as any].order = Number(photoIndexes![0]);
+                //push to the array
+                photos_to_add.push(photos![photoIndexes![0] as any]);
             }
-        });
+        );
+
         blog.photos = photos_to_add;
         try {
             await agent.Blogs.create(blog);

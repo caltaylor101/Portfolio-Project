@@ -14,7 +14,6 @@ export default observer(function BlogPhotos() {
         if (userStore.user !== null)
         {
             profileStore.loadProfile(userStore.user.username).then(() => console.log(profileStore.profile));
-            
         }
     }, [])
 
@@ -22,9 +21,9 @@ export default observer(function BlogPhotos() {
         <Fragment>
                     <Row>
 
-            {profileStore.profile?.photos?.map((image, i) => (
+            {profileStore.blogPhotos?.map((image, i) => (
                         <Col span={4} offset={(i === 0 || i/4 === 1) ? 4 : 0} style={{paddingTop:'25px'}}>
-                            <Card cover={<img src={`${image.url}`} />} style={{height:'100%'}}>
+                            <Card cover={<Image src={`${image.url}`} />} style={{height:'100%'}}>
                                 <Card.Meta title={`Use: <image_${i}>`} />
                             </Card>
                         </Col>

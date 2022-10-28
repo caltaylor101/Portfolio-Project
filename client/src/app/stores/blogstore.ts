@@ -2,6 +2,7 @@ import { action, makeAutoObservable, makeObservable, observable, runInAction } f
 import agent from "../api/agent";
 import { Blog } from "../models/blog";
 import { v4 as uuid } from 'uuid';
+import { Photo } from "../models/photo";
 
 export default class BlogStore {
     blogs: Blog[] = [];
@@ -72,10 +73,21 @@ export default class BlogStore {
         this.selectedBlog = this.blogRegistry.get(id);
     }
 
-    createBlog = async (blog: Blog) => {
+    createBlog = async (blog: Blog, photos: Photo[] | null) => {
         this.loading = true;
         blog.id = uuid();
 
+        const blog_image_posititions = blog.body.match(/(<image_\d>)/gs);
+        const photos_to_add = [] as Photo[];
+        blog_image_posititions?.forEach(element => {
+            let splitArray = element.match(/(\d)/);
+            if (splitArray?.length! >= 1)
+            {
+                photos![splitArray![0] as any].blog = blog;
+                photos_to_add.push(photos![splitArray![0] as any]);
+            }
+        });
+        blog.photos = photos_to_add;
         try {
             await agent.Blogs.create(blog);
             runInAction(() => {

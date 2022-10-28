@@ -33,11 +33,19 @@ namespace Application.Blogs
             {
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
                 request.Blog.AppUser = user;
-                
                 //Create the UrlSuffix from the Title of the blog
                 request.Blog.UrlSuffix = RemoveWhitespace(request.Blog.Title);
                 //Get the current blog
                 Task<Blog> currentBlog = _context.Blogs.FirstOrDefaultAsync(x => x.UrlSuffix == request.Blog.UrlSuffix);
+
+                System.Console.WriteLine("TEST " + request.Blog.Photos);
+
+                foreach (var image in request.Blog.Photos)
+                {
+                    var photo = _context.Photos.FirstOrDefaultAsync(x => x.Url == image.Url);
+                    photo.Result.Blog = request.Blog;
+                }
+                request.Blog.Photos = null;
 
                 //Rename the URL until a name that isn't taken is available. 
                 while (currentBlog.Result != null && !String.IsNullOrEmpty(currentBlog.Result.UrlSuffix))

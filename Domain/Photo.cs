@@ -13,5 +13,7 @@ namespace Domain
         public bool IsProfilePicture { get; set; }
         public bool IsMainProfilePicture { get; set; }
         public Blog? Blog { get; set; }
+        [ForeignKey("Blog")]
+        public Guid? BlogId { get; set; }
     }
 }

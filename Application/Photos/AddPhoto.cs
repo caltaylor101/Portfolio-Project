@@ -43,12 +43,6 @@ namespace Application.Photos
                     IsProfilePicture = request.isProfilePicture
                 };
 
-                Console.WriteLine("test");
-                Console.WriteLine("test");
-                Console.WriteLine("test");
-                Console.WriteLine("test");
-                Console.WriteLine("test");
-                Console.WriteLine(user);
                 if (!user.Photos.Any(x => x.IsMainProfilePicture) && request.isProfilePicture) photo.IsMainProfilePicture = true;
 
                 user.Photos.Add(photo);

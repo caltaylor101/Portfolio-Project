@@ -43,15 +43,16 @@ function BlogForm() {
         { label: 'React', value: 'React' }
     ]
 
-    const { blogStore } = useStore();
+    const { blogStore, profileStore } = useStore();
 
     useEffect(() => {
         blogStore.selectedBlog = initialState;
     }, []);
 
     function handleFormSubmit(blog: Blog) {
+        const blogPhotos = profileStore.blogPhotos;
         blog.id = uuid();
-        blogStore.createBlog(blog).then(() => {
+        blogStore.createBlog(blog, blogPhotos!).then(() => {
             blogStore.getBlogById(blog.urlSuffix, blog.id).then(() => {
                 navigate(`/read-blog/${blogStore.selectedBlog?.urlSuffix}`);
             });

@@ -5,5 +5,6 @@ export interface Photo {
     url: string,
     isProfilePicture: boolean,
     isMainProfilePicture: boolean,
-    blog?: Blog
+    blog?: Blog,
+    blogId?: string
 }

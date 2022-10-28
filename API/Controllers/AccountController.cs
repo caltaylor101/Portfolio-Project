@@ -141,6 +141,13 @@ namespace API.Controllers
                 .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
 
             var userToReturn = _mapper.Map<Application.Profiles.Profile>(user);
+            List<Photo> test = new List<Photo>();
+            foreach (var photo in userToReturn.Photos)
+            {
+                test.Add(_mapper.Map<Photo>(photo));
+            }
+
+            userToReturn.Photos = test;
 
             return userToReturn;
         }

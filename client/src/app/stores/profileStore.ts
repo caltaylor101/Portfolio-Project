@@ -27,6 +27,15 @@ export default class ProfileStore {
         return false;
     }
 
+    get blogPhotos() {
+        console.log(this.profile?.photos);
+        if (this.isCurrentUser)
+        {
+            return this.profile?.photos.filter(x => x.isProfilePicture === false && x.blogId === null);
+        }
+        return null;
+    }
+
     loadProfile = async (username: string) => {
         this.loadingProfile = true;
         try {

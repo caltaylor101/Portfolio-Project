@@ -28,7 +28,7 @@ const BlogListItem = ({ blog }: Props) => {
     }
 
     function selectBlog(id: string) {
-        blogStore.selectBlog(id);
+        blogStore.getBlogById("null", id);
     }
 
     return (

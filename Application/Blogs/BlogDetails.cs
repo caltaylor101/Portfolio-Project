@@ -33,8 +33,8 @@ namespace Application.Blogs
                     var blogToReturn = _mapper.Map<MyBlogsDto>(blog);
                     return Result<MyBlogsDto>.Success(blogToReturn);
                 }
-                var urlBlog = await _context.Blogs.FindAsync(request.Id);
-                    var urlBlogToReturn = _mapper.Map<MyBlogsDto>(urlBlog);
+                var urlBlog = await _context.Blogs.Include(p => p.Photos).FirstOrDefaultAsync(x => x.UrlSuffix == request.UrlSuffix);
+                var urlBlogToReturn = _mapper.Map<MyBlogsDto>(urlBlog);
                 return Result<MyBlogsDto>.Success(urlBlogToReturn);
 
             }

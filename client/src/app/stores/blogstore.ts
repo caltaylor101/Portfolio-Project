@@ -153,6 +153,7 @@ export default class BlogStore {
         this.loading = true;
         try {
             const selectedBlog = await agent.Blogs.details(urlSuffix);
+            this.blogRegistry.delete(selectedBlog.id);
             this.blogRegistry.set(selectedBlog.id, selectedBlog);
             this.selectBlog(selectedBlog.id);
             this.loading = false;
@@ -166,6 +167,7 @@ export default class BlogStore {
         this.loading = true;
         try {
             const selectedBlog = await agent.Blogs.details(urlSuffix, id);
+            this.blogRegistry.delete(selectedBlog.id);
             this.blogRegistry.set(selectedBlog.id, selectedBlog);
             this.selectBlog(selectedBlog.id);
             this.loading = false;

@@ -37,6 +37,8 @@ namespace Application.Blogs
                 if (blog == null) return null;
 
                 _mapper.Map(request.Blog, blog);
+                //Initialize photos so they don't cause an error when saving. 
+                blog.Photos = new List<Photo>();
 
                 var result = await _context.SaveChangesAsync() > 0;
 

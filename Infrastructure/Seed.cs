@@ -52,7 +52,7 @@ namespace Infrastructure
                         Description = "Blog 2 months ago",
                         Category = "drinks",
                         Body = "Body of 1",
-                        UrlSuffix = "Test",
+                        UrlSuffix = "Test1",
                         AppUser = users[0]
                     },
                     new Blog
@@ -62,7 +62,7 @@ namespace Infrastructure
                         Description = "Blog 1 month ago",
                         Category = "culture",
                         Body = "Another body of the 2nd",
-                        UrlSuffix = "Test",
+                        UrlSuffix = "Test2",
                         AppUser = users[0]
                     },
                     new Blog
@@ -72,7 +72,7 @@ namespace Infrastructure
                         Description = "Blog 1 month in future",
                         Category = "music",
                         Body = "Some complicated stuff.",
-                        UrlSuffix = "Test",
+                        UrlSuffix = "Test3",
                         AppUser = users[0]
 
                     },
@@ -83,7 +83,7 @@ namespace Infrastructure
                         Description = "Blog 2 months in future",
                         Category = "food",
                         Body = "woop woop",
-                        UrlSuffix = "Test",
+                        UrlSuffix = "Test4",
                         AppUser = users[1]
 
 
@@ -95,7 +95,7 @@ namespace Infrastructure
                         Description = "Blog 3 months in future",
                         Category = "drinks",
                         Body = "woop woop",
-                        UrlSuffix = "Test",
+                        UrlSuffix = "Test5",
                         AppUser = users[0]
 
 
@@ -107,7 +107,7 @@ namespace Infrastructure
                         Description = "Blog 4 months in future",
                         Category = "culture",
                         Body = "woop woop",
-                        UrlSuffix = "Test",
+                        UrlSuffix = "Test6",
                         AppUser = users[1]
 
 
@@ -119,7 +119,7 @@ namespace Infrastructure
                         Description = "Blog 5 months in future",
                         Category = "drinks",
                         Body = "woop woop",
-                        UrlSuffix = "Test",
+                        UrlSuffix = "Test7",
                         AppUser = users[2]
 
 
@@ -131,7 +131,7 @@ namespace Infrastructure
                         Description = "Blog 6 months in future",
                         Category = "music",
                         Body = "woop woop",
-                        UrlSuffix = "Test",
+                        UrlSuffix = "Test8",
                         AppUser = users[0]
 
 
@@ -143,7 +143,7 @@ namespace Infrastructure
                         Description = "Blog 7 months in future",
                         Category = "travel",
                         Body = "woop woop",
-                        UrlSuffix = "Test",
+                        UrlSuffix = "Test9",
                         AppUser = users[2]
 
 
@@ -155,7 +155,7 @@ namespace Infrastructure
                         Description = "Blog 8 months in future",
                         Category = "drinks",
                         Body = "woop woop",
-                        UrlSuffix = "Test",
+                        UrlSuffix = "Test10",
                         AppUser = users[2]
 
 

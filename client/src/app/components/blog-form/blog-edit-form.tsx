@@ -30,7 +30,7 @@ function BlogEditForm() {
         description: '',
         category: '',
         body: '',
-        urlSuffix: '',
+        urlSuffix: ''
     }
 
     const [currentBlog, setBlog] = useState<BlogModel>(initialState as BlogModel);

@@ -1,4 +1,4 @@
-import { Col, Typography } from "antd";
+import { Col, Typography, Image } from "antd";
 import { observer } from "mobx-react-lite";
 import { Fragment, useEffect, useState } from "react";
 import { Blog as BlogModel } from "../../models/blog";
@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import LoadingComponent from "../loading/loading";
 import Paragraph from "antd/lib/typography/Paragraph";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { coldarkDark, coy, dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { nightOwl } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 interface Props {
@@ -18,37 +17,57 @@ const BlogDetails = () => {
 
   const { blogStore } = useStore();
   const { selectedBlog } = blogStore;
-  const [currentBlog, setCurrentBlog] = useState<BlogModel | null>(null);
+  // const [currentBlog, setCurrentBlog] = useState<BlogModel | null>(null);
   const { urlSuffix } = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    console.log('selected blog' + selectedBlog);
+    // blogStore.getBlog(urlSuffix!);
+    // setCurrentBlog(blogStore.selectedBlog!);
+    // console.log(currentBlog);
+  }, []);
+
+  useEffect(() => {
     if (selectedBlog !== undefined) {
+      console.log('selectedblog');
+      console.log(selectedBlog);
+      console.log('selectedblog');
+
       window.sessionStorage.setItem("blog", JSON.stringify(selectedBlog));
-      setCurrentBlog(selectedBlog);
+      // setCurrentBlog(selectedBlog);
+
     }
-  }, [selectedBlog]);
+  }, []);
 
   useEffect(() => {
     try {
       if (selectedBlog === undefined) {
+        console.log('test ');
         let exampleBlog = JSON.parse(window.sessionStorage.getItem("blog")!);
+        console.log(exampleBlog);
         if (exampleBlog === null || exampleBlog.urlSuffix !== urlSuffix) {
           blogStore.getBlog(urlSuffix!);
+          console.log(blogStore.selectedBlog);
         }
-        setCurrentBlog(exampleBlog);
+        // setCurrentBlog(exampleBlog);
+        blogStore.selectedBlog = exampleBlog;
       }
     } catch (error) {
       console.log(error);
     }
-
   }, []);
 
-  let myCode = currentBlog?.body.match(/(?<=<code>\s+).*?(?=\s+<\/code>)/gs);
-  let myBody = currentBlog?.body.split((/[\n]/));
+  //Find all the <code></code> tags and separate them from the body. 
+  let myCode = blogStore.selectedBlog?.body.match(/(?<=<code>\s+).*?(?=\s+<\/code>)/gs);
+  //Divide the body by all the new lines
+  let myBody = blogStore.selectedBlog?.body.split((/[\n]/));
   let codeCount = -1;
   let isCode = false;
 
-  function testFunction() {
+  //Find all pictures
+  let myPictures = blogStore.selectedBlog?.body.match(/(<image_\d>)/gs);
+  function setCode() {
     isCode = true;
     codeCount += 1;
   }
@@ -64,7 +83,7 @@ const BlogDetails = () => {
             borderBottom: "5px solid white"
           }}
         >
-          {currentBlog?.title}
+          {blogStore.selectedBlog?.title}
         </Typography.Title>
         <Paragraph style={{
           borderBottom: "2px dashed white"
@@ -83,32 +102,79 @@ const BlogDetails = () => {
             className='base-text-color'
             style={{ fontSize: '1.6em' }}
           >
-            {currentBlog?.description}
+            {blogStore.selectedBlog?.description}
           </Typography.Text>
         </Paragraph>
+
+
         {myBody?.map((text, key) => {
+
           if (text.split("<code>").length > 1)
           {
-            testFunction();
+            setCode();
+            //Find the separated code
             let myFormattedCode = myCode?.at(codeCount)?.split((/[\n]/));
             return (
+              //Add the separated code here.
               <SyntaxHighlighter language="javascript" style={nightOwl}>
                 {myCode?.at(codeCount)!}
               </SyntaxHighlighter>
             )
           }
+          //Close the code tag
           else if (text.split("</code>").length > 1)
           {
             isCode = false;
           }
+          
+          //Continue the paragraph. 
           else if (!isCode)
           {
-            return (
-            <Paragraph key={key} className="base-text-color" style={{ fontSize: "1.5em" }}>
-              {text}
-            </Paragraph>
-            )
+            if (text.split(/(<image_\d>)/).length > 1 && blogStore.selectedBlog!.photos !== null)
+            {
+            let test = text.split(/(<image_\d>)/);
+            return (test.map(stuff => {
+              let testVar = stuff.match(/(<image_\d>)/);
+              if(testVar !== null)
+              {
+                console.log('testVar ' + testVar);
+                let testNumber = testVar[0].match(/(\d)/) as any;
+                console.log(blogStore.selectedBlog!.photos);
+                console.log(testNumber);
+                let srcImage = blogStore.selectedBlog?.photos?.filter(x => x.order == testNumber[0].toString());
+                console.log('testvar inside ' + srcImage);
+                let srcImageReference = srcImage![0];
+                return (
+                  <Image src={`${srcImageReference.url}`} />
+
+                );
+              }
+              else
+              {
+                return (
+                  <Paragraph key={key} className="base-text-color" style={{ fontSize: "1.5em" }}>
+                    {stuff}
+                  </Paragraph>
+                )
+              }
+            }));
+
+            }
+            else
+            {
+              return (
+                <Paragraph key={key} className="base-text-color" style={{ fontSize: "1.5em" }}>
+                  {text}
+                </Paragraph>
+                )
+            }
+            
           }
+          // if (text.split(/(<image_\d>)/).length > 1)
+          // {
+          //   let test = text.split(/(<image_\d>)/);
+          //   console.log(test);
+          // }
       })}
       </Col>
     </Fragment>

@@ -46,7 +46,16 @@ namespace Application.Photos
 
                 if (result == null) return Result<Unit>.Failure("Problem deleting photo from Cloudinary");
 
+                System.Console.WriteLine("Here");
+                System.Console.WriteLine("Here");
+                System.Console.WriteLine("Here");
+                System.Console.WriteLine("Here");
+                System.Console.WriteLine("Here");
+
+                var photoToDelete = _context.Photos.FirstOrDefaultAsync(x => x.Id == photo.Id);
+
                 user.Photos.Remove(photo);
+                _context.Photos.Remove(photoToDelete.Result);
 
                 var success = await _context.SaveChangesAsync() > 0;
 

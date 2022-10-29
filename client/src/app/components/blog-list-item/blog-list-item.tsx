@@ -1,7 +1,8 @@
 import { Col, Card, Button, Typography, Row } from "antd";
 import { observer } from "mobx-react-lite";
 import { Fragment, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { RouteLinks } from "../../../App-Routes";
 import { Blog } from "../../models/blog";
 import { useStore } from "../../stores/store";
 
@@ -11,12 +12,13 @@ interface Props {
 
 const BlogListItem = ({ blog }: Props) => {
 
-
+    const routeLinks = new RouteLinks();
     const { blogStore, userStore } = useStore();
     const { blogsByDate } = blogStore;
 
 
     const [target, setTarget] = useState('');
+    const navigate = useNavigate();
 
     function handleDeleteBlog(id: string) {
         setTarget(id);
@@ -27,8 +29,10 @@ const BlogListItem = ({ blog }: Props) => {
         // })
     }
 
-    function selectBlog(id: string) {
-        blogStore.getBlogById("null", id);
+    function selectBlog(id: string, url: string) {
+        blogStore.getBlogById("null", id).then(() => {
+            navigate(url);
+        });
     }
 
     return (
@@ -59,22 +63,11 @@ const BlogListItem = ({ blog }: Props) => {
                     
                 </Card>
                 <Col>
-                        <Link
-                            to={`/read-blog/${blog.urlSuffix}`}
-                            onClick={() => selectBlog(blog.id)}
-                        >
-                            <Button style={{ marginTop: "55px" }}>Read</Button>
-                        </Link>
+                            <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, `/read-blog/${blog.urlSuffix}`)}>Read</Button>
 
                         {blog.appUser == userStore.user?.username &&
                             <Fragment>
-                                <Link
-                                    to='/edit-blog'
-                                    onClick={() => selectBlog(blog.id)}
-                                >
-                                    <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id)}>Edit</Button>
-                                </Link>
-
+                                    <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, routeLinks.blogEditForm)}>Edit</Button>
                                 <Button
                                     style={{ marginTop: "55px" }}
                                     danger

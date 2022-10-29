@@ -30,7 +30,7 @@ namespace Application.Blogs
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                Blog blog = await _context.Blogs.FindAsync(request.Blog.Id);
+                Blog blog = await _context.Blogs.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Id == request.Blog.Id);
 
                 request.Blog.AppUser = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
                 

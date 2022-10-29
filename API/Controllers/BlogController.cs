@@ -48,8 +48,9 @@ namespace API.Controllers
 
         [Authorize(Policy = "IsBlogAuthor")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteActivity(Guid id)
+        public async Task<IActionResult> DeleteBlog(Guid id)
         {
+            
             return HandleResult(await Mediator.Send(new BlogDelete.Command { Id = id }));
         }
 

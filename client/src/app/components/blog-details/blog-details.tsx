@@ -22,7 +22,6 @@ const BlogDetails = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log('selected blog' + selectedBlog);
     // blogStore.getBlog(urlSuffix!);
     // setCurrentBlog(blogStore.selectedBlog!);
     // console.log(currentBlog);
@@ -30,10 +29,6 @@ const BlogDetails = () => {
 
   useEffect(() => {
     if (selectedBlog !== undefined) {
-      console.log('selectedblog');
-      console.log(selectedBlog);
-      console.log('selectedblog');
-
       window.sessionStorage.setItem("blog", JSON.stringify(selectedBlog));
       // setCurrentBlog(selectedBlog);
 
@@ -43,12 +38,9 @@ const BlogDetails = () => {
   useEffect(() => {
     try {
       if (selectedBlog === undefined) {
-        console.log('test ');
         let exampleBlog = JSON.parse(window.sessionStorage.getItem("blog")!);
-        console.log(exampleBlog);
         if (exampleBlog === null || exampleBlog.urlSuffix !== urlSuffix) {
           blogStore.getBlog(urlSuffix!);
-          console.log(blogStore.selectedBlog);
         }
         // setCurrentBlog(exampleBlog);
         blogStore.selectedBlog = exampleBlog;
@@ -75,7 +67,7 @@ const BlogDetails = () => {
   if (blogStore.loading) return <LoadingComponent content={"Loading..."} />
   return (
     <Fragment>
-      <Col xs={{ span: 24 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} style={{ marginTop: '50px' }}>
+      <Col xs={{ span: 24 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} style={{ marginTop: '50px', paddingBottom: '50px' }}>
         <Typography.Title
           level={1}
           className='base-text-color'
@@ -116,7 +108,7 @@ const BlogDetails = () => {
             let myFormattedCode = myCode?.at(codeCount)?.split((/[\n]/));
             return (
               //Add the separated code here.
-              <SyntaxHighlighter language="javascript" style={nightOwl}>
+              <SyntaxHighlighter key = {key} language="javascript" style={nightOwl}>
                 {myCode?.at(codeCount)!}
               </SyntaxHighlighter>
             )
@@ -130,30 +122,27 @@ const BlogDetails = () => {
           //Continue the paragraph. 
           else if (!isCode)
           {
-            if (text.split(/(<image_\d>)/).length > 1 && blogStore.selectedBlog!.photos !== null)
+            let imageTextSplit = text.split(/(<image_\d>)/);
+            if (imageTextSplit.length > 1 && blogStore.selectedBlog!.photos !== null)
             {
-            let test = text.split(/(<image_\d>)/);
-            return (test.map(stuff => {
-              let testVar = stuff.match(/(<image_\d>)/);
+            return (imageTextSplit.map((imageText, i = 100): any => {
+              i += 1;
+              let testVar = imageText.match(/(<image_\d>)/);
               if(testVar !== null)
               {
-                console.log('testVar ' + testVar);
                 let testNumber = testVar[0].match(/(\d)/) as any;
-                console.log(blogStore.selectedBlog!.photos);
-                console.log(testNumber);
                 let srcImage = blogStore.selectedBlog?.photos?.filter(x => x.order == testNumber[0].toString());
-                console.log('testvar inside ' + srcImage);
                 let srcImageReference = srcImage![0];
                 return (
-                  <Image src={`${srcImageReference.url}`} />
+                  <Image key={i} src={`${srcImageReference.url}`} />
 
                 );
               }
               else
               {
                 return (
-                  <Paragraph key={key} className="base-text-color" style={{ fontSize: "1.5em" }}>
-                    {stuff}
+                  <Paragraph key={i} className="base-text-color" style={{ fontSize: "1.5em" }}>
+                    {imageText}
                   </Paragraph>
                 )
               }

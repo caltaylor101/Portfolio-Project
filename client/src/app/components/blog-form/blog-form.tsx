@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect} from "react";
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../stores/store";
@@ -49,6 +49,14 @@ function BlogForm() {
         blogStore.selectedBlog = initialState;
     }, []);
 
+    function onCrop(cropper: any, file: Blob) {
+        if (cropper) {
+            cropper.getCroppedCanvas().toBlob((file: Blob) => profileStore.uploadPhoto(file));
+        }
+    }
+
+
+
     function handleFormSubmit(blog: Blog) {
         const blogPhotos = profileStore.blogPhotos;
         blog.id = uuid();
@@ -84,7 +92,7 @@ function BlogForm() {
                     </Formik>
                 </Col>
             </Row>
-            <PhotoUploadWidget />
+            <PhotoUploadWidget onCrop={onCrop} />
             <BlogPhotos />
         </Fragment>
     );

@@ -93,7 +93,6 @@ function BlogForm() {
                 </Col>
             </Row>
             <PhotoUploadWidget onCrop={onCrop} />
-            <BlogPhotos />
         </Fragment>
     );
 }

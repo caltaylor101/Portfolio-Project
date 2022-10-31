@@ -4,6 +4,7 @@ import Meta from "antd/lib/card/Meta";
 import { observer } from "mobx-react-lite";
 import { Fragment, useEffect, useState } from "react";
 import { useStore } from "../../stores/store";
+import BlogPhotos from "../image-display/blogPhotos";
 import PhotoWidgetDropzone from "./photo-widget-dropzone";
 import './photo-widget.css';
 import PhotoWidgetCropper from "./PhotoWidgetCropper";
@@ -17,13 +18,20 @@ export default observer(function PhotoUploadWidget({ onCrop }: Props) {
 
     const { profileStore: { isCurrentUser, uploadPhoto } } = useStore();
     const [files, setFiles] = useState<any>([]);
-    const [cropper, setCropper] = useState<Cropper>();
+    const [tabKey, setTabKey] = useState<string>('1');
+    const [cropper, setCropper] = useState<Cropper | undefined>();
     const outerDiv = {
         paddingTop: '30px',
         height: 300,
         justifyContent: 'center'
     }
 
+    function onCropBlog() {
+        cropper?.getCroppedCanvas().toBlob(blob => onCrop(cropper, blob!));
+        files.length = 0;
+        document.getElementsByClassName('img-preview')[0].childNodes[0].remove();
+        setTabKey('1');
+    }
 
 
     useEffect(() => {
@@ -35,13 +43,13 @@ export default observer(function PhotoUploadWidget({ onCrop }: Props) {
     return (
 
         <Fragment>
-            <Tabs defaultActiveKey="1" centered style={{color:'white'}}>
-                <Tabs.TabPane tab="Tab 1" key="1">
-                    
+            <Tabs type='card' defaultActiveKey="1" activeKey={tabKey}  centered onTabClick={(e) => {setTabKey(e); return (files[0].preview)}}>
+                <Tabs.TabPane tab="Tab 1" key="1" >
+                        <BlogPhotos />
                 </Tabs.TabPane>
-                <Tabs.TabPane tab="Tab 2" key="2" >
+                <Tabs.TabPane tab="Tab 2" key="2">
                 <Row style={{ paddingBottom: '25px' }}>
-                        <Col span={5} offset={4}>
+                        <Col span={6} offset={3}>
                             <Card
                                 style={{
                                     width: '100%',
@@ -62,7 +70,7 @@ export default observer(function PhotoUploadWidget({ onCrop }: Props) {
                             </Card>
                         </Col>
 
-                        <Col span={5}>
+                        <Col span={6}>
                             <Card
                                 style={{
                                     width: '100%',
@@ -89,7 +97,7 @@ export default observer(function PhotoUploadWidget({ onCrop }: Props) {
                             </Card>
                         </Col>
 
-                        <Col span={5}>
+                        <Col span={6}>
                             <Card
                                 style={{
                                     width: '100%',
@@ -105,8 +113,8 @@ export default observer(function PhotoUploadWidget({ onCrop }: Props) {
                                     </div>
                                 }
                                 actions={[
-                                    <Button icon={<UploadOutlined />} type='primary' className='success-btn' onClick={() => cropper?.getCroppedCanvas().toBlob(blob => onCrop(cropper, blob!))} size='large' style={{ width: '100%' }}>Upload</Button>,
-                                    <Button icon={<UploadOutlined />} onClick={() => cropper?.getCroppedCanvas().toBlob(blob => onCrop(cropper, blob!))} size='large' style={{ width: '100%' }}>Click to Upload</Button>
+                                    <Button icon={<UploadOutlined />} type='primary' className='success-btn' onClick={() => onCropBlog()} size='large' style={{ width: '100%' }}>Upload</Button>,
+                                    // <Button icon={<UploadOutlined />} onClick={() => onCropBlog} size='large' style={{ width: '100%' }}>Click to Upload</Button>
                                 ]}
                             >
                                 <Meta

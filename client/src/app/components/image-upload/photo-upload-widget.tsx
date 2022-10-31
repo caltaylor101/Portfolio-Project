@@ -9,6 +9,7 @@ import PhotoWidgetDropzone from "./photo-widget-dropzone";
 import './photo-widget.css';
 import PhotoWidgetCropper from "./PhotoWidgetCropper";
 
+//use the upload function the axios.
 interface Props {
     onCrop: (cropper: any, file: Blob) => void;
 }
@@ -22,7 +23,7 @@ export default observer(function PhotoUploadWidget({ onCrop }: Props) {
     const [cropper, setCropper] = useState<Cropper | undefined>();
     const outerDiv = {
         paddingTop: '30px',
-        height: 300,
+        height: 200,
         justifyContent: 'center'
     }
 
@@ -43,12 +44,12 @@ export default observer(function PhotoUploadWidget({ onCrop }: Props) {
     return (
 
         <Fragment>
-            <Tabs type='card' defaultActiveKey="1" activeKey={tabKey}  centered onTabClick={(e) => {setTabKey(e); return (files[0].preview)}}>
+            <Tabs style={{borderBottom: '5px solid white', paddingBottom:'10px'}} type='card' defaultActiveKey="1" activeKey={tabKey}  centered onTabClick={(e) => {setTabKey(e); return (files[0].preview)}}>
                 <Tabs.TabPane tab="Tab 1" key="1" >
                         <BlogPhotos />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Tab 2" key="2">
-                <Row style={{ paddingBottom: '25px' }}>
+                <Row style={{ paddingBottom: '25px'}}>
                         <Col span={6} offset={3}>
                             <Card
                                 style={{

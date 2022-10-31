@@ -3,7 +3,11 @@ import { Fragment, useEffect } from "react";
 import { useStore } from "../../stores/store";
 import { Card, Col, Image, Row } from 'antd';
 import './blogPhotos.css';
+import { Photo } from "../../models/photo";
 
+interface Props {
+    photos: Photo[];
+}
 
 
 export default observer(function BlogPhotos() {
@@ -19,7 +23,7 @@ export default observer(function BlogPhotos() {
 
     return (
         <Fragment>
-                    <Row style={{paddingBottom:'25px'}}>
+                    <Row style={{paddingBottom:'25px', overflowX: 'hidden', maxHeight: 350}} >
 
             {profileStore.blogPhotos?.map((image, i) => (
                         <Col span={4} offset={(i%4 === 0) ? 4 : 0} style={{paddingTop:'25px', minHeight:300}}>

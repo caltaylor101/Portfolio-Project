@@ -15,6 +15,7 @@ export default class ProfileStore {
     loadingActivities = false;
     photos: Photo[] = [];
     loadingPhotos = false;
+    loadingMainPhoto = false;
 
 
     constructor() {
@@ -29,10 +30,10 @@ export default class ProfileStore {
         return false;
     }
 
-    get blogPhotos() {
+    get getPhotos() {
         if (this.isCurrentUser)
         {
-            console.log(this.photos);
+            // console.log(this.photos);
             return this.photos;
             // return this.profile?.photos.filter(x => x.isProfilePicture === false && x.blogId === null);
         }
@@ -93,20 +94,18 @@ export default class ProfileStore {
     }
 
     setMainPhoto = async (photo: Photo) => {
-        this.loading = true;
+        this.loadingMainPhoto = true;
         try {
             await agent.Profiles.setMainPhoto(photo.id);
             store.userStore.setImage(photo.url);
             runInAction(() => {
-                if (this.profile && this.profile.photos) {
-                    this.profile.photos.find(p => p.isMainProfilePicture)!.isMainProfilePicture = false;
-                    this.profile.photos.find(p => p.id === photo.id)!.isMainProfilePicture = true;
+                if (this.profile && this.photos) {
                     this.profile.profileImage = photo.url;
-                    this.loading = false;
+                    this.loadingMainPhoto = false;
                 }
             })
         } catch (error) {
-            runInAction(() => this.loading = false);
+            runInAction(() => this.loadingMainPhoto = false);
             console.log(error);
         }
     }
@@ -117,7 +116,7 @@ export default class ProfileStore {
             await agent.Profiles.deletePhoto(photo.id);
             runInAction(() => {
                 if (this.profile) {
-                    this.profile.photos = this.profile.photos?.filter(p => p.id !== photo.id);
+                    this.photos = this.photos?.filter(p => p.id !== photo.id);
                     this.loading = false;
                 }
             })

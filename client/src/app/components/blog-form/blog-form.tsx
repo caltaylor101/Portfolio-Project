@@ -59,7 +59,7 @@ function BlogForm() {
 
 
     function handleFormSubmit(blog: Blog) {
-        const blogPhotos = profileStore.blogPhotos;
+        const blogPhotos = profileStore.getPhotos;
         blog.id = uuid();
         blogStore.createBlog(blog, blogPhotos!).then(() => {
             blogStore.getBlogById(blog.urlSuffix, blog.id).then(() => {

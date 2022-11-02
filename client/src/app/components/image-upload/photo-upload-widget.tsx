@@ -47,7 +47,7 @@ export default observer(function PhotoUploadWidget({ onCrop, isProfilePicture }:
         <Fragment>
             <Tabs style={{borderBottom: '5px solid white', paddingBottom:'0px'}} type='card' defaultActiveKey="1" activeKey={tabKey}  centered onTabClick={(e) => {setTabKey(e); return (files[0].preview)}}>
                 <Tabs.TabPane tab="Blog Photos" key="1" >
-                        <BlogPhotos isProfilePicture={isProfilePicture} photos={[]} />
+                        <BlogPhotos isProfilePicture={isProfilePicture} />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Add Photo" key="2">
                 <Row style={{ paddingBottom: '20px'}}>

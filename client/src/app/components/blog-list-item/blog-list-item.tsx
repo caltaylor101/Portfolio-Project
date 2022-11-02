@@ -1,4 +1,4 @@
-import { Col, Card, Button, Typography, Row } from "antd";
+import { Col, Card, Button, Typography, Row, Space } from "antd";
 import { observer } from "mobx-react-lite";
 import { Fragment, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -63,11 +63,11 @@ const BlogListItem = ({ blog }: Props) => {
                     
                 </Card>
                 <Col>
+                            <Space size='middle'>
                             <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, `/read-blog/${blog.urlSuffix}`)}>Read</Button>
-
                         {blog.appUser == userStore.user?.username &&
                             <Fragment>
-                                    <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, routeLinks.blogEditForm)}>Edit</Button>
+                                <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, routeLinks.blogEditForm)}>Edit</Button>
                                 <Button
                                     style={{ marginTop: "55px" }}
                                     danger
@@ -77,6 +77,8 @@ const BlogListItem = ({ blog }: Props) => {
                                 </Button>
                             </Fragment>
                         }
+                            </Space>
+
                     </Col>
                 </Card>
             </Col>

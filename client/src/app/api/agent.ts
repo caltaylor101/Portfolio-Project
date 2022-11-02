@@ -109,7 +109,7 @@ const Account = {
 const Profiles = {
     current: () => requests.get<Profile>('/account/get-user-profile'),
     get: (username: string) => requests.get<Profile>(`/profile/${username}`),
-    setMainPhoto: (id: string) => requests.post(`/photo/${id}/setMain`, {}),
+    setMainPhoto: (id: string) => requests.post(`/photo/${id}/setMainPhoto`, {}),
     deletePhoto: (id: string) => requests.delete(`/photo/${id}`),
     updateProfile: (profile: Partial<Profile>) => requests.put(`/profiles`, profile)
 }

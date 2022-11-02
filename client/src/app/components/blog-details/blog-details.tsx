@@ -67,7 +67,7 @@ const BlogDetails = () => {
   if (blogStore.loading) return <LoadingComponent content={"Loading..."} />
   return (
     <Fragment>
-      <Col xs={{ span: 24 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} style={{ marginTop: '50px', paddingBottom: '50px' }}>
+      <Col xs={{ span: 22, offset: 1 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} style={{ marginTop: '50px', paddingBottom: '50px' }}>
         <Typography.Title
           level={1}
           className='base-text-color'

@@ -42,7 +42,7 @@ const BlogListItem = ({ blog }: Props) => {
 
                 <Card className="blog-list-card">
                     <Row>
-                        <Col span={12}>
+                        <Col span={24}>
                             <Typography.Title underline className="base-text-color" level={1}>{blog.title}</Typography.Title>
                         </Col>
                         

@@ -73,7 +73,7 @@ function BlogForm() {
                 <h1 className="base-text-color">&nbsp;&nbsp;&nbsp;&nbsp;Post New Blog</h1>
             </Col>
             <Row>
-                <Col span={16} offset={4}>
+                <Col xs={{span: 20, offset: 0}} span={16} offset={4}>
                     <Formik validationSchema={validationSchema} initialValues={initialState} onSubmit={(values) => handleFormSubmit(values)}>
                         {({ handleSubmit, isValid, isSubmitting, dirty }: any) => (
                             <Form

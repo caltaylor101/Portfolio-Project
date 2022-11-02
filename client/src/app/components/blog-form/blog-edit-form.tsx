@@ -55,7 +55,7 @@ function BlogEditForm() {
 
     return (
         <Fragment>
-            <Col offset={3} span={14} style={{ borderBottom: "2px solid white", marginTop: "50px" }}>
+            <Col md={{span: 16, offset: 4}} offset={3} span={14} style={{ borderBottom: "2px solid white", marginTop: "50px" }}>
                 <h1 className="base-text-color">&nbsp;&nbsp;&nbsp;&nbsp;Edit Your Blog</h1>
             </Col>
             <Formik validationSchema={validationSchema} initialValues={currentBlog} onSubmit={(values) => handleFormSubmit(values)}>

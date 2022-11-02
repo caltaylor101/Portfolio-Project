@@ -1,5 +1,5 @@
-import { EditOutlined, EllipsisOutlined, SettingOutlined, UploadOutlined } from "@ant-design/icons";
-import { Avatar, Card, Col, Row, Image, Upload, Button, Tabs } from "antd";
+import { EditOutlined, UploadOutlined } from "@ant-design/icons";
+import {  Card, Col, Row, Button, Tabs } from "antd";
 import Meta from "antd/lib/card/Meta";
 import { observer } from "mobx-react-lite";
 import { Fragment, useEffect, useState } from "react";
@@ -12,10 +12,11 @@ import PhotoWidgetCropper from "./PhotoWidgetCropper";
 //use the upload function the axios.
 interface Props {
     onCrop: (cropper: any, file: Blob) => void;
+    isProfilePicture: boolean;
 }
 
 
-export default observer(function PhotoUploadWidget({ onCrop }: Props) {
+export default observer(function PhotoUploadWidget({ onCrop, isProfilePicture }: Props) {
 
     const { profileStore: { isCurrentUser, uploadPhoto } } = useStore();
     const [files, setFiles] = useState<any>([]);
@@ -23,11 +24,11 @@ export default observer(function PhotoUploadWidget({ onCrop }: Props) {
     const [cropper, setCropper] = useState<Cropper | undefined>();
     const outerDiv = {
         paddingTop: '30px',
-        height: 200,
+        height: 245,
         justifyContent: 'center'
     }
 
-    function onCropBlog() {
+    function onCropBlob() {
         cropper?.getCroppedCanvas().toBlob(blob => onCrop(cropper, blob!));
         files.length = 0;
         document.getElementsByClassName('img-preview')[0].childNodes[0].remove();
@@ -44,12 +45,12 @@ export default observer(function PhotoUploadWidget({ onCrop }: Props) {
     return (
 
         <Fragment>
-            <Tabs style={{borderBottom: '5px solid white', paddingBottom:'10px'}} type='card' defaultActiveKey="1" activeKey={tabKey}  centered onTabClick={(e) => {setTabKey(e); return (files[0].preview)}}>
-                <Tabs.TabPane tab="Tab 1" key="1" >
-                        <BlogPhotos />
+            <Tabs style={{borderBottom: '5px solid white', paddingBottom:'0px'}} type='card' defaultActiveKey="1" activeKey={tabKey}  centered onTabClick={(e) => {setTabKey(e); return (files[0].preview)}}>
+                <Tabs.TabPane tab="Blog Photos" key="1" >
+                        <BlogPhotos isProfilePicture={isProfilePicture} photos={[]} />
                 </Tabs.TabPane>
-                <Tabs.TabPane tab="Tab 2" key="2">
-                <Row style={{ paddingBottom: '25px'}}>
+                <Tabs.TabPane tab="Add Photo" key="2">
+                <Row style={{ paddingBottom: '20px'}}>
                         <Col span={6} offset={3}>
                             <Card
                                 style={{
@@ -114,9 +115,9 @@ export default observer(function PhotoUploadWidget({ onCrop }: Props) {
                                     </div>
                                 }
                                 actions={[
-                                    <Button icon={<UploadOutlined />} type='primary' className='success-btn' onClick={() => onCropBlog()} size='large' style={{ width: '100%' }}>Upload</Button>,
+                                    <Button icon={<UploadOutlined />} type='primary' className='success-btn' onClick={() => onCropBlob()} size='large' style={{ width: '100%' }}>Upload</Button>,
                                     // <Button icon={<UploadOutlined />} onClick={() => onCropBlog} size='large' style={{ width: '100%' }}>Click to Upload</Button>
-                                ]}
+                                ] }
                             >
                                 <Meta
                                     title="Image Preview"
@@ -126,13 +127,7 @@ export default observer(function PhotoUploadWidget({ onCrop }: Props) {
                         </Col>
                     </Row>
                 </Tabs.TabPane>
-                <Tabs.TabPane tab="Tab 3" key="3">
-                    Content of Tab Pane 3
-                </Tabs.TabPane>
             </Tabs>
-
-
-
         </Fragment>
     )
 })

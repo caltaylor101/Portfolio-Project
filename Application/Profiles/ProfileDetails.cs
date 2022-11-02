@@ -31,6 +31,7 @@ namespace Application.Profiles
             public async Task<Result<Profile>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _context.Users
+                    .Where(x => x.Photos.Where(p => p.IsMainProfilePicture).First().IsMainProfilePicture)
                     .ProjectTo<Profile>(_mapper.ConfigurationProvider)
                     .SingleOrDefaultAsync(x => x.Username == request.Username);
 

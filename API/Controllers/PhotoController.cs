@@ -11,10 +11,10 @@ namespace API.Controllers
     public class PhotoController : BaseApiController
     {
         [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Add([FromForm] AddPhoto.Command command)
+        [HttpPost("{isProfilePicture}")]
+        public async Task<IActionResult> Add([FromForm] IFormFile file, bool isProfilePicture)
         {
-            return HandleResult(await Mediator.Send(command));
+            return HandleResult(await Mediator.Send(new  AddPhoto.Command{File = file, IsProfilePicture = isProfilePicture}));
         }
 
         [HttpDelete("{id}")]

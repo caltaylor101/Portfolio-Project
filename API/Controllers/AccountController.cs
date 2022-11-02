@@ -2,6 +2,7 @@ using System.Security.Claims;
 using API.DTOs;
 using API.Services;
 using Application.Blogs;
+using Application.Photos;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Domain;
@@ -141,12 +142,24 @@ namespace API.Controllers
         [HttpGet("get-user-profile")]
         public async Task<ActionResult<Application.Profiles.Profile>> GetCurrentUserProfile()
         {
-            var user = await _userManager.Users.Include(i => i.Photos)
+            var user = await _userManager.Users.Include(i => i.Photos.Where(p => p.IsMainProfilePicture))
                 .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
 
             var userToReturn = _mapper.Map<Application.Profiles.Profile>(user);
 
             return userToReturn;
+        }
+
+        [Authorize]
+        [HttpGet("get-user-pictures/{isProfilePicture}")]
+        public async Task<ActionResult<ICollection<PhotoDto>>> GetCurrentUserPhotos(bool isProfilePicture)
+        {
+            var user = isProfilePicture ? await _userManager.Users.Include(i => i.Photos.Where(p => p.IsProfilePicture))
+                .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email))
+                : await _userManager.Users.Include(i => i.Photos.Where(p => !p.IsProfilePicture && p.BlogId == null))
+                .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+            var photosToReturn = _mapper.Map<PhotoDto[]>(user.Photos); 
+            return photosToReturn;
         }
 
         

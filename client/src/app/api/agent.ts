@@ -96,13 +96,14 @@ const Account = {
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
     register: (user: UserFormValues) => requests.post<User>('/account/register', user),
     bio: () => requests.get<string>('/account/bio'),
-    uploadPhoto: (file: Blob) => {
+    uploadPhoto: (file: Blob, isProfilePicture: boolean) => {
         let formData = new FormData();
         formData.append('File', file);
-        return axios.post('photo', formData, {
+        return axios.post(`photo/${isProfilePicture}`, formData, {
             headers: {'Content-type': 'mulitpart/form-data'}
         })
-    }
+    },
+    getPhotos: (isProfilePicture: boolean) => requests.get<Photo[]>(`/account/get-user-pictures/${isProfilePicture}`)
 }
 
 const Profiles = {

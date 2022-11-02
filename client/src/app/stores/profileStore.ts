@@ -13,6 +13,8 @@ export default class ProfileStore {
     followings: Profile[] = [];
     loadingFollowings = false;
     loadingActivities = false;
+    photos: Photo[] = [];
+    loadingPhotos = false;
 
 
     constructor() {
@@ -28,12 +30,27 @@ export default class ProfileStore {
     }
 
     get blogPhotos() {
-        console.log(this.profile?.photos);
         if (this.isCurrentUser)
         {
-            return this.profile?.photos.filter(x => x.isProfilePicture === false && x.blogId === null);
+            console.log(this.photos);
+            return this.photos;
+            // return this.profile?.photos.filter(x => x.isProfilePicture === false && x.blogId === null);
         }
         return null;
+    }
+
+    loadPhotos = async (isProfilePicture: boolean) => {
+        this.loadingPhotos = true; 
+        try {
+            const photos = await agent.Account.getPhotos(isProfilePicture);
+            runInAction(() => {
+                this.photos = photos;
+                this.loadingPhotos = false;
+            })
+        } catch (error) {
+            console.log(error);
+            this.loadingPhotos = false;
+        }
     }
 
     loadProfile = async (username: string) => {
@@ -51,14 +68,14 @@ export default class ProfileStore {
         }
     }
 
-    uploadPhoto = async (file: Blob) => {
+    uploadPhoto = async (file: Blob, isProfilePicture: boolean) => {
         this.uploading = true;
         try {
-            const response = await agent.Account.uploadPhoto(file);
+            const response = await agent.Account.uploadPhoto(file, isProfilePicture);
             const photo = response.data;
             runInAction(() => {
                 if (this.profile) {
-                    this.profile.photos?.push(photo);
+                    this.photos?.push(photo);
                     if (photo.isProfilePicture && photo.isMainProfilePicture)
                     {
                         store.userStore.setImage(photo.url);

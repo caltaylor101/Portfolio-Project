@@ -51,7 +51,8 @@ function BlogForm() {
 
     function onCrop(cropper: any, file: Blob) {
         if (cropper) {
-            cropper.getCroppedCanvas().toBlob((file: Blob) => profileStore.uploadPhoto(file));
+            //second parameter isProfilePicture.
+            cropper.getCroppedCanvas().toBlob((file: Blob) => profileStore.uploadPhoto(file, false));
         }
     }
 
@@ -92,7 +93,7 @@ function BlogForm() {
                     </Formik>
                 </Col>
             </Row>
-            <PhotoUploadWidget onCrop={onCrop} />
+            <PhotoUploadWidget isProfilePicture={false} onCrop={onCrop} />
         </Fragment>
     );
 }

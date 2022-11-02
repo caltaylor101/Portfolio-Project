@@ -9,10 +9,16 @@ import "./current-user-dashboard.css";
 
 export default observer(function MyProfile() {
     const { Title, Paragraph } = Typography;
-    const { userStore } = useStore();
+    const { userStore, profileStore } = useStore();
     if (userStore.bio === null) 
     {
         userStore.getBio();
+    }
+    function onCrop(cropper: any, file: Blob) {
+        if (cropper) {
+            //second parameter isProfilePicture.
+            cropper.getCroppedCanvas().toBlob((file: Blob) => profileStore.uploadPhoto(file, true));
+        }
     }
     return (
         <Fragment>
@@ -69,9 +75,7 @@ export default observer(function MyProfile() {
                         <Title className='base-text-color'>Next Row</Title>
                     </Col>
                     <Col offset={0} span={17}>
-                        <PhotoUploadWidget onCrop={function (cropper: any, file: Blob): void {
-                            throw new Error("Function not implemented.");
-                        } } />
+                        <PhotoUploadWidget isProfilePicture={true} onCrop={onCrop} />
                         <BlogList isUserDashboard={true} />
                     </Col>
                 </Row>

@@ -25,8 +25,7 @@ export default observer(function MyProfile() {
             <PageHeader
                 className="site-page-header-responsive base-text-color"
                 onBack={() => window.history.back()}
-                title="Title"
-                subTitle="This is a subtitle"
+                title="Back"
                 // extra={[
                 //     <Button key="3">Operation</Button>,
                 //     <Button key="2">Operation</Button>,
@@ -51,7 +50,7 @@ export default observer(function MyProfile() {
                                     size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
                                     icon={<Image
                                         preview={false}
-                                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                        src={userStore.user?.image}
                                     />}
                                 />
                                 <Title level={3} className='base-text-color' style={{paddingLeft:'20px'}}>{userStore.user?.displayName}</Title>

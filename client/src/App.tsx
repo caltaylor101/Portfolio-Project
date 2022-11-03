@@ -19,6 +19,7 @@ import ModalContainer from './app/components/modals/modal-container';
 import { PrivateRoute } from './app/components/private-route/private-route';
 import MyProfile from './app/components/profile-dashboard/current-user-dashboard';
 import TestNav from './app/components/test-components/test';
+import HomePage from './app/components/home/homepage';
 
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
       <ModalContainer />
       <NavBar />
       <Routes>
-        <Route path={routeLinks.home} element={<BlogList isUserDashboard={false} />} />
+        <Route path={routeLinks.home} element={<HomePage />} />
           <Route path={routeLinks.blogList} element={<BlogList isUserDashboard={false}/>} />
         <Route path={routeLinks.blogDetails} element={<BlogDetails />} />
         {/* <Route path={`/read-blog`} element={<BlogDetails />} /> */}

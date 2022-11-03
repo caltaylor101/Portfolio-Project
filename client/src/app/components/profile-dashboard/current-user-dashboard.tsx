@@ -35,8 +35,7 @@ export default observer(function MyProfile() {
                 // ]}
             >
                 <Row>
-                    <Col offset={3} span={4} style={{backgroundColor:'#333333', padding: '10px'}}>
-                        <div className="logo" />
+                    <Col xs={{span:24}} sm={{span: 24}} lg={{span: 4, offset: 3}} style={{backgroundColor:'#333333', padding: '10px'}}>
                         <Content>
                             <div
                                 style={{
@@ -47,7 +46,7 @@ export default observer(function MyProfile() {
                             >
                                 <Avatar
                                     style={{ border: '5px solid white' }}
-                                    size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+                                    size={{ xs: 100, sm: 100, md: 100, lg: 100, xl: 100, xxl: 100 }}
                                     icon={<Image
                                         preview={false}
                                         src={userStore.user?.image}
@@ -58,22 +57,22 @@ export default observer(function MyProfile() {
                             </div>
                         </Content>
                     </Col>
-                    <Col offset={1} span={12} style={{backgroundColor:'#333333', padding: '10px'}}>
+                    <Col xs={{span:24, offset: 0}} sm={{span:24, offset: 0}} lg={{span:12, offset: 1}} style={{backgroundColor:'#333333', padding: '10px'}}>
                         <Title className='base-text-color' level={2}>Bio: </Title>
                         <Paragraph className="base-text-color" style={{fontSize: '1.33em'}}>{userStore.bio}</Paragraph>
                     </Col>
                 </Row>
                 <Row style={{marginTop:'10px'}}>
-                    <Col offset={3} span={4}>
+                    <Col xs={{span:24, offset: 0}} lg={{span:4, offset: 3}}>
                             <Button type='primary' className='success-btn' style={{width:'100%'}}>Edit Profile</Button>
                     </Col>
                 </Row>
 
                 <Row style={{marginTop:'20px'}}>
-                    <Col offset={3} span={4} style={{ backgroundColor: '#333333', padding: '10px' }}>
-                        <Title className='base-text-color'>Next Row</Title>
+                    <Col xs={{span:24, offset: 0}} lg={{span:4, offset: 3}} style={{ backgroundColor: '#333333', padding: '10px' }}>
+                        {/* <Title className='base-text-color'>Next features</Title> */}
                     </Col>
-                    <Col offset={0} span={17}>
+                    <Col xs={{span:24, offset: 0}} lg={{span:17, offset: 0}}>
                         <PhotoUploadWidget isProfilePicture={true} onCrop={onCrop} />
                         <BlogList isUserDashboard={true} />
                     </Col>

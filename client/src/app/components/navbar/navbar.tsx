@@ -47,6 +47,7 @@ export default observer(function NavBar() {
         <Layout className="layout">
             <div className="logo">
                 <Image
+                    
                     preview={false}
                     src="/assets/NavBar_Logo.png"
                 />

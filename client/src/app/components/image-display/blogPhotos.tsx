@@ -38,7 +38,7 @@ export default observer(function BlogPhotos({ isProfilePicture }: Props) {
 
     return (
         <Fragment>
-            <Row style={{ paddingBottom: '25px', overflowX: 'hidden', maxHeight: 400 }} >
+            <Row style={{ paddingBottom: '25px', overflowX: 'hidden', height:396 }} >
 
                 {profileStore.loadingPhotos
                     ?

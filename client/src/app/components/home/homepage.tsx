@@ -13,7 +13,7 @@ export default function HomePage() {
 
     return (
         <Fragment>
-            <Row style={{ paddingTop: '25px' }}>
+            <Row style={{ paddingTop: '100px' }}>
                 <Col xs={{ span: 22, offset: 1 }} sm={{ span: 24, offset: 0 }} xl={{ span: 18, offset: 6 }}>
                     <h3 style={{ color: '#3FC1C9' }}>Hi, my name is</h3>
                     <h1 style={{ color: '#CCD6F6', fontSize: '4.5em', marginBottom: 0 }} >Cody Llamas</h1>
@@ -24,14 +24,18 @@ export default function HomePage() {
                     <p className='base-text-color' style={{ fontSize: '1.5em', lineHeight: 1.25 }}>Currently, I’m focused on building and automating enterprise solutions at <span style={{ color: '#3FC1C9' }}><strong>Cognizant</strong></span>. </p>
                 </Col>
                 <Col xl={{ span: 3, offset: 3}}>
-                    <Link to={routeLinks.home}><GithubOutlined style={{fontSize:'4em'}} /></Link>
+                    <a href={routeLinks.myGithub}><GithubOutlined style={{fontSize:'9em', color:'#3FC1C9'}} /></a>
 
                 </Col>
                 
 
             </Row>
 
-            <Row style={{ paddingTop: '25px' }}>
+            <Row style={{ paddingTop: '250px' }}>
+                <Col xs={{ span: 22, offset: 1 }} sm={{ span: 24, offset: 0 }} xl={{ span: 18, offset: 6 }}>
+                    <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }} >About Me: </h2>
+                
+                </Col>
                 
             </Row>
 

@@ -69,11 +69,9 @@ function BlogForm() {
     }
     return (
         <Fragment>
-            <Col offset={4} span={14} style={{ borderBottom: "2px solid white", marginTop: "50px" }}>
+            <Col md={{span: 16, offset: 4}} offset={4} span={14} style={{ borderBottom: "2px solid white", marginTop: "50px" }}>
                 <h1 className="base-text-color">&nbsp;&nbsp;&nbsp;&nbsp;Post New Blog</h1>
             </Col>
-            <Row>
-                <Col xs={{span: 20, offset: 0}} span={16} offset={4}>
                     <Formik validationSchema={validationSchema} initialValues={initialState} onSubmit={(values) => handleFormSubmit(values)}>
                         {({ handleSubmit, isValid, isSubmitting, dirty }: any) => (
                             <Form
@@ -85,14 +83,10 @@ function BlogForm() {
                                 <TextArea label='Description:' rows={4} name='description' placeholder='Description' />
                                 <SelectInput placeholder="Category" name='category' label='Category:' options={options}  />
                                 <TextArea label='Body' rows={15} name='body' placeholder='Body' />
-                                <Col offset={2}>
                                     <Submit dirty={dirty} isValid={isValid} isSubmitting={isSubmitting} handleSubmit={handleSubmit} />
-                                </Col>
                             </Form>
                         )}
                     </Formik>
-                </Col>
-            </Row>
             <PhotoUploadWidget isProfilePicture={false} onCrop={onCrop} />
         </Fragment>
     );

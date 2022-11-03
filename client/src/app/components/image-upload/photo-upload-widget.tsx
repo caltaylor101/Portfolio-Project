@@ -51,7 +51,7 @@ export default observer(function PhotoUploadWidget({ onCrop, isProfilePicture }:
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Add Photo" key="2">
                 <Row style={{ paddingBottom: '20px'}}>
-                        <Col xs={{span: 24, offset: 0}} md={{span: 12, offset: 6}} span={6} offset={3}>
+                        <Col xs={{span: 24, offset: 0}} md={{span: 12, offset: 6}} lg={{span: 6, offset: 3}}>
                             <Card
                                 style={{
                                     width: '100%',
@@ -72,7 +72,7 @@ export default observer(function PhotoUploadWidget({ onCrop, isProfilePicture }:
                             </Card>
                         </Col>
 
-                        <Col xs={{span: 24, offset: 0}} md={{span: 12, offset: 6}} span={6}>
+                        <Col xs={{span: 24, offset: 0}} md={{span: 12, offset: 6}} lg={{span: 6, offset: 0}} span={6}>
                             <Card
                                 style={{
                                     width: '100%',
@@ -99,7 +99,7 @@ export default observer(function PhotoUploadWidget({ onCrop, isProfilePicture }:
                             </Card>
                         </Col>
 
-                        <Col xs={{span: 24, offset: 0}} md={{span: 12, offset: 6}} span={6}>
+                        <Col xs={{span: 24, offset: 0}} md={{span: 12, offset: 6}} lg={{span: 6, offset: 0}} span={6}>
                             <Card
                                 style={{
                                     width: '100%',

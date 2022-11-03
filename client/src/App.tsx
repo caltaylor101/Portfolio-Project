@@ -18,7 +18,6 @@ import LoadingComponent from './app/components/loading/loading';
 import ModalContainer from './app/components/modals/modal-container';
 import { PrivateRoute } from './app/components/private-route/private-route';
 import MyProfile from './app/components/profile-dashboard/current-user-dashboard';
-import TestNav from './app/components/test-components/test';
 import HomePage from './app/components/home/homepage';
 
 

@@ -1,10 +1,9 @@
 import { CaretRightOutlined, GithubOutlined } from "@ant-design/icons";
-import { Button, Col, List, Row, Typography, Image } from "antd";
-import Title from "antd/lib/typography/Title";
+import { Button, Col, List, Row, Typography, Image, Tabs } from "antd";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
 import { RouteLinks } from "../../../App-Routes";
 import FadeInSection from "../fade-in/fade-in";
+import './homepage.css';
 
 
 
@@ -28,10 +27,7 @@ export default function HomePage() {
                 <Col xl={{ span: 3, offset: 3 }}>
                     <a href={routeLinks.myGithub}><GithubOutlined style={{ fontSize: '9em', color: '#3FC1C9' }} /></a>
                 </Col>
-
-
             </Row>
-
 
             <FadeInSection>
                 <Row style={{ marginTop: '250px' }}>
@@ -52,17 +48,17 @@ export default function HomePage() {
                     </Col>
 
 
-                    <Col xl={{span:2, offset: 2}}>
-                    <Image preview={false} src="/assets/React_logo192.png" />
+                    <Col xl={{ span: 2, offset: 2 }}>
+                        <Image preview={false} src="/assets/React_logo192.png" />
 
                     </Col>
-                    <Col xl={{span:2}}>
-                    <Image preview={false} src="https://angular.io/assets/images/logos/angular/angular.svg" />
+                    <Col xl={{ span: 2 }}>
+                        <Image preview={false} src="https://angular.io/assets/images/logos/angular/angular.svg" />
 
                     </Col>
-                    
 
-                    
+
+
 
                 </Row>
 
@@ -88,11 +84,90 @@ export default function HomePage() {
                             )}
                         />
                     </Col>
-                    <Col xl={{span:2, offset: 4}}>
+                    <Col xl={{ span: 2, offset: 4 }}>
                         <Image preview={false} src="/assets/Microsoft_.NET_logo.png" />
                     </Col>
                 </Row>
 
+            </FadeInSection>
+            
+            <FadeInSection>
+                <Row style={{ marginTop: '250px' }}>
+                    <Col xl={{ span: 8, offset: 10 }}>
+                        <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }}>Work History: </h2>
+                    </Col>
+                    <Col xl={{ span: 8, offset: 10 }}>
+                        <Tabs
+                            className='tabHover'
+                            defaultActiveKey="1"
+                            tabPosition={'left'}
+                            style={{
+                                height: 220,
+                                color: '#3FC1C9',
+                                border: 'none !important',
+                                fontSize: '1.25em',
+                                tabSize: '2em'
+                            }}
+                            size='large'
+                            items={[
+                                {
+                                    label: 'Cognizant',
+                                    key: 'tab1',
+                                    children:
+                                        <Fragment>
+                                            Solutions Architect at <strong style={{ color: '#3FC1C9' }}>Cognizant</strong><br />
+                                            January 2020 - Present <br /><br />
+                                            <Row>
+                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Pitched, planned, and executed development of an analytic project planning platform with Angular and .NET Core.</p></Col>
+                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Developed and led Healthcare vertical solutions by analyzing and integrating in-house products with third-party software such as Facets, QNXT, and AppDynamics.</p></Col>
+                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Developed automated solutions on enterprise software through the utilization of C#, PowerShell, Batch, and Tidal. </p></Col>
+                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Analyzed, optimized, and made recommendations on system architecture for companies such as CareSource Health Plan, Premera, and Hill Physicians Medical group.</p></Col>
+
+                                            </Row>
+                                        </Fragment>,
+                                    style: { color: 'white' }
+                                },
+
+                                {
+                                    label: 'Great Call',
+                                    key: 'tab2',
+                                    children:
+                                        <Fragment>
+                                            Software QA in Test at <strong style={{ color: '#3FC1C9' }}>GreatCall</strong>
+                                            <br />
+                                            June 2019 – August 2019
+                                            <br /><br />
+                                            <Row>
+                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Programmed IOT microcontrollers to work with an accelerometer/gyroscope. Wrote code utilizing C and C++ to track and push data captured to an Influx database.</p></Col>
+                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Developed unit tests with Java to be deployed with Kubernetes.</p></Col>
+                                            </Row>
+                                        </Fragment>
+                                    ,
+                                    style: { color: 'white' }
+                                },
+
+                                {
+                                    label: 'Smith Consulting',
+                                    key: 'tab3',
+                                    children:
+                                        <Fragment>
+                                            FrontEnd Developer at <strong style={{ color: '#3FC1C9' }}>Smith Consulting</strong>
+                                            <br />
+                                            February 2018 – June 2018
+                                            <br /><br />
+                                            <Row>
+                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Designed 4 responsive websites that consisted of 7-11 webpages utilizing HTML, CSS, and JavaScript.</p></Col>
+                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Self-managed 3 different websites based on client communication</p></Col>
+                                            </Row>
+                                        </Fragment>
+                                    ,
+                                    style: { color: 'white' }
+                                },
+                            ]
+                            }
+                        />
+                    </Col>
+                </Row>
             </FadeInSection>
         </Fragment>
     )

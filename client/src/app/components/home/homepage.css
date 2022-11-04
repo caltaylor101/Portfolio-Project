@@ -1,0 +1,22 @@
+
+.tabHover {
+    
+}
+
+.tabHover .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #CCD6F6;
+}
+
+.tabHover .ant-tabs-tab-btn:hover {
+    color: white !important;
+}
+
+.tabHover .ant-tabs-tab:hover {
+    color: white !important;
+}
+
+.ant-tabs-ink-bar {
+    position: absolute;
+    background: #00858b;
+    pointer-events: none;
+ }

@@ -14,16 +14,21 @@ export default class BlogStore {
 
 
     constructor() {
-        makeAutoObservable(this)
+        makeAutoObservable(this);
+        
     }
+
+    
 
     get blogsByDate() {
         try
         {
-            return Array.from(this.blogRegistry.values()).sort((a, b) => (a.date.getTime()) - (b.date.getTime()));
+            console.log(Array.from(this.blogRegistry.values()));
+            return Array.from(this.blogRegistry.values()).sort((a, b) => (a.date!.getTime()) - (b.date!.getTime()));
         }
-        catch
+        catch (error)
         {
+            console.log(error);
             return Array.from(this.blogRegistry.values());
         }
     }
@@ -41,19 +46,20 @@ export default class BlogStore {
     loadBlogs = async (isUserDashboard: boolean) => {
         this.setLoadingInitial(true);
         try {
+            let blogs = [];
             if (!isUserDashboard)
             {
-                this.blogs = await agent.Blogs.list();
+                blogs = await agent.Blogs.list();
             }
             else
             {
-                this.blogs = await agent.Blogs.userBlogList();
+                blogs = await agent.Blogs.userBlogList();
             }
-            const blogs = this.blogs;
+            blogs.forEach(blog => {
+                blog.date = new Date(blog.date);
+                this.blogRegistry.set(blog.id, blog);
+            });
             runInAction(() => {
-                blogs.forEach(blog => {
-                    this.blogRegistry.set(blog.id, blog);
-                });
                 this.setLoadingInitial(false);
             })
         }

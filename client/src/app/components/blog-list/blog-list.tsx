@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite";
 import { Fragment, useEffect, useState} from "react";
-import { Blog } from "../../models/blog";
 import { useStore } from "../../stores/store";
 import BlogListItem from "../blog-list-item/blog-list-item";
 import LoadingComponent from "../loading/loading";
@@ -11,9 +10,8 @@ interface Props {
 }
 
 
-function BlogList({isUserDashboard}: Props){
+export default observer(function BlogList({isUserDashboard}: Props){
     const {blogStore} = useStore();
-    const {blogsByDate} = blogStore;
 
     useEffect(() => {
         blogStore.blogRegistry.clear();
@@ -24,7 +22,7 @@ function BlogList({isUserDashboard}: Props){
 
     return (
         <Fragment>
-            {blogsByDate.map(blog => {
+            {blogStore.blogsByDate.map(blog => {
                 return (
                     <Fragment key={blog.id}>
                         <BlogListItem blog={blog} />
@@ -34,6 +32,4 @@ function BlogList({isUserDashboard}: Props){
             }
         </Fragment >
     );
-}
-
-export default observer(BlogList);
+})

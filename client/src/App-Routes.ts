@@ -13,4 +13,5 @@ export class  RouteLinks {
     register = "/register";
     myProfile = "/my-profile";
     myGithub =  "https://github.com/caltaylor101";
+    myGithubPortfolioProject = "https://github.com/caltaylor101/Portfolio-Project";
 }

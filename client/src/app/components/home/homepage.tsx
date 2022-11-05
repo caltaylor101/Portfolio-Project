@@ -1,16 +1,24 @@
 import { CaretRightOutlined, GithubOutlined } from "@ant-design/icons";
 import { Button, Col, List, Row, Typography, Image, Tabs } from "antd";
-import { Fragment } from "react";
+import { observer } from "mobx-react-lite";
+import { Fragment, useState } from "react";
 import { RouteLinks } from "../../../App-Routes";
 import FadeInSection from "../fade-in/fade-in";
+import ProjectSummary from "../project-display/project-summary";
+import useWindowDimensions from "../window-dimensions/UseWindowDimensions";
 import './homepage.css';
 
 
 
-export default function HomePage() {
+
+export default observer(function HomePage() {
 
     const routeLinks = new RouteLinks;
     document.title = 'Cody Llamas';
+
+    const { height, width } = useWindowDimensions();
+
+    console.log(width);
 
     return (
         <Fragment>
@@ -31,10 +39,10 @@ export default function HomePage() {
 
             <FadeInSection>
                 <Row style={{ marginTop: '250px' }}>
-                    <Col xs={{ span: 22, offset: 1 }} sm={{ span: 24, offset: 0 }} xl={{ span: 18, offset: 6 }}>
-                        <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }} >About Me: </h2>
+                    <Col xs={{ span: 22, offset: 1 }} sm={{ span: 24, offset: 0 }} xl={{ span: 18, offset: 4 }}>
+                        <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }} >About Me </h2>
                     </Col>
-                    <Col xs={{ span: 22, offset: 1 }} xl={{ span: 6, offset: 6 }}>
+                    <Col xs={{ span: 22, offset: 1 }} xl={{ span: 6, offset: 4 }}>
                         <p className='base-text-color' style={{ fontSize: '1.5em', lineHeight: 1.25 }}>
                             Hello! My name is Cody and I enjoy engineering digital solutions.
 
@@ -57,13 +65,10 @@ export default function HomePage() {
 
                     </Col>
 
-
-
-
                 </Row>
 
                 <Row>
-                    <Col xl={{ span: 2, offset: 6 }}>
+                    <Col xl={{ span: 2, offset: 4 }}>
                         <List
                             dataSource={['React', 'Angular', '.NET 6']}
                             renderItem={(item) => (
@@ -93,10 +98,10 @@ export default function HomePage() {
             
             <FadeInSection>
                 <Row style={{ marginTop: '250px' }}>
-                    <Col xl={{ span: 8, offset: 10 }}>
-                        <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }}>Work History: </h2>
+                    <Col xl={{ span: 12, offset: 8 }}>
+                        <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }}>Work History </h2>
                     </Col>
-                    <Col xl={{ span: 8, offset: 10 }}>
+                    <Col xl={{ span: 12, offset: 8 }}>
                         <Tabs
                             className='tabHover'
                             defaultActiveKey="1"
@@ -120,12 +125,9 @@ export default function HomePage() {
                                             <Row>
                                                 <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Pitched, planned, and executed development of an analytic project planning platform with Angular and .NET Core.</p></Col>
                                                 <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Developed and led Healthcare vertical solutions by analyzing and integrating in-house products with third-party software such as Facets, QNXT, and AppDynamics.</p></Col>
-                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Developed automated solutions on enterprise software through the utilization of C#, PowerShell, Batch, and Tidal. </p></Col>
-                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Analyzed, optimized, and made recommendations on system architecture for companies such as CareSource Health Plan, Premera, and Hill Physicians Medical group.</p></Col>
-
                                             </Row>
                                         </Fragment>,
-                                    style: { color: 'white' }
+                                    style: { color: 'white', height: 160 }
                                 },
 
                                 {
@@ -169,6 +171,35 @@ export default function HomePage() {
                     </Col>
                 </Row>
             </FadeInSection>
+
+            
+            <FadeInSection>
+                <Row style={{ marginTop: '250px' }}>
+                    <Col xs={{ span: 22, offset: 1 }} sm={{ span: 24, offset: 0 }} md={{ span: 16, offset: 4 }} lg={{ span: 18, offset: 6 }} xl={{ span: 18, offset: 6 }}>
+                            <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }} >Some Projects I've Built: </h2>
+                        </Col>
+
+                        <ProjectSummary
+                        projectTitle={"My Porfolio Project"}
+                        projectSummary={`This is a long-form project that I built to learn more about React and keep my .NET skills sharp.
+                    It's a place to expand on my blogs and continuously add features moving forward.`}
+                        imageSrc={"/assets/PortfolioPicture.jpg"} 
+                        isRight={true}                    />
+
+                            <Col style={{borderBottom: '2px solid white', marginBottom: '50px', marginTop: '50px', width: '100%'}} span={10} offset={11}>
+                            </Col>
+
+
+                    <ProjectSummary
+                        projectTitle={"My Porfolio Project"}
+                        projectSummary={`This is a long-form project that I built to learn more about React and keep my .NET skills sharp.
+                    It's a place to expand on my blogs and continuously add features moving forward.`}
+                        imageSrc={"/assets/PortfolioPicture.jpg"} 
+                        isRight={false}                    />
+                </Row>
+            </FadeInSection>
+
+
         </Fragment>
     )
-}
+})

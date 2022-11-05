@@ -12,7 +12,11 @@ export default function FadeInSection(props: any) {
         entries.forEach(entry => setVisible(entry.isIntersecting));
       });
       observer.observe(domRef.current!);
-      return () => observer.unobserve(domRef.current!);
+      return () => {
+        console.log('observer disconnected');
+        observer.disconnect();
+      }
+
     }, []);
     return (
       <div

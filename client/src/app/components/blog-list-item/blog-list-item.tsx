@@ -1,7 +1,7 @@
 import { Col, Card, Button, Typography, Row, Space, Popconfirm } from "antd";
 import { observer } from "mobx-react-lite";
-import { Fragment, useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { RouteLinks } from "../../../App-Routes";
 import { Blog } from "../../models/blog";
 import { useStore } from "../../stores/store";
@@ -14,9 +14,7 @@ const BlogListItem = ({ blog }: Props) => {
 
     const routeLinks = new RouteLinks();
     const { blogStore, userStore } = useStore();
-    const { blogsByDate } = blogStore;
-
-
+    
     const [target, setTarget] = useState('');
     const navigate = useNavigate();
 
@@ -45,41 +43,41 @@ const BlogListItem = ({ blog }: Props) => {
                         <Col span={24}>
                             <Typography.Title underline className="base-text-color" level={1}>{blog.title}</Typography.Title>
                         </Col>
-                        
+
                     </Row>
-                <Card
-                    className="blog-list-card"
-                    title={
-                        <Fragment>
-                            <Row>
-                            <Col span={12}><span style={{ color: "white", fontWeight: "lighter" }}>Published on: {blog.date.toString().split('T')[0]}</span></Col>
-                            <Col span={12}>
-                            <Typography.Title style={{ textAlign: 'right' }} className='base-text-color' level={4}>By: {blog.appUser}</Typography.Title>
-                            </Col>
-                            </Row>
-                        </Fragment>}
-                >
-                    <p>{blog.description}</p>
-                    
-                </Card>
-                <Col>
-                            <Space size='middle'>
-                            <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, `/read-blog/${blog.urlSuffix}`)}>Read</Button>
-                        {blog.appUser == userStore.user?.username &&
+                    <Card
+                        className="blog-list-card"
+                        title={
                             <Fragment>
-                                <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, routeLinks.blogEditForm)}>Edit</Button>
-                                
-                                <Popconfirm title="Are you sure you want to delete your blog?" onConfirm={() => handleDeleteBlog(`${blog.id}`)}>
-                                <Button
-                                    style={{ marginTop: "55px" }}
-                                    danger
-                                    loading={target === blog.id} >
-                                    Delete
-                                </Button>
-                                </Popconfirm>
-                            </Fragment>
-                        }
-                            </Space>
+                                <Row>
+                                    <Col span={12}><span style={{ color: "white", fontWeight: "lighter" }}>Published on: {blog.date.toString().split('T')[0]}</span></Col>
+                                    <Col span={12}>
+                                        <Typography.Title style={{ textAlign: 'right' }} className='base-text-color' level={4}>By: {blog.appUser}</Typography.Title>
+                                    </Col>
+                                </Row>
+                            </Fragment>}
+                    >
+                        <p>{blog.description}</p>
+
+                    </Card>
+                    <Col>
+                        <Space size='middle'>
+                            <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, `/read-blog/${blog.urlSuffix}`)}>Read</Button>
+                            {blog.appUser == userStore.user?.username &&
+                                <Fragment>
+                                    <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, routeLinks.blogEditForm)}>Edit</Button>
+
+                                    <Popconfirm title="Are you sure you want to delete your blog?" onConfirm={() => handleDeleteBlog(`${blog.id}`)}>
+                                        <Button
+                                            style={{ marginTop: "55px" }}
+                                            danger
+                                            loading={target === blog.id} >
+                                            Delete
+                                        </Button>
+                                    </Popconfirm>
+                                </Fragment>
+                            }
+                        </Space>
 
                     </Col>
                 </Card>

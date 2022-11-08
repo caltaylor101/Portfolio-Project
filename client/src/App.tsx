@@ -19,6 +19,7 @@ import ModalContainer from './app/components/modals/modal-container';
 import { PrivateRoute } from './app/components/private-route/private-route';
 import MyProfile from './app/components/profile-dashboard/current-user-dashboard';
 import HomePage from './app/components/home/homepage';
+import Footer from './app/components/footer/footer';
 
 
 function App() {
@@ -55,6 +56,8 @@ function App() {
         <Route path={routeLinks.myProfile} element={<MyProfile />} />
         
       </Routes>
+
+      <Footer />
     </div>
   );
 }

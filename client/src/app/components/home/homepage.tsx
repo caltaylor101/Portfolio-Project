@@ -28,7 +28,7 @@ export default observer(function HomePage() {
                     <h1 style={{ color: '#CCD6F6', fontSize: '4.5em', marginBottom: 0 }} >Cody Llamas</h1>
                     <h2 style={{ color: '#8892B0', fontSize: '4.5em', lineHeight: 1.25 }} >I Engineer Solutions</h2>
                 </Col>
-                <Col xl={{ span: 3, offset: 5 }}>
+                <Col xl={{ span: 3, offset: 3 }}>
                     <Image style={{borderRadius: '10%'}} preview={false} src='/assets/SquarePortrait.jpg'  />
                 </Col>
                 <Col style={{marginTop:'100px'}} xs={{ span: 22, offset: 1 }} xl={{ span: 6, offset: 4 }}>
@@ -179,26 +179,78 @@ export default observer(function HomePage() {
             <FadeInSection>
                 <Row style={{ marginTop: '250px' }}>
                     <Col xs={{ span: 22, offset: 1 }} sm={{ span: 24, offset: 0 }} md={{ span: 16, offset: 4 }} lg={{ span: 18, offset: 6 }} xl={{ span: 18, offset: 6 }}>
-                            <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }} >Some Projects I've Built: </h2>
+                            <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }} >Some Projects I've Built </h2>
                         </Col>
 
                         <ProjectSummary
                         projectTitle={"My Porfolio Project"}
                         projectSummary={`This is a long-form project that I built to learn more about React and keep my .NET skills sharp.
-                    It's a place to expand on my blogs and continuously add features moving forward.`}
-                        imageSrc={"/assets/PortfolioPicture.jpg"} 
-                        isRight={true}                    />
+                    It's a place to expand on my blogs and continuously add features moving forward.
+                    It currently has the ability for users to create accounts and post blogs under specific categories. `}
+                        imageSrc={"/assets/PortfolioPicture.jpg"}
+                        isRight={true} projectLink={"https://github.com/caltaylor101/Portfolio-Project"}                    />
 
                             <Col style={{borderBottom: '2px solid white', marginBottom: '50px', marginTop: '50px', width: '100%'}} span={10} offset={11}>
                             </Col>
 
 
                     <ProjectSummary
-                        projectTitle={"My Porfolio Project"}
-                        projectSummary={`This is a long-form project that I built to learn more about React and keep my .NET skills sharp.
-                    It's a place to expand on my blogs and continuously add features moving forward.`}
-                        imageSrc={"/assets/PortfolioPicture.jpg"} 
-                        isRight={false}                    />
+                        projectTitle={"Django Shopping Kit"}
+                        projectSummary={`This project helped me land my first job out of college. It was built with Django and was hosted on AWS. 
+                        It utilized front-end technologies such as HTML, CSS, Javascript, and AJAX.
+                        Django was the REST framework which had AWS
+                        The project allows users to create accounts, create product categories, privatize their uses, and organize products.
+                        Other users are able to post comments, and vote on posts.`}
+                        imageSrc={"/assets/Django-Kit-Picture.jpg"}
+                        isRight={false} projectLink={"https://github.com/caltaylor101/Django_ShoppingKit"}                    />
+                </Row>
+            </FadeInSection>
+
+
+            <FadeInSection>
+                <Row style={{ marginTop: '250px' }}>
+                        <Col xs={{ span: 22, offset: 1 }} sm={{ span: 24, offset: 0 }} md={{ span: 16, offset: 4 }} lg={{ span: 18, offset: 6 }} xl={{ span: 18, offset: 6 }}>
+                            <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }} >Some Hobby Projects </h2>
+                        </Col>
+
+                        <ProjectSummary
+                        projectTitle={"Runaway Snowball"}
+                        projectSummary={`This is an Android game I created in Unity utilizing free artwork I found online.
+                        The snowball rolls down a mountain infinitely and gets bigger the further it gets. 
+                        When the snowball is big enough, it can absorb animals for a bonus growth. 
+                        There are powerups, level gates, and in-game store, upgrades, and player progression. `}
+                        imageSrc={"/assets/RunawaySnowballPicture.jpg"}
+                        isRight={true} 
+                        projectLink={"https://play.google.com/store/apps/details?id=com.NightLlama.RunawaySnowball&hl=en&gl=US"}                    
+                        />
+
+                            <Col style={{borderBottom: '2px solid white', marginBottom: '50px', marginTop: '50px', width: '100%'}} span={10} offset={11}>
+                            </Col>
+
+
+                    <ProjectSummary
+                        projectTitle={"On The Wind"}
+                        projectSummary={`I built a team for the Lost Relic Games - Game Jam and developed this Windows game. 
+                        I managed a team of 4 to create this game in 2 weeks. 
+                        It taught me a lot more about game design, play testing, and importance of decoupling classes.
+                        After this project, I took extra time to learn more about datastructures, algorithms, and programming designs.
+                        `}
+                        imageSrc={"/assets/OnTheWindPicture.jpg"}
+                        isRight={false} 
+                        projectLink={"https://caltaylor101.itch.io/on-the-wind"}                    
+                        />
+                            <Col style={{borderBottom: '2px solid white', marginBottom: '50px', marginTop: '50px', width: '100%'}} span={10} offset={3}>
+                            </Col>
+                    <ProjectSummary
+                        projectTitle={"Basic Ball Dropper"}
+                        projectSummary={`This is an Android game I created in Unity utilizing basic sprites.
+                        The game was based off of idle games, and the player's goal is to keep upgrading the strength of the balls dropping.
+                        This was my first Unity game created, and full of many mistakes and branches. 
+                        I started this hobby at the beginning of 2022, and create 3 more Unity games after this. `}
+                        imageSrc={"/assets/BasicBallDropperPicture.jpg"}
+                        isRight={true} 
+                        projectLink={"https://github.com/caltaylor101/Basic-Ball-Dropper"}                    
+                        />
                 </Row>
             </FadeInSection>
 

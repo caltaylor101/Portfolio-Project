@@ -1,4 +1,4 @@
-import { Col, Card, Button, Typography, Row, Space } from "antd";
+import { Col, Card, Button, Typography, Row, Space, Popconfirm } from "antd";
 import { observer } from "mobx-react-lite";
 import { Fragment, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -68,13 +68,15 @@ const BlogListItem = ({ blog }: Props) => {
                         {blog.appUser == userStore.user?.username &&
                             <Fragment>
                                 <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, routeLinks.blogEditForm)}>Edit</Button>
+                                
+                                <Popconfirm title="Are you sure you want to delete your blog?" onConfirm={() => handleDeleteBlog(`${blog.id}`)}>
                                 <Button
                                     style={{ marginTop: "55px" }}
                                     danger
-                                    onClick={() => handleDeleteBlog(`${blog.id}`)}
                                     loading={target === blog.id} >
                                     Delete
                                 </Button>
+                                </Popconfirm>
                             </Fragment>
                         }
                             </Space>

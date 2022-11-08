@@ -5,11 +5,12 @@ import useWindowDimensions from "../window-dimensions/UseWindowDimensions";
 interface Props {
     projectTitle: string;
     projectSummary: string;
+    projectLink: string;
     imageSrc: string;
     isRight: boolean;
 }
 
-export default function ProjectSummary({ projectTitle, projectSummary, imageSrc, isRight }: Props) {
+export default function ProjectSummary({ projectTitle, projectSummary, imageSrc, isRight, projectLink }: Props) {
 
     const { height, width } = useWindowDimensions();
 
@@ -21,7 +22,7 @@ export default function ProjectSummary({ projectTitle, projectSummary, imageSrc,
                 {width >= 992 &&
                     <Fragment>
                         <Col style={{ paddingTop: '50px', borderTop: '1px solid white' }} xs={{ span: 22, offset: 1 }} sm={{ span: 24, offset: 0 }} md={{ span: 18, offset: 4 }} lg={{ span: 8, offset: 6 }} xl={{ span: 8, offset: 6 }}>
-                            <Image preview={false} src={imageSrc} />
+                            <a href={projectLink}><Image preview={false} src={imageSrc} /></a>
                         </Col>
     
                         <Col md={{ span: 10, offset: 12 }} lg={{ span: 7, offset: 0 }} xl={{ span: 7, offset: 0 }} style={{ paddingTop: '3%', borderRight: '1px solid white' }}>
@@ -56,7 +57,7 @@ export default function ProjectSummary({ projectTitle, projectSummary, imageSrc,
                         </Col>
     
                         <Col xs={{ span: 20, offset: 2 }} sm={{ span: 20, offset: 2 }} md={{ span: 18, offset: 4 }} lg={{ span: 8, offset: 6 }} xl={{ span: 8, offset: 6 }}>
-                            <Image preview={false} src={imageSrc} />
+                        <a href={projectLink}><Image preview={false} src={imageSrc} /></a>
                         </Col>
     
     
@@ -87,14 +88,14 @@ export default function ProjectSummary({ projectTitle, projectSummary, imageSrc,
                         
 
                         <Col md={{ span: 10, offset: 12 }} lg={{ span: 7, offset: 0 }} xl={{ span: 7, offset: 3 }} style={{ paddingTop: '3%', borderLeft: '1px solid white' }}>
-                            <Col md={{ span: 17, offset: 0 }} lg={{ span: 17, offset: 0 }} xl={{ span: 17, offset: 2 }}>
+                            <Col md={{ span: 17, offset: 0 }} lg={{ span: 17, offset: 0 }} xl={{ span: 17, offset: 7 }}>
                                 <h3 style={{ color: '#3FC1C9', fontSize: '1.25em', marginBottom: 0, textAlign: 'left' }} >Featured Project</h3>
                             </Col>
-                            <Col md={{ span: 17, offset: 0 }} lg={{ span: 17, offset: 0 }} xl={{ span: 17, offset: 2 }}>
+                            <Col md={{ span: 17, offset: 0 }} lg={{ span: 17, offset: 0 }} xl={{ span: 17, offset: 7 }}>
                                 <h2 style={{ color: '#CCD6F6', fontSize: '1.5em', marginBottom: 0, textAlign: 'left' }} >{projectTitle}</h2>
                             </Col>
     
-                            <Col md={{ span: 17, offset: 0 }} lg={{ span: 20, offset: 0 }} xl={{ span: 24, offset: 0 }} style={{ marginTop: '30px', float: 'left', marginLeft: '30%', width: '100%' }}>
+                            <Col md={{ span: 17, offset: 0 }} lg={{ span: 20, offset: 0 }} xl={{ span: 24, offset: 0 }} style={{ marginTop: '30px', float: 'left', marginLeft: '30%', width: '100%', zIndex: 1 }}>
                                 <div style={{ backgroundColor: 'rgb(0, 21, 41)', padding: '20px' }}>
                                     <p className='base-text-color' style={{ fontSize: '1.25em' }}>
                                         {projectSummary}
@@ -103,8 +104,8 @@ export default function ProjectSummary({ projectTitle, projectSummary, imageSrc,
                             </Col>
                         </Col>
     
-                        <Col style={{ paddingTop: '50px', borderTop: '1px solid white', zIndex: -1 }} xs={{ span: 22, offset: 1 }} sm={{ span: 24, offset: 0 }} md={{ span: 18, offset: 0 }} lg={{ span: 8, offset: 0}} xl={{ span: 8, offset: 0 }}>
-                            <Image preview={false} src={imageSrc} />
+                        <Col style={{ paddingTop: '50px', borderTop: '1px solid white' }} xs={{ span: 22, offset: 1 }} sm={{ span: 24, offset: 0 }} md={{ span: 18, offset: 0 }} lg={{ span: 8, offset: 0}} xl={{ span: 8, offset: 1 }}>
+                        <a href={projectLink}><Image preview={false} src={imageSrc} /></a>
                         </Col>
     
                         
@@ -124,7 +125,7 @@ export default function ProjectSummary({ projectTitle, projectSummary, imageSrc,
                         </Col>
     
                         <Col xs={{ span: 20, offset: 2 }} sm={{ span: 20, offset: 2 }} md={{ span: 18, offset: 4 }} lg={{ span: 8, offset: 6 }} xl={{ span: 8, offset: 6 }}>
-                            <Image preview={false} src={imageSrc} />
+                        <a href={projectLink}><Image preview={false} src={imageSrc} /></a>
                         </Col>
     
     

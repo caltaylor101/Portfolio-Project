@@ -1,5 +1,5 @@
 import { CaretRightOutlined, GithubOutlined } from "@ant-design/icons";
-import { Button, Col, List, Row, Typography, Image, Tabs } from "antd";
+import { Button, Col, List, Row, Typography, Image, Tabs, Avatar } from "antd";
 import { observer } from "mobx-react-lite";
 import { Fragment, useState } from "react";
 import { RouteLinks } from "../../../App-Routes";
@@ -18,22 +18,26 @@ export default observer(function HomePage() {
 
     const { height, width } = useWindowDimensions();
 
-    console.log(width);
+    // console.log(width);
 
     return (
         <Fragment>
             <Row style={{ paddingTop: '100px' }}>
-                <Col xs={{ span: 22, offset: 1 }} sm={{ span: 24, offset: 0 }} xl={{ span: 18, offset: 6 }}>
+                <Col xs={{ span: 10, offset: 1 }} sm={{ span: 24, offset: 0 }} xl={{ span: 9, offset: 3 }}>
                     <h3 style={{ color: '#3FC1C9' }}>Hi, my name is</h3>
                     <h1 style={{ color: '#CCD6F6', fontSize: '4.5em', marginBottom: 0 }} >Cody Llamas</h1>
                     <h2 style={{ color: '#8892B0', fontSize: '4.5em', lineHeight: 1.25 }} >I Engineer Solutions</h2>
                 </Col>
-                <Col xs={{ span: 22, offset: 1 }} xl={{ span: 6, offset: 6 }}>
+                <Col xl={{ span: 3, offset: 5 }}>
+                    <Image style={{borderRadius: '10%'}} preview={false} src='/assets/SquarePortrait.jpg'  />
+                </Col>
+                <Col style={{marginTop:'100px'}} xs={{ span: 22, offset: 1 }} xl={{ span: 6, offset: 4 }}>
                     <p className='base-text-color' style={{ fontSize: '1.5em', lineHeight: 1.25 }} >I’m a software engineer who builds web platforms to give users exceptional digital experiences.</p>
                     <p className='base-text-color' style={{ fontSize: '1.5em', lineHeight: 1.25 }}>Currently, I’m focused on building and automating enterprise solutions at <span style={{ color: '#3FC1C9' }}><strong>Cognizant</strong></span>. </p>
                 </Col>
-                <Col xl={{ span: 3, offset: 3 }}>
+                <Col style={{marginTop:'100px'}} xl={{ span: 3, offset: 3 }}>
                     <a href={routeLinks.myGithub}><GithubOutlined style={{ fontSize: '9em', color: '#3FC1C9' }} /></a>
+
                 </Col>
             </Row>
 
@@ -62,7 +66,6 @@ export default observer(function HomePage() {
                     </Col>
                     <Col xl={{ span: 2 }}>
                         <Image preview={false} src="https://angular.io/assets/images/logos/angular/angular.svg" />
-
                     </Col>
 
                 </Row>

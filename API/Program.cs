@@ -1,5 +1,7 @@
+using System.Text;
 using API.Extensions;
 using API.Middleware;
+using API.Services;
 using Application.Blogs;
 using Application.Core;
 using Application.Interfaces;
@@ -10,8 +12,11 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +37,39 @@ builder.Services.AddFluentValidationAutoValidation();
 // builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<BlogCreate>();
 
-builder.Services.AddIdentityServices(builder.Configuration);
+// builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddIdentityCore<AppUser>(opt =>
+            {
+
+            })
+            .AddEntityFrameworkStores<DataContext>()
+            .AddSignInManager<SignInManager<AppUser>>();
+
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey"]));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opt =>
+    {
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key,
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
+builder.Services.AddAuthorization(opt =>
+{
+    opt.AddPolicy("IsBlogAuthor", policy =>
+    {
+        policy.Requirements.Add(new IsAuthorRequirement());
+    });
+});
+
+builder.Services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
+
+builder.Services.AddScoped<TokenService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -40,7 +77,7 @@ builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(opt =>
 {
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opt.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
 });
 
 builder.Services.AddCors(opt =>

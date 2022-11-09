@@ -1,0 +1,39 @@
+version: '3.4'
+
+networks:
+  dockerapi-dev:
+    driver: bridge
+
+services:
+    dotnetapi:
+        image: docker-first:latest
+        depends_on:
+            - postgres_image
+        build:
+          context: ./
+          dockerfile: Dockerfile
+        ports:
+          - 5000:5000
+          - 80:80
+            
+
+        environment:
+          DB_CONNECTION_STRING: "host=postgres_image; port=5432;database=portfolio;username=admin;password=secret"
+          ASPNETCORE_URLS: "http://+:5000"
+
+        networks:
+          - dockerapi-dev
+
+    postgres_image:
+        image: postgres:latest
+        ports:
+            - "5432:5432"
+        restart: always
+        environment:
+          POSTGRES_USER: "admin"
+          POSTGRES_PASSWORD: "secret"
+          POSTGRES_DB: "portfolio"
+        networks: 
+          - dockerapi-dev
+    
+          

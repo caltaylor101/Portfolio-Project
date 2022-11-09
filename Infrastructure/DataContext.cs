@@ -20,7 +20,7 @@ namespace Infrastructure
         {
             base.OnModelCreating(builder);
             builder.Entity<Blog>(entity => {
-                entity.Property(x => x.Body).HasColumnType("blob");
+                entity.Property(x => x.Body).HasColumnType("bytea");
             });
         }
     }

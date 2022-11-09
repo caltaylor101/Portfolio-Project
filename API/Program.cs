@@ -18,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 
 // builder.Services.AddFluentValidation(config =>
@@ -37,16 +38,16 @@ builder.Services.AddIdentityServices(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 // builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContext>(opt => 
+builder.Services.AddDbContext<DataContext>(opt =>
 {
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddCors(opt => 
+builder.Services.AddCors(opt =>
 {
-    opt.AddPolicy("CorsPolicy", policy => 
+    opt.AddPolicy("CorsPolicy", policy =>
     {
-        policy.AllowAnyMethod(). AllowAnyHeader().WithOrigins("http://localhost:3000");
+        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
     });
 });
 
@@ -76,7 +77,7 @@ try
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
     context.Database.Migrate();
     await Seed.SeedData(context, userManager);
-} 
+}
 catch (Exception ex)
 {
     var logger = services.GetRequiredService<ILogger<Program>>();
@@ -108,11 +109,9 @@ app.MapControllers();
 app.UseRouting();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints => 
-{
-    endpoints.MapControllers();
-    endpoints.MapFallbackToController("Index", "Fallback");
-});
+app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
 
 
-app.Run();
+
+await app.RunAsync();

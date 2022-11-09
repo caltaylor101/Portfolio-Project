@@ -96,13 +96,23 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
-app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseRouting();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints => 
+{
+    endpoints.MapControllers();
+    endpoints.MapFallbackToController("Index", "Fallback");
+});
+
 
 app.Run();

@@ -5,7 +5,7 @@ import { Button, Row } from 'antd';
 import ValidationErrors from './ValidationErrors';
 
 export default function TestErrors() {
-    const baseUrl = 'http://localhost:5000/'
+    const baseUrl = process.env.REACT_APP_API_URL;
     const [errors, setErrors] = useState(null);
 
     function handleNotFound() {

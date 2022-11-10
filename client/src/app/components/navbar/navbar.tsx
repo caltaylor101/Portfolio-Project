@@ -1,3 +1,4 @@
+import { UserOutlined } from "@ant-design/icons";
 import { Layout, Menu, Image, Button, Avatar} from "antd";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
@@ -31,12 +32,14 @@ export default observer(function NavBar() {
         
         { label: <Avatar
             style={{ border: '1px solid teal' }}
-            size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 50 }}
-            icon={<Image
+            size={{ xs: 24, sm: 32, md: 30, lg: 30, xl: 50, xxl: 50 }}
+            icon={userStore.user?.image !== null ? <Image
                 preview={false}
                 src={userStore.user?.image}
 
-            />}
+            /> : 
+            <UserOutlined style={{fontSize: '1.5em'}} />
+        }
         />, key: 'item-10', children: [{ label: <Link to={routeLinks.myProfile}>My Profile</Link>, key: 'item-9' }, { label: <Button type='primary' danger onClick={userStore.logout} >Logout</Button>, key: 'item-11' }]}
         )
     }

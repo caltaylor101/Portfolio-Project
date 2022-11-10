@@ -1,3 +1,4 @@
+import { UserOutlined } from "@ant-design/icons";
 import { PageHeader, Button, Avatar, Image, Row, Col, Typography } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import { observer } from "mobx-react-lite";
@@ -47,10 +48,12 @@ export default observer(function MyProfile() {
                                 <Avatar
                                     style={{ border: '5px solid white' }}
                                     size={{ xs: 100, sm: 100, md: 100, lg: 100, xl: 100, xxl: 100 }}
-                                    icon={<Image
+                                    icon={userStore.user?.image !== null ? <Image
                                         preview={false}
                                         src={userStore.user?.image}
-                                    />}
+                                    />
+                                    : <UserOutlined style={{fontSize: '1.5em'}} />
+                                }
                                 />
                                 <Title level={3} className='base-text-color' style={{paddingLeft:'20px'}}>{userStore.user?.displayName}</Title>
                                 

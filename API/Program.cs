@@ -77,7 +77,9 @@ builder.Services.AddScoped<TokenService>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(opt =>
 {
-    opt.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
+    // opt.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
+    // opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddCors(opt =>

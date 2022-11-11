@@ -1,5 +1,6 @@
-import { CaretRightOutlined, GithubOutlined } from "@ant-design/icons";
-import { Button, Col, List, Row, Typography, Image, Tabs, Avatar } from "antd";
+import { ArrowUpOutlined, CaretRightOutlined, GithubOutlined } from "@ant-design/icons";
+import { Button, Col, List, Row, Typography, Image, Tabs, Avatar, Anchor } from "antd";
+import Link from "antd/lib/typography/Link";
 import { observer } from "mobx-react-lite";
 import { Fragment, useState } from "react";
 import { RouteLinks } from "../../../App-Routes";
@@ -16,11 +17,11 @@ export default observer(function HomePage() {
     const routeLinks = new RouteLinks;
     document.title = 'Cody Llamas';
 
-    const { width } = useWindowDimensions();
-
+    const { height, width } = useWindowDimensions();
     return (
         <Fragment>
-            <Row style={{ paddingTop: '100px' }}>
+            
+            <Row style={{ paddingTop: '100px' }} >
                 <Col xs={{ span: 22, offset: 1 }} md={{span: 12, offset: 3}} lg={{span: 12, offset: 2}} xl={{ span: 9, offset: 4 }}>
                     <h3 style={{ color: '#3FC1C9' }}>Hi, my name is</h3>
                     <h1 style={{ color: '#CCD6F6', fontSize: '4.2em', marginBottom: 0 }} >Cody Llamas</h1>
@@ -36,12 +37,14 @@ export default observer(function HomePage() {
                     <br />
                     <h3 style={{ color: '#3FC1C9', marginTop: '0px', textAlign: 'center' }}>Check out my projects!</h3>
                 </Col>
+            
+
             </Row>
 
             <FadeInSection>
                 <Row style={{ marginTop: '250px' }}>
                     <Col xs={{ span: 22, offset: 1 }}  xl={{ span: 18, offset: 4 }}>
-                        <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }} >About Me </h2>
+                        <h2 id='about-me' style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }} >About Me </h2>
                     </Col>
                     <Col xs={{ span: 22, offset: 1 }} xl={{ span: 8, offset: 4 }}>
                         <p className='base-text-color' style={{ fontSize: '1.5em', lineHeight: 1.25 }}>
@@ -64,6 +67,7 @@ export default observer(function HomePage() {
                 </Row>
 
                 <Row>
+                
                     <Col xs={{span: 9, offset: 4}} sm={{span:7, offset:5}} xl={{ span: 2, offset: 4 }}>
                         <List
                             dataSource={['React', 'Angular', '.NET 6']}
@@ -179,12 +183,15 @@ export default observer(function HomePage() {
                         />
                     </Col>
                 </Row>
+                
             </FadeInSection>
-
+            
 
             :
 
                 <Row style={{ marginTop: '250px' }}>
+                    
+                    
                     <Col xs={{span:22, offset: 1}} sm={{span: 22, offset: 1}} xl={{ span: 13, offset: 8 }}>
                         <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }}>Work History </h2>
                     </Col>
@@ -258,6 +265,10 @@ export default observer(function HomePage() {
                     </Col>
                 </Row>
             }
+            <Anchor offsetTop={height - 100}>
+                <Link href="#top" className='base-text-color' style={{ fontSize: '1.5em' }}>&nbsp; Back Up <ArrowUpOutlined className='base-text-color' style={{ fontSize: '1.5em' }} /></Link>
+
+            </Anchor>
             
             <FadeInSection>
                 <Row style={{ marginTop: '250px' }}>

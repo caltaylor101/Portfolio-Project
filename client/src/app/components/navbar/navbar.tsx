@@ -48,7 +48,7 @@ export default observer(function NavBar() {
 
     return (
         <Layout className="layout">
-            <div className="logo">
+            <div className="logo" id='top'>
                 <Image
                     
                     preview={false}

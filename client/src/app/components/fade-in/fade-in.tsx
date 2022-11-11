@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import './fade.css';
 
 
@@ -13,7 +13,6 @@ export default function FadeInSection(props: any) {
       });
       observer.observe(domRef.current!);
       return () => {
-        console.log('observer disconnected');
         observer.disconnect();
       }
 

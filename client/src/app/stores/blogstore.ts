@@ -23,7 +23,6 @@ export default class BlogStore {
     get blogsByDate() {
         try
         {
-            console.log(Array.from(this.blogRegistry.values()));
             return Array.from(this.blogRegistry.values()).sort((a, b) => (a.date!.getTime()) - (b.date!.getTime()));
         }
         catch (error)

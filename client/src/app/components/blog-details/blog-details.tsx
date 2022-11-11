@@ -1,6 +1,6 @@
 import { Col, Typography, Image } from "antd";
 import { observer } from "mobx-react-lite";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { Blog as BlogModel } from "../../models/blog";
 import { useStore } from "../../stores/store";
 import { useParams } from "react-router-dom";
@@ -8,6 +8,7 @@ import LoadingComponent from "../loading/loading";
 import Paragraph from "antd/lib/typography/Paragraph";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { format } from "date-fns";
 
 interface Props {
   blog: BlogModel
@@ -43,7 +44,8 @@ const BlogDetails = () => {
           blogStore.getBlog(urlSuffix!);
         }
         // setCurrentBlog(exampleBlog);
-        blogStore.selectedBlog = exampleBlog;
+        blogStore.selectedBlog = exampleBlog; 
+        blogStore.selectedBlog!.date = new Date(blogStore.selectedBlog!.date);
       }
     } catch (error) {
       console.log(error);
@@ -68,16 +70,29 @@ const BlogDetails = () => {
   return (
     <Fragment>
       <Col xs={{ span: 22, offset: 1 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} style={{ marginTop: '50px', paddingBottom: '50px' }}>
-        <Typography.Title
-          level={1}
-          className='base-text-color'
-          style={{
-            borderBottom: "5px solid white"
-          }}
-        >
-          {blogStore.selectedBlog?.title}
-        </Typography.Title>
-        <Paragraph style={{
+        <Typography.Paragraph style={{
+              borderBottom: "5px solid white"
+            }}>
+
+          <Typography.Title
+            level={1}
+            className='base-text-color'
+            
+          >
+            {blogStore.selectedBlog?.title}
+
+          </Typography.Title>
+          <Typography.Title
+            level={3}
+            className='base-text-color'
+            style={{textAlign: 'right', lineHeight: '0'}}
+            >
+            {blogStore.selectedBlog?.date !== undefined ? format(new Date(blogStore.selectedBlog?.date!), 'dd MMM yyyy h:mm aa') : null}
+
+          </Typography.Title>
+        </Typography.Paragraph>
+
+        {/* <Paragraph style={{
           borderBottom: "2px dashed white"
         }}>
           <Typography.Title
@@ -96,7 +111,7 @@ const BlogDetails = () => {
           >
             {blogStore.selectedBlog?.description}
           </Typography.Text>
-        </Paragraph>
+        </Paragraph> */}
 
 
         {myBody?.map((text, key) => {
@@ -127,11 +142,11 @@ const BlogDetails = () => {
             {
             return (imageTextSplit.map((imageText, i = 100): any => {
               i += 1;
-              let testVar = imageText.match(/(<image_\d>)/);
-              if(testVar !== null)
+              let photoMatches = imageText.match(/(<image_\d>)/);
+              if(photoMatches !== null)
               {
-                let testNumber = testVar[0].match(/(\d)/) as any;
-                let srcImage = blogStore.selectedBlog?.photos?.filter(x => x.order == testNumber[0].toString());
+                let photoArray = photoMatches[0].match(/(\d)/) as any;
+                let srcImage = blogStore.selectedBlog?.photos?.filter(x => x.order == photoArray[0].toString());
                 let srcImageReference = srcImage![0];
                 return (
                   <Image key={i} src={`${srcImageReference.url}`} />

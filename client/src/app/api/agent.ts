@@ -29,7 +29,7 @@ axios.interceptors.response.use(async response => {
     if (process.env.NODE_ENV === 'development') await sleep(1000);
         return response;
 }, (error: AxiosError) => {
-    const {data, status, config}: { data: any; status: number, config: any} = error.response!;
+    const {data, status}: { data: any; status: number, config: any} = error.response!;
     switch (status) {
         case 400:
             if (typeof data === 'string') {

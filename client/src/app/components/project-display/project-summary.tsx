@@ -12,7 +12,7 @@ interface Props {
 
 export default function ProjectSummary({ projectTitle, projectSummary, imageSrc, isRight, projectLink }: Props) {
 
-    const { height, width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
 
     if (isRight)
     {

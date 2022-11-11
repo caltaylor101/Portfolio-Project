@@ -16,9 +16,7 @@ export default observer(function HomePage() {
     const routeLinks = new RouteLinks;
     document.title = 'Cody Llamas';
 
-    const { height, width } = useWindowDimensions();
-
-    console.log(width);
+    const { width } = useWindowDimensions();
 
     return (
         <Fragment>
@@ -186,10 +184,8 @@ export default observer(function HomePage() {
 
             :
 
-
-            <FadeInSection>
                 <Row style={{ marginTop: '250px' }}>
-                    <Col xs={{span:22, offset: 1}} sm={{span: 22, offset: 1}} xl={{ span: 12, offset: 8 }}>
+                    <Col xs={{span:22, offset: 1}} sm={{span: 22, offset: 1}} xl={{ span: 13, offset: 8 }}>
                         <h2 style={{ color: '#CCD6F6', fontSize: '3.25em', marginBottom: 0 }}>Work History </h2>
                     </Col>
                     <Col xs={{span:22, offset: 1}} xl={{ span: 12, offset: 8 }}>
@@ -214,8 +210,8 @@ export default observer(function HomePage() {
                                             Solutions Architect at <strong style={{ color: '#3FC1C9' }}>Cognizant</strong><br />
                                             January 2020 - Present <br /><br />
                                             <Row>
-                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Pitched, planned, and executed development of an analytic project planning platform with Angular and .NET Core.</p></Col>
-                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Developed and led Healthcare vertical solutions by analyzing and integrating in-house products with third-party software such as Facets, QNXT, and AppDynamics.</p></Col>
+                                                <Col span={1} ><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Pitched, planned, and executed development of an analytic project planning platform with Angular and .NET Core.</p></Col>
+                                                <Col span={1} ><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Developed and led Healthcare vertical solutions by analyzing and integrating in-house products with third-party software such as Facets, QNXT, and AppDynamics.</p></Col>
                                             </Row>
                                         </Fragment>,
                                     style: { color: 'white', height: 160 }
@@ -261,7 +257,6 @@ export default observer(function HomePage() {
                         />
                     </Col>
                 </Row>
-            </FadeInSection>
             }
             
             <FadeInSection>

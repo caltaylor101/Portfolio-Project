@@ -1,4 +1,5 @@
 import { Col, Card, Button, Typography, Row, Space, Popconfirm } from "antd";
+import { format } from "date-fns";
 import { observer } from "mobx-react-lite";
 import { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -50,7 +51,7 @@ const BlogListItem = ({ blog }: Props) => {
                         title={
                             <Fragment>
                                 <Row>
-                                    <Col span={12}><span style={{ color: "white", fontWeight: "lighter" }}>Published on: {blog.date.toString().split('T')[0]}</span></Col>
+                                    <Col span={12}><span style={{ color: "white", fontWeight: "lighter" }}>Published on: {blog.date !== undefined ? format(new Date(blog.date), 'dd MMM yyyy h:mm aa') : null}</span></Col>
                                     <Col span={12}>
                                         <Typography.Title style={{ textAlign: 'right' }} className='base-text-color' level={4}>By: {blog.appUser}</Typography.Title>
                                     </Col>

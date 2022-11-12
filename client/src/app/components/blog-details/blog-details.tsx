@@ -45,7 +45,7 @@ const BlogDetails = () => {
         }
         // setCurrentBlog(exampleBlog);
         blogStore.selectedBlog = exampleBlog; 
-        blogStore.selectedBlog!.date = new Date(blogStore.selectedBlog!.date);
+        // blogStore.selectedBlog!.date = new Date(blogStore.selectedBlog!.date);
       }
     } catch (error) {
       console.log(error);

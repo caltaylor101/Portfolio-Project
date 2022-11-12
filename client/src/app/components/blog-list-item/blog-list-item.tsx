@@ -53,7 +53,7 @@ const BlogListItem = ({ blog }: Props) => {
                         title={
                             <Fragment>
                                 <Row>
-                                    <Col span={12}><span style={{ color: "white", fontWeight: "lighter" }}>Published on: {blog.date !== undefined ?  format(blog.date, 'dd MMM yyyy h:mm aa') : null}</span></Col>
+                                    <Col span={12}><span style={{ color: "white", fontWeight: "lighter" }}>Published on: {blog.date !== undefined ?  format(new Date(blog.date + 'Z'), 'dd MMM yyyy h:mm aa') : null}</span></Col>
                                     <Col span={12}>
                                         <Typography.Title style={{ textAlign: 'right' }} className='base-text-color' level={4}>By: {blog.appUser}</Typography.Title>
                                     </Col>

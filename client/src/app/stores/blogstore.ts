@@ -55,7 +55,7 @@ export default class BlogStore {
                 blogs = await agent.Blogs.userBlogList();
             }
             blogs.forEach(blog => {
-                blog.date = new Date(blog.date + 'Z');
+                blog.date = new Date(blog.date);
                 this.blogRegistry.set(blog.id, blog);
             });
             runInAction(() => {

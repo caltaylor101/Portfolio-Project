@@ -36,24 +36,25 @@ namespace Application.Blogs
                 //Create the UrlSuffix from the Title of the blog
                 request.Blog.UrlSuffix = RemoveWhitespace(request.Blog.Title);
                 //Get the current blog
-                Task<Blog> currentBlog = _context.Blogs.FirstOrDefaultAsync(x => x.UrlSuffix == request.Blog.UrlSuffix);
+                Blog currentBlog = await _context.Blogs.FirstOrDefaultAsync(x => x.UrlSuffix == request.Blog.UrlSuffix);
 
                 foreach (var image in request.Blog.Photos)
                 {
-                    var photo = _context.Photos.FirstOrDefaultAsync(x => x.Url == image.Url);
-                    photo.Result.Blog = request.Blog;
-                    photo.Result.Order = image.Order;
+                    Console.WriteLine(image);
+                    var photo = await _context.Photos.FirstOrDefaultAsync(x => x.Url == image.Url);
+                    photo.Blog = request.Blog;
+                    photo.Order = image.Order;
                 }
                 request.Blog.Photos = null;
 
                 //Rename the URL until a name that isn't taken is available. 
-                while (currentBlog.Result != null && !String.IsNullOrEmpty(currentBlog.Result.UrlSuffix))
+                while (currentBlog != null && !String.IsNullOrEmpty(currentBlog.UrlSuffix))
                 {
                     //Arbitrary addition for the number.
                     //This makes '&-' unavailable in the title.
                     request.Blog.UrlSuffix = request.Blog.UrlSuffix.Split("&-")[0];
                     request.Blog.UrlSuffix += "&-" + suffixExtender.ToString();
-                    currentBlog = _context.Blogs.FirstOrDefaultAsync(x => x.UrlSuffix == request.Blog.UrlSuffix);
+                    currentBlog = await _context.Blogs.FirstOrDefaultAsync(x => x.UrlSuffix == request.Blog.UrlSuffix);
                     suffixExtender += 1;
 
                 }

@@ -40,7 +40,11 @@ function BlogForm() {
 
     const options = [
         { label: 'Game-Dev', value: 'Game-Dev' },
-        { label: 'React', value: 'React' }
+        { label: 'React', value: 'React' }, 
+        { label: 'C#', value: 'C#' }, 
+        { label: 'LeetCode', value: 'LeetCode' }, 
+
+
     ]
 
     const { blogStore, profileStore } = useStore();

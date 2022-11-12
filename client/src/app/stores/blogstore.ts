@@ -23,7 +23,7 @@ export default class BlogStore {
     get blogsByDate() {
         try
         {
-            return Array.from(this.blogRegistry.values()).sort((a, b) => (a.date!.getTime()) - (b.date!.getTime()));
+            return Array.from(this.blogRegistry.values()).sort((a, b) => (b.date!.getTime()) - (a.date!.getTime()));
         }
         catch (error)
         {
@@ -55,7 +55,7 @@ export default class BlogStore {
                 blogs = await agent.Blogs.userBlogList();
             }
             blogs.forEach(blog => {
-                blog.date = new Date(blog.date);
+                blog.date = new Date(blog.date + 'Z');
                 this.blogRegistry.set(blog.id, blog);
             });
             runInAction(() => {

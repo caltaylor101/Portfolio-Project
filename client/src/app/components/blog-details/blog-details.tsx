@@ -87,7 +87,7 @@ const BlogDetails = () => {
             className='base-text-color'
             style={{textAlign: 'right', lineHeight: '0'}}
             >
-            {blogStore.selectedBlog?.date !== undefined ? format(new Date(blogStore.selectedBlog?.date!), 'dd MMM yyyy h:mm aa') : null}
+            {blogStore.selectedBlog?.date !== undefined ? format(new Date(blogStore.selectedBlog?.date! + 'Z'), 'dd MMM yyyy h:mm aa') : null}
 
           </Typography.Title>
         </Typography.Paragraph>

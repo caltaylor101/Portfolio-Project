@@ -58,20 +58,22 @@ function BlogEditForm() {
             <Col md={{span: 16, offset: 4}} offset={3} span={14} style={{ borderBottom: "2px solid white", marginTop: "50px" }}>
                 <h1 className="base-text-color">&nbsp;&nbsp;&nbsp;&nbsp;Edit Your Blog</h1>
             </Col>
-            <Formik validationSchema={validationSchema} initialValues={currentBlog} onSubmit={(values) => handleFormSubmit(values)}>
-                {({ handleSubmit, isValid, isSubmitting, dirty }: any) => (
-                    <Form
-                        className="ant-form ant-form-horizontal ant-form-default"
-                        style={{ paddingBottom: "250px", marginTop: "20px" }}
-                    >
-                        <TextInput label='Title:' name='title' placeholder='Title' />
-                        <TextArea label='Description:' rows={4} name='description' placeholder='Description' />
-                        <SelectInput placeholder="Category" name='category' label='Category:' options={options} />
-                        <TextArea label='Body' rows={15} name='body' placeholder='Body' />
-                        <Submit dirty={dirty} isValid={isValid} isSubmitting={isSubmitting} handleSubmit={handleSubmit} />
-                    </Form>
-                )}
-            </Formik>
+            <Col xs={{ span: 22, offset: 0 }}>
+                <Formik validationSchema={validationSchema} initialValues={currentBlog} onSubmit={(values) => handleFormSubmit(values)}>
+                    {({ handleSubmit, isValid, isSubmitting, dirty }: any) => (
+                        <Form
+                            className="ant-form ant-form-horizontal ant-form-default"
+                            style={{ paddingBottom: "250px", marginTop: "20px" }}
+                        >
+                            <TextInput label='Title:' name='title' placeholder='Title' />
+                            <TextArea label='Description:' rows={4} name='description' placeholder='Description' />
+                            <SelectInput placeholder="Category" name='category' label='Category:' options={options} />
+                            <TextArea label='Body' rows={15} name='body' placeholder='Body' />
+                            <Submit dirty={dirty} isValid={isValid} isSubmitting={isSubmitting} handleSubmit={handleSubmit} />
+                        </Form>
+                    )}
+                </Formik>
+            </Col>
 
         </Fragment>
     );

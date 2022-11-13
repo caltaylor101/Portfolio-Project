@@ -76,6 +76,7 @@ function BlogForm() {
             <Col md={{span: 16, offset: 4}} offset={4} span={14} style={{ borderBottom: "2px solid white", marginTop: "50px" }}>
                 <h1 className="base-text-color">&nbsp;&nbsp;&nbsp;&nbsp;Post New Blog</h1>
             </Col>
+            <Col xs={{span: 22, offset: 0}}>
                     <Formik validationSchema={validationSchema} initialValues={initialState} onSubmit={(values) => handleFormSubmit(values)}>
                         {({ handleSubmit, isValid, isSubmitting, dirty }: any) => (
                             <Form
@@ -91,6 +92,7 @@ function BlogForm() {
                             </Form>
                         )}
                     </Formik>
+            </Col>
             <PhotoUploadWidget isProfilePicture={false} onCrop={onCrop} />
         </Fragment>
     );

@@ -18,7 +18,6 @@ interface Props {
 
 export default observer(function PhotoUploadWidget({ onCrop, isProfilePicture }: Props) {
 
-    const { profileStore: { isCurrentUser, uploadPhoto } } = useStore();
     const [files, setFiles] = useState<any>([]);
     const [tabKey, setTabKey] = useState<string>('1');
     const [cropper, setCropper] = useState<Cropper | undefined>();

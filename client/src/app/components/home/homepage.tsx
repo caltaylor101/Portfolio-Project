@@ -68,7 +68,7 @@ export default observer(function HomePage() {
 
                 <Row>
                 
-                    <Col xs={{span: 9, offset: 4}} sm={{span:7, offset:5}} xl={{ span: 2, offset: 4 }}>
+                    <Col xs={{span: 9, offset: 3}} sm={{span:7, offset:5}} xl={{ span: 2, offset: 4 }}>
                         <List
                             dataSource={['React', 'Angular', '.NET 6']}
                             renderItem={(item) => (

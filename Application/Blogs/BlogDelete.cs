@@ -1,6 +1,5 @@
 using Application.Core;
 using Application.Photos;
-using AutoMapper;
 using Domain;
 using Infrastructure;
 using MediatR;

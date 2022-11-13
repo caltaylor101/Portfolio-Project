@@ -4,7 +4,6 @@ using API.Services;
 using Application.Blogs;
 using Application.Photos;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Domain;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;

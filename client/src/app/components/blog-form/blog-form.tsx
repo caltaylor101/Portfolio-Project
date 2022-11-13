@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Col} from "antd";
 import { Fragment, useEffect} from "react";
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,6 @@ import Submit from "../form-components/Submit";
 import SelectInput from "../form-components/SelectInput";
 import { Blog } from "../../models/blog";
 import PhotoUploadWidget from "../image-upload/photo-upload-widget";
-import BlogPhotos from "../image-display/blogPhotos";
 
 
 

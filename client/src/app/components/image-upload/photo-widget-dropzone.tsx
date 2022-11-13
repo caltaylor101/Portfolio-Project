@@ -1,5 +1,4 @@
 import { UploadOutlined } from '@ant-design/icons';
-import { Typography, Upload } from 'antd';
 import {Fragment, useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
 

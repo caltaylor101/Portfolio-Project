@@ -3,7 +3,6 @@ import {  Card, Col, Row, Button, Tabs } from "antd";
 import Meta from "antd/lib/card/Meta";
 import { observer } from "mobx-react-lite";
 import { Fragment, useEffect, useState } from "react";
-import { useStore } from "../../stores/store";
 import BlogPhotos from "../image-display/blogPhotos";
 import PhotoWidgetDropzone from "./photo-widget-dropzone";
 import './photo-widget.css';

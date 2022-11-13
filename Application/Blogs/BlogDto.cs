@@ -1,6 +1,3 @@
-using Application.Profiles;
-using Domain;
-
 namespace Application.Blogs
 {
     public class BlogDto

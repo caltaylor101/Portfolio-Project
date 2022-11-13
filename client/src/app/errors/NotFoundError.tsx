@@ -1,8 +1,4 @@
-import { FileSearchOutlined } from '@ant-design/icons';
-import { Button, Col, Result, Row, Typography } from 'antd';
-import { Header } from 'antd/lib/layout/layout';
-import Title from 'antd/lib/typography/Title';
-import React from 'react';
+import { Button, Col, Result, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { RouteLinks } from '../../App-Routes';
 

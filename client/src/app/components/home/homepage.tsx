@@ -1,8 +1,8 @@
 import { ArrowUpOutlined, CaretRightOutlined, GithubOutlined } from "@ant-design/icons";
-import { Button, Col, List, Row, Typography, Image, Tabs, Avatar, Anchor } from "antd";
+import { Col, List, Row, Typography, Image, Tabs, Avatar, Anchor } from "antd";
 import Link from "antd/lib/typography/Link";
 import { observer } from "mobx-react-lite";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { RouteLinks } from "../../../App-Routes";
 import FadeInSection from "../fade-in/fade-in";
 import ProjectSummary from "../project-display/project-summary";

@@ -133,10 +133,10 @@ export default observer(function HomePage() {
                                     key: 'tab1',
                                     children:
                                         <Fragment>
-                                            Solutions Architect at <strong style={{ color: '#3FC1C9' }}>Cognizant</strong><br />
+                                            Programming Analyst at <strong style={{ color: '#3FC1C9' }}>Cognizant</strong><br />
                                             January 2020 - Present <br /><br />
                                             <Row>
-                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Pitched, planned, and executed development of an analytic project planning platform with Angular and .NET Core.</p></Col>
+                                                <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Pitched, planned, and executed development of an analytic project planning platform with React and .NET Core.</p></Col>
                                                 <Col span={1}><CaretRightOutlined style={{ color: '#3FC1C9' }} /></Col> <Col span={23}><p>Developed and led Healthcare vertical solutions by analyzing and integrating in-house products with third-party software such as Facets, QNXT, and AppDynamics.</p></Col>
                                             </Row>
                                         </Fragment>,
@@ -144,7 +144,7 @@ export default observer(function HomePage() {
                                 },
 
                                 {
-                                    label: 'Great Call',
+                                    label: 'Best Buy',
                                     key: 'tab2',
                                     children:
                                         <Fragment>

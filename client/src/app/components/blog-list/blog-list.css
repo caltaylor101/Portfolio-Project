@@ -1,6 +1,19 @@
+
+
+.category-button:hover {
+    background: #141414 !important;
+    border-color: white;
+}
+
+.category-button:focus {
+    background: #141414 !important;
+    border-color: white;
+}
+
 .blog-list {
     margin-top: 40px;
 }
+
 
 .blog-list-card {
     background-color:rgb(54, 54, 54);

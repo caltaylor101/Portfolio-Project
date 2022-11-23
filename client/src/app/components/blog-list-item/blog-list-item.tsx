@@ -39,7 +39,7 @@ const BlogListItem = ({ blog }: Props) => {
     return (
         <div className="blog-list" key={blog.id}>
 
-            <Col xs={{ span: 24 }} sm={{span: 22, offset: 1}} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} >
+            <Col >
 
                 <Card className="blog-list-card">
                     <Row>
@@ -52,8 +52,8 @@ const BlogListItem = ({ blog }: Props) => {
                         title={
                             <Fragment>
                                 <Row>
-                                    <Col xs={{span: 24}} md={{span:12}} span={12}><span style={{ color: "white", fontWeight: "lighter" }}>Published on: {blog.date !== undefined ?  format(new Date(blog.date + 'Z'), 'dd MMM yyyy h:mm aa') : null}</span></Col>
-                                    <Col xs={{span: 24}} md={{span:12}} span={12}>
+                                    <Col xs={{span: 24}} md={{span:24}} span={12}><span style={{ color: "white", fontWeight: "lighter" }}>Published on: {blog.date !== undefined ?  format(new Date(blog.date + 'Z'), 'dd MMM yyyy h:mm aa') : null}</span></Col>
+                                    <Col xs={{span: 24}} md={{span:24}} span={12}>
                                         <Typography.Title style={{ textAlign: 'right' }} className='base-text-color' level={4}>By: {blog.appUser}</Typography.Title>
                                     </Col>
                                 </Row>

@@ -1,6 +1,6 @@
-import { Col, Typography, Image } from "antd";
+import { Col, Typography, Image, Anchor } from "antd";
 import { observer } from "mobx-react-lite";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Blog as BlogModel } from "../../models/blog";
 import { useStore } from "../../stores/store";
 import { useParams } from "react-router-dom";
@@ -9,12 +9,40 @@ import Paragraph from "antd/lib/typography/Paragraph";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { format } from "date-fns";
+import useWindowDimensions from "../window-dimensions/UseWindowDimensions";
+import Link from "antd/lib/typography/Link";
+import { ArrowUpOutlined } from "@ant-design/icons";
+
 
 interface Props {
   blog: BlogModel
 }
 
 const BlogDetails = () => {
+
+  const [isVisible, setIsVisible] = useState(false);
+    const [currentHiddenHeight, setHeight] = useState(0)
+    console.log(isVisible);
+    
+    useEffect(() => {   
+      window.addEventListener("scroll", listenToScroll);
+      return () => 
+         window.removeEventListener("scroll", listenToScroll); 
+    }, [])
+    
+    const listenToScroll = () => {
+      let heightToRevealFrom = 500;
+      const winScroll = document.body.scrollTop || 
+          document.documentElement.scrollTop;
+      setHeight(winScroll);
+    console.log(winScroll);
+      if (winScroll > heightToRevealFrom) {  
+           !isVisible && setIsVisible(true);
+           console.log("IsVisible: " + currentHiddenHeight)
+      } else {
+           setIsVisible(false);
+      }  
+    };
 
   const { blogStore } = useStore();
   const { selectedBlog } = blogStore;
@@ -66,9 +94,18 @@ const BlogDetails = () => {
     codeCount += 1;
   }
 
+  const { height, width } = useWindowDimensions();
+
+
   if (blogStore.loading) return <LoadingComponent content={"Loading..."} />
   return (
     <Fragment>
+      {isVisible && 
+
+<Anchor offsetTop={height - 100}>
+  <Link href="#top" className='base-text-color' style={{ fontSize: '1.5em' }}>&nbsp; Back Up <ArrowUpOutlined className='base-text-color' style={{ fontSize: '1.5em' }} /></Link>
+</Anchor>
+}
       <Col xs={{ span: 22, offset: 1 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} style={{ marginTop: '50px', paddingBottom: '50px' }}>
         <Typography.Paragraph style={{
               borderBottom: "5px solid white"
@@ -137,10 +174,10 @@ const BlogDetails = () => {
           //Continue the paragraph. 
           else if (!isCode)
           {
-            let imageTextSplit = text.split(/(<image_\d>)/);
+            let imageTextSplit: any = text.split(/(<image_\d>)/);
             if (imageTextSplit.length > 1 && blogStore.selectedBlog!.photos !== null)
             {
-            return (imageTextSplit.map((imageText, i = 100): any => {
+            return (imageTextSplit.map((imageText: any, i = 100): any => {
               i += 1;
               let photoMatches = imageText.match(/(<image_\d>)/);
               if(photoMatches !== null)
@@ -181,6 +218,7 @@ const BlogDetails = () => {
           // }
       })}
       </Col>
+      
     </Fragment>
   );
 }

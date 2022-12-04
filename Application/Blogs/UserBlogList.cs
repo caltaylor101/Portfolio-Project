@@ -14,7 +14,7 @@ namespace Application.Blogs
         public class Query : IRequest<Result<PagedList<BlogDto>>> 
         {
             public AppUser AppUser { get; set; }
-            public PagingParams Params { get; set; }
+            public BlogParams Params { get; set; }
 
         }
 
@@ -33,10 +33,21 @@ namespace Application.Blogs
             public async Task<Result<PagedList<BlogDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 request.AppUser = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-                var blogQuery = _context.Blogs.OrderByDescending(d => d.Date)
+
+                var blogQuery = (string.IsNullOrEmpty(request.Params.Category))
+                    ?
+                    _context.Blogs.OrderByDescending(d => d.Date)
                     .Where(x => x.AppUser == request.AppUser)
                     .ProjectTo<BlogDto>(_mapper.ConfigurationProvider)
+                    .AsQueryable()
+
+                    :
+
+                    _context.Blogs.OrderByDescending(d => d.Date)
+                    .Where(x => x.AppUser == request.AppUser && x.Category == request.Params.Category)
+                    .ProjectTo<BlogDto>(_mapper.ConfigurationProvider)
                     .AsQueryable();
+
 
                 //var blogsToReturn = _mapper.Map<PagedList<BlogDto>>(blogs);
                 return Result<PagedList<BlogDto>>.Success(

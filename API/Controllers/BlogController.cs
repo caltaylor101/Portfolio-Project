@@ -11,13 +11,13 @@ namespace API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetBlogs([FromQuery]PagingParams param)
+        public async Task<IActionResult> GetBlogs([FromQuery]BlogParams param)
         {
             return HandlePagedResult(await Mediator.Send(new BlogList.Query{Params = param}));
         }
 
         [HttpGet("UserBlogs")] 
-        public async Task<IActionResult> GetUserBlogs([FromQuery]PagingParams param)
+        public async Task<IActionResult> GetUserBlogs([FromQuery]BlogParams param)
         {
             
             return HandlePagedResult(await Mediator.Send(new UserBlogList.Query{Params = param}));

@@ -29,8 +29,7 @@ export default observer(function BlogList({isUserDashboard}: Props){
     useEffect(() => {
         blogStore.blogRegistry.clear();
         if (blogStore.pagination !== null) {
-            console.log("SET CURRENT TO 1");
-            blogStore.setPagingParams(new PagingParams(blogStore.pagination!.currentPage = 1)); 
+            blogStore.setPagingParams(new PagingParams()); 
         } 
         blogStore.loadBlogs(isUserDashboard);
     }, [isUserDashboard]);
@@ -76,9 +75,9 @@ export default observer(function BlogList({isUserDashboard}: Props){
                     <Typography.Title className='base-text-color' level={4}><FilterOutlined className='base-text-color' style={{fontSize: '2em'}} /> &nbsp; Filter Category</Typography.Title>
                     {categories.map(category => {
                     return (
-                            <Button className='blog-list-card category-button' style={{width: '100%', textAlign: 'left'}}>
-                    <Typography.Paragraph className='base-text-color ' style={{fontSize: '1.25em'}}>&nbsp; {category}</Typography.Paragraph>
-                    </Button>
+                        <Button onClick={() => blogStore.setCategoryParams(category)} className='blog-list-card category-button' style={{ width: '100%', textAlign: 'left' }} id={category}>
+                            <Typography.Paragraph className='base-text-color ' style={{ fontSize: '1.25em' }}>&nbsp; {category}</Typography.Paragraph>
+                        </Button>
                     )
                 })}
                 </Card>

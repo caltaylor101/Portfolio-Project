@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, makeObservable, observable, runInAction } from "mobx";
+import { action, makeAutoObservable, makeObservable, observable, reaction, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Blog } from "../models/blog";
 import { v4 as uuid } from 'uuid';
@@ -14,18 +14,36 @@ export default class BlogStore {
     submitting = false;
     pagination: Pagination | null = null; 
     pagingParams = new PagingParams();
+    categoryParams = new Set();
+    isUserDashboard: boolean = false;
 
 
     constructor() {
         makeAutoObservable(this);
-        
+        reaction(
+            () => this.categoryParams.keys(),
+            () => {
+                this.pagingParams = new PagingParams();
+                this.blogRegistry.clear();
+                this.loadBlogs(this.isUserDashboard);
+            }
+        )
     }
 
     get axiosParams() {
         const params = new URLSearchParams();
         params.append('pageNumber', this.pagingParams.pageNumber.toString());
         params.append('pageSize', this.pagingParams.pageSize.toString());
+        this.categoryParams.forEach((value: any) => {
+                params.append('category', value);
+        }
+        )
         return params; 
+    }
+
+    setCategoryParams = (value: string) => {
+        this.categoryParams.clear();
+        if (value !== 'All Categories') this.categoryParams.add(value);
     }
 
     setPagingParams = (pagingParams: PagingParams) => 
@@ -58,6 +76,7 @@ export default class BlogStore {
     loadBlogs = async (isUserDashboard: boolean) => {
         if(this.blogRegistry.size == 0) this.setLoadingInitial(true);
         try {
+            this.isUserDashboard = isUserDashboard;
             let blogs: any = [];
             if (!isUserDashboard)
             {

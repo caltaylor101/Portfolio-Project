@@ -56,7 +56,7 @@ export default class BlogStore {
     // }
 
     loadBlogs = async (isUserDashboard: boolean) => {
-        this.setLoadingInitial(true);
+        if(this.blogRegistry.size == 0) this.setLoadingInitial(true);
         try {
             let blogs: any = [];
             if (!isUserDashboard)

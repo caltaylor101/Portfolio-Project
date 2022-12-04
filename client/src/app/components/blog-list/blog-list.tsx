@@ -1,8 +1,9 @@
 import { FilterOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Row, Typography } from "antd";
+import { Alert, Button, Card, Col, Row, Skeleton, Spin, Typography } from "antd";
 import { observer } from "mobx-react-lite";
 import { cwd } from "process";
 import { Fragment, useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroller";
 import { PagingParams } from "../../models/pagination";
 import { useStore } from "../../stores/store";
 import BlogListItem from "../blog-list-item/blog-list-item";
@@ -47,10 +48,18 @@ export default observer(function BlogList({isUserDashboard}: Props){
 
     if (blogStore.loadingInitial) return <LoadingComponent content={"Loading Blogs..."} />
     if (width > 576) return (
+        <InfiniteScroll
+                pageStart={0}
+                loadMore={handleGetNext}
+                hasMore={!loadingNext && !!blogStore.pagination && blogStore.pagination.currentPage < blogStore.pagination.totalPages}
+                initialLoad={false}
+            >
         <Fragment>
+            
             <Row>
             {!isUserDashboard 
             ? 
+            
             <Fragment>
             <Col sm={{span: 14 }} md={{ span: 13, offset: 1 }} lg={{ span: 16 }} xl={{ offset: 4, span: 12 }}>
             {blogStore.blogsByDate.map(blog => {
@@ -105,12 +114,34 @@ export default observer(function BlogList({isUserDashboard}: Props){
             </Fragment>
             }
 
-<Button onClick={handleGetNext} loading={loadingNext} disabled={blogStore.pagination?.totalPages === blogStore.pagination?.currentPage}>More</Button>
-
             </Row>
+            {loadingNext && 
+            <Row style={{marginTop:'15px'}}>
+                <Col offset={4} span={12}>
+            <Spin spinning={true} size='large' style={{ justifySelf: 'center', display: 'block' }}>
+            </Spin>
+            </Col>
+            <Col offset={4} span={12} style={{marginTop: '25px'}}>
+                <Skeleton active />
+                <Skeleton active />
+                <Skeleton active />
+                <Skeleton active />
+            </Col>
+            </Row>
+            }
         </Fragment >
+        </InfiniteScroll>
+
     );
+
+
     else return (
+        <InfiniteScroll
+                pageStart={0}
+                loadMore={handleGetNext}
+                hasMore={!loadingNext && !!blogStore.pagination && blogStore.pagination.currentPage < blogStore.pagination.totalPages}
+                initialLoad={false}
+            >
         <Fragment>
             <Row>
             <Col xs={{ span: 24 }}>
@@ -137,6 +168,28 @@ export default observer(function BlogList({isUserDashboard}: Props){
             </Col>
             
             </Row>
+            {loadingNext && 
+            <Fragment>
+            <Spin spinning={true} size='large' style={{ justifySelf: 'center', display: 'block' }}>
+                <Alert
+                    message=" "
+                    description={"Loading more blogs"}
+                    type="info"
+                    closable
+                    style={{ textAlign: 'center', height: '70px' }}
+                />
+
+            </Spin>
+
+            <Col offset={4} span={12} style={{marginTop: '25px'}}>
+                <Skeleton active />
+                <Skeleton active />
+                <Skeleton active />
+                <Skeleton active />
+            </Col>
+            </Fragment>
+            }
         </Fragment >
+        </InfiniteScroll>
     );
 })

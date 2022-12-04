@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { history } from '../..';
 import { RouteLinks } from '../../App-Routes';
 import { Blog } from '../models/blog';
+import { PaginatedResult } from '../models/pagination';
 import { Photo } from '../models/photo';
 import { Profile } from '../models/profile';
 import { User, UserFormValues } from '../models/user';
@@ -27,7 +28,14 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(async response => {
     if (process.env.NODE_ENV === 'development') await sleep(1000);
-        return response;
+    const pagination = response.headers['pagination'];
+    if (pagination)
+    {
+        response.data = new PaginatedResult(response.data, JSON.parse(pagination));
+        return response as AxiosResponse<PaginatedResult<any>>
+    }
+
+    return response;
 }, (error: AxiosError) => {
     const {data, status}: { data: any; status: number, config: any} = error.response!;
     switch (status) {
@@ -72,8 +80,8 @@ const requests = {
 }
 
 const Blogs = {
-    list: () => requests.get<Blog[]>('/blog'),
-    userBlogList: () => requests.get<Blog[]>('/blog/UserBlogs'),
+    list: (params: URLSearchParams) => axios.get<PaginatedResult<Blog[]>>('/blog', {params}).then(responseBody),
+    userBlogList: (params: URLSearchParams) => axios.get<PaginatedResult<Blog[]>>('/blog/UserBlogs', {params}).then(responseBody),
     details: (urlSuffix: string, id?: string | null) => 
     {
         if (id === undefined)

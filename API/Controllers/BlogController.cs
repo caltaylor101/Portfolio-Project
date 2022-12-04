@@ -1,4 +1,5 @@
 using Application.Blogs;
+using Application.Core;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,16 @@ namespace API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetBlogs()
+        public async Task<IActionResult> GetBlogs([FromQuery]PagingParams param)
         {
-            return HandleResult(await Mediator.Send(new BlogList.Query()));
+            return HandlePagedResult(await Mediator.Send(new BlogList.Query{Params = param}));
+        }
+
+        [HttpGet("UserBlogs")] 
+        public async Task<IActionResult> GetUserBlogs([FromQuery]PagingParams param)
+        {
+            
+            return HandlePagedResult(await Mediator.Send(new UserBlogList.Query{Params = param}));
         }
 
         [HttpGet("{urlSuffix}/{id}")]
@@ -54,12 +62,7 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new BlogDelete.Command { Id = id }));
         }
 
-        [HttpGet("UserBlogs")]
-        public async Task<IActionResult> GetUserBlogs(Guid? appUserId)
-        {
-            var result = await Mediator.Send(new UserBlogList.Query());
-            return HandleResult(result);
-        }
+        
 
     }
 }

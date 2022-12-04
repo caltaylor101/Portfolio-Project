@@ -1,5 +1,6 @@
 using Application.Core;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +9,12 @@ namespace Application.Blogs
 {
     public class BlogList
     {
-        public class Query : IRequest<Result<List<BlogDto>>> { } //parameters go in the brackets
+        public class Query : IRequest<Result<PagedList<BlogDto>>> 
+        { 
+            public PagingParams Params { get; set; }
+        } 
 
-        public class Handler : IRequestHandler<Query, Result<List<BlogDto>>>
+        public class Handler : IRequestHandler<Query, Result<PagedList<BlogDto>>>
         {
             private readonly DataContext _context;
         private readonly IMapper _mapper;
@@ -20,11 +24,18 @@ namespace Application.Blogs
                 _context = context;
             }
 
-            public async Task<Result<List<BlogDto>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<PagedList<BlogDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var blogs = await _context.Blogs.Include(x => x.AppUser).ToListAsync();
-                var blogsToReturn = _mapper.Map<List<BlogDto>>(blogs);
-                return Result<List<BlogDto>>.Success(blogsToReturn);
+                var blogQuery = _context.Blogs
+                .OrderByDescending(d => d.Date)
+                .Include(x => x.AppUser)
+                .ProjectTo<BlogDto>(_mapper.ConfigurationProvider)
+                .AsQueryable();
+                //var blogsToReturn = _mapper.Map<List<BlogDto>>(blogs);
+
+                return Result<PagedList<BlogDto>>.Success(
+                    await PagedList<BlogDto>.CreateAsync(blogQuery, request.Params.PageNumber, request.Params.PageSize)
+                );
             }
         }
     }

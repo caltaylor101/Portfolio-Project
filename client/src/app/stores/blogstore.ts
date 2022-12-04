@@ -3,6 +3,7 @@ import agent from "../api/agent";
 import { Blog } from "../models/blog";
 import { v4 as uuid } from 'uuid';
 import { Photo } from "../models/photo";
+import { Pagination, PagingParams } from "../models/pagination";
 
 export default class BlogStore {
     blogs: Blog[] = [];
@@ -11,6 +12,8 @@ export default class BlogStore {
     loading = false;
     loadingInitial = false;
     submitting = false;
+    pagination: Pagination | null = null; 
+    pagingParams = new PagingParams();
 
 
     constructor() {
@@ -18,7 +21,17 @@ export default class BlogStore {
         
     }
 
-    
+    get axiosParams() {
+        const params = new URLSearchParams();
+        params.append('pageNumber', this.pagingParams.pageNumber.toString());
+        params.append('pageSize', this.pagingParams.pageSize.toString());
+        return params; 
+    }
+
+    setPagingParams = (pagingParams: PagingParams) => 
+    {
+        this.pagingParams = pagingParams;
+    }
 
     get blogsByDate() {
         try
@@ -45,19 +58,20 @@ export default class BlogStore {
     loadBlogs = async (isUserDashboard: boolean) => {
         this.setLoadingInitial(true);
         try {
-            let blogs = [];
+            let blogs: any = [];
             if (!isUserDashboard)
             {
-                blogs = await agent.Blogs.list();
+                blogs = await agent.Blogs.list(this.axiosParams);
             }
             else
             {
-                blogs = await agent.Blogs.userBlogList();
+                blogs = await agent.Blogs.userBlogList(this.axiosParams);
             }
-            blogs.forEach(blog => {
+            blogs.data.forEach((blog: any) => {
                 blog.date = new Date(blog.date);
                 this.blogRegistry.set(blog.id, blog);
             });
+            this.setPagination(blogs.pagination);
             runInAction(() => {
                 this.setLoadingInitial(false);
             })
@@ -68,6 +82,10 @@ export default class BlogStore {
                 this.setLoadingInitial(false);
             })
         }
+    }
+
+    setPagination = (pagination: Pagination) => {
+        this.pagination = pagination; 
     }
 
     setLoadingInitial = (state: boolean) => {

@@ -1,7 +1,9 @@
 import { FilterOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Row, Typography } from "antd";
 import { observer } from "mobx-react-lite";
-import { Fragment, useEffect } from "react";
+import { cwd } from "process";
+import { Fragment, useEffect, useState } from "react";
+import { PagingParams } from "../../models/pagination";
 import { useStore } from "../../stores/store";
 import BlogListItem from "../blog-list-item/blog-list-item";
 import LoadingComponent from "../loading/loading";
@@ -25,14 +27,25 @@ export default observer(function BlogList({isUserDashboard}: Props){
 
     useEffect(() => {
         blogStore.blogRegistry.clear();
+        if (blogStore.pagination !== null) {
+            console.log("SET CURRENT TO 1");
+            blogStore.setPagingParams(new PagingParams(blogStore.pagination!.currentPage = 1)); 
+        } 
         blogStore.loadBlogs(isUserDashboard);
     }, [isUserDashboard]);
 
     const { height, width } = useWindowDimensions();
+    
+    const [loadingNext, setLoadingNext] = useState(false);
+    
+    function handleGetNext() {
+        setLoadingNext(true);
+        blogStore.setPagingParams(new PagingParams(blogStore.pagination!.currentPage + 1)); 
+        blogStore.loadBlogs(isUserDashboard).then(() => setLoadingNext(false));
+    }
 
 
     if (blogStore.loadingInitial) return <LoadingComponent content={"Loading Blogs..."} />
-
     if (width > 576) return (
         <Fragment>
             <Row>
@@ -92,6 +105,7 @@ export default observer(function BlogList({isUserDashboard}: Props){
             </Fragment>
             }
 
+<Button onClick={handleGetNext} loading={loadingNext} disabled={blogStore.pagination?.totalPages === blogStore.pagination?.currentPage}>More</Button>
 
             </Row>
         </Fragment >
@@ -122,7 +136,6 @@ export default observer(function BlogList({isUserDashboard}: Props){
             }
             </Col>
             
-
             </Row>
         </Fragment >
     );

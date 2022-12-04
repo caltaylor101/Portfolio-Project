@@ -17,7 +17,6 @@ const BlogListDashboard = ({blogs, loadingInitial}: Props) => {
     const [submitting, setSubmitting] = useState(false);
     const [target, setTarget] = useState('');
 
-
     // function handleDeleteBlog(id: string) {
     //     setTarget(id);
     //     setSubmitting(true);
@@ -29,7 +28,6 @@ const BlogListDashboard = ({blogs, loadingInitial}: Props) => {
     // }
 
     if (loadingInitial) return <LoadingComponent content={"Loading..."} />
-    console.log("reloading");
 
     return (
         <Fragment>

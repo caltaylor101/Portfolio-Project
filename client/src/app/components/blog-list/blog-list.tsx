@@ -1,5 +1,6 @@
-import { FilterOutlined } from "@ant-design/icons";
-import { Alert, Button, Card, Col, Row, Skeleton, Spin, Typography } from "antd";
+import { ArrowUpOutlined, FilterOutlined } from "@ant-design/icons";
+import { Alert, Anchor, Button, Card, Col, Row, Skeleton, Spin, Typography } from "antd";
+import Link from "antd/lib/typography/Link";
 import { observer } from "mobx-react-lite";
 import { cwd } from "process";
 import { Fragment, useEffect, useState } from "react";
@@ -35,7 +36,20 @@ export default observer(function BlogList({isUserDashboard}: Props){
     }, [isUserDashboard]);
 
     const { height, width } = useWindowDimensions();
+
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+    };
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
     
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     const [loadingNext, setLoadingNext] = useState(false);
     
     function handleGetNext() {
@@ -47,13 +61,20 @@ export default observer(function BlogList({isUserDashboard}: Props){
 
     if (blogStore.loadingInitial) return <LoadingComponent content={"Loading Blogs..."} />
     if (width > 576) return (
+        <Fragment>
+        
+        {scrollPosition > 500 && 
+        <Anchor offsetTop={height - 100}>
+        <Link href="#top" className='base-text-color' style={{ fontSize: '1.5em' }}>&nbsp; Back Up <ArrowUpOutlined className='base-text-color' style={{ fontSize: '1.5em' }} /></Link>
+
+        </Anchor>
+        }
         <InfiniteScroll
                 pageStart={0}
                 loadMore={handleGetNext}
                 hasMore={!loadingNext && !!blogStore.pagination && blogStore.pagination.currentPage < blogStore.pagination.totalPages}
                 initialLoad={false}
             >
-        <Fragment>
             
             <Row>
             {!isUserDashboard 
@@ -128,8 +149,11 @@ export default observer(function BlogList({isUserDashboard}: Props){
             </Col>
             </Row>
             }
-        </Fragment >
+        
         </InfiniteScroll>
+        
+    </Fragment >
+
 
     );
 

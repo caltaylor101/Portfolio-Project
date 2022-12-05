@@ -1,5 +1,5 @@
 import { ArrowUpOutlined, CaretRightOutlined, GithubOutlined } from "@ant-design/icons";
-import { Col, List, Row, Typography, Image, Tabs, Avatar, Anchor } from "antd";
+import { Col, List, Row, Typography, Image, Tabs, Anchor } from "antd";
 import Link from "antd/lib/typography/Link";
 import { observer } from "mobx-react-lite";
 import { Fragment } from "react";

@@ -63,7 +63,7 @@ export default observer(function BlogList({isUserDashboard}: Props){
     if (width > 576) return (
         <Fragment>
         
-        {scrollPosition > 500 && 
+        {scrollPosition > 500 && !isUserDashboard && 
         <Anchor offsetTop={height - 100}>
         <Link href="#top" className='base-text-color' style={{ fontSize: '1.5em' }}>&nbsp; Back Up <ArrowUpOutlined className='base-text-color' style={{ fontSize: '1.5em' }} /></Link>
 
@@ -113,7 +113,7 @@ export default observer(function BlogList({isUserDashboard}: Props){
                     <Typography.Title className='base-text-color' level={4}><FilterOutlined className='base-text-color' style={{fontSize: '2em'}} /> &nbsp; Filter Category</Typography.Title>
                     {categories.map(category => {
                     return (
-                            <Button className='blog-list-card category-button' style={{width: '100%', textAlign: 'left'}}>
+                            <Button onClick={() => blogStore.setCategoryParams(category)} className='blog-list-card category-button' style={{width: '100%', textAlign: 'left'}}>
                     <Typography.Paragraph className='base-text-color ' style={{fontSize: '1.25em'}}>&nbsp; {category}</Typography.Paragraph>
                     </Button>
                     )
@@ -172,7 +172,7 @@ export default observer(function BlogList({isUserDashboard}: Props){
                     <Typography.Title className='base-text-color' level={4}><FilterOutlined className='base-text-color' style={{fontSize: '2em'}} /> &nbsp; Filter Category</Typography.Title>
                     {categories.map(category => {
                     return (
-                            <Button className='blog-list-card category-button' style={{width: '100%', textAlign: 'left'}}>
+                            <Button onClick={() => blogStore.setCategoryParams(category)} className='blog-list-card category-button' style={{width: '100%', textAlign: 'left'}}>
                     <Typography.Paragraph className='base-text-color ' style={{fontSize: '1.25em'}}>&nbsp; {category}</Typography.Paragraph>
                     </Button>
                     )

@@ -148,7 +148,7 @@ export default observer(function HomePage() {
                                     key: 'tab2',
                                     children:
                                         <Fragment>
-                                            Software QA in Test at <strong style={{ color: '#3FC1C9' }}>GreatCall</strong>
+                                            Software QA in Test at <strong style={{ color: '#3FC1C9' }}>Best Buy</strong>
                                             <br />
                                             June 2019 – August 2019
                                             <br /><br />

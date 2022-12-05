@@ -1,11 +1,13 @@
-import { UserOutlined } from "@ant-design/icons";
-import { PageHeader, Button, Avatar, Image, Row, Col, Typography } from "antd";
+import { ArrowUpOutlined, UserOutlined } from "@ant-design/icons";
+import { PageHeader, Button, Avatar, Image, Row, Col, Typography, Anchor } from "antd";
 import { Content } from "antd/lib/layout/layout";
+import Link from "antd/lib/typography/Link";
 import { observer } from "mobx-react-lite";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useStore } from "../../stores/store";
 import BlogList from "../blog-list/blog-list";
 import PhotoUploadWidget from "../image-upload/photo-upload-widget";
+import useWindowDimensions from "../window-dimensions/UseWindowDimensions";
 import "./current-user-dashboard.css";
 
 export default observer(function MyProfile() {
@@ -21,8 +23,30 @@ export default observer(function MyProfile() {
             cropper.getCroppedCanvas().toBlob((file: Blob) => profileStore.uploadPhoto(file, true));
         }
     }
+
+    const { height, width } = useWindowDimensions();
+
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+    };
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+    
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
         <Fragment>
+            {scrollPosition > 500 && 
+        <Anchor offsetTop={height - 100}>
+        <Link href="#top" className='base-text-color' style={{ fontSize: '1.5em' }}>&nbsp; Back Up <ArrowUpOutlined className='base-text-color' style={{ fontSize: '1.5em' }} /></Link>
+
+        </Anchor>
+        }
             <PageHeader
                 className="site-page-header-responsive base-text-color"
                 onBack={() => window.history.back()}

@@ -12,6 +12,7 @@ import { format } from "date-fns";
 import useWindowDimensions from "../window-dimensions/UseWindowDimensions";
 import Link from "antd/lib/typography/Link";
 import { ArrowUpOutlined } from "@ant-design/icons";
+import CommentBox from "../chat/comment-box";
 
 
 interface Props {
@@ -21,28 +22,25 @@ interface Props {
 const BlogDetails = () => {
 
   const [isVisible, setIsVisible] = useState(false);
-    const [currentHiddenHeight, setHeight] = useState(0)
-    console.log(isVisible);
-    
-    useEffect(() => {   
-      window.addEventListener("scroll", listenToScroll);
-      return () => 
-         window.removeEventListener("scroll", listenToScroll); 
-    }, [])
-    
-    const listenToScroll = () => {
-      let heightToRevealFrom = 500;
-      const winScroll = document.body.scrollTop || 
-          document.documentElement.scrollTop;
-      setHeight(winScroll);
-    console.log(winScroll);
-      if (winScroll > heightToRevealFrom) {  
-           !isVisible && setIsVisible(true);
-           console.log("IsVisible: " + currentHiddenHeight)
-      } else {
-           setIsVisible(false);
-      }  
-    };
+  const [currentHiddenHeight, setHeight] = useState(0)
+
+  useEffect(() => {
+    window.addEventListener("scroll", listenToScroll);
+    return () =>
+      window.removeEventListener("scroll", listenToScroll);
+  }, [])
+
+  const listenToScroll = () => {
+    let heightToRevealFrom = 500;
+    const winScroll = document.body.scrollTop ||
+      document.documentElement.scrollTop;
+    setHeight(winScroll);
+    if (winScroll > heightToRevealFrom) {
+      !isVisible && setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
 
   const { blogStore } = useStore();
   const { selectedBlog } = blogStore;
@@ -72,7 +70,7 @@ const BlogDetails = () => {
           blogStore.getBlog(urlSuffix!);
         }
         // setCurrentBlog(exampleBlog);
-        blogStore.selectedBlog = exampleBlog; 
+        blogStore.selectedBlog = exampleBlog;
         // blogStore.selectedBlog!.date = new Date(blogStore.selectedBlog!.date);
       }
     } catch (error) {
@@ -100,21 +98,21 @@ const BlogDetails = () => {
   if (blogStore.loading) return <LoadingComponent content={"Loading..."} />
   return (
     <Fragment>
-      {isVisible && 
+      {isVisible &&
 
-<Anchor offsetTop={height - 100}>
-  <Link href="#top" className='base-text-color' style={{ fontSize: '1.5em' }}>&nbsp; Back Up <ArrowUpOutlined className='base-text-color' style={{ fontSize: '1.5em' }} /></Link>
-</Anchor>
-}
+        <Anchor offsetTop={height - 100}>
+          <Link href="#top" className='base-text-color' style={{ fontSize: '1.5em' }}>&nbsp; Back Up <ArrowUpOutlined className='base-text-color' style={{ fontSize: '1.5em' }} /></Link>
+        </Anchor>
+      }
       <Col xs={{ span: 22, offset: 1 }} sm={16} md={{ span: 20, offset: 2 }} lg={{ span: 20 }} xl={{ offset: 4, span: 12 }} style={{ marginTop: '50px', paddingBottom: '50px' }}>
         <Typography.Paragraph style={{
-              borderBottom: "5px solid white"
-            }}>
+          borderBottom: "5px solid white"
+        }}>
 
           <Typography.Title
             level={1}
             className='base-text-color'
-            
+
           >
             {blogStore.selectedBlog?.title}
 
@@ -122,8 +120,8 @@ const BlogDetails = () => {
           <Typography.Title
             level={3}
             className='base-text-color'
-            style={{textAlign: 'right', lineHeight: '0'}}
-            >
+            style={{ textAlign: 'right', lineHeight: '0' }}
+          >
             {blogStore.selectedBlog?.date !== undefined ? format(new Date(blogStore.selectedBlog?.date! + 'Z'), 'dd MMM yyyy h:mm aa') : null}
 
           </Typography.Title>
@@ -153,72 +151,69 @@ const BlogDetails = () => {
 
         {myBody?.map((text, key) => {
 
-          if (text.split("<code>").length > 1)
-          {
+          if (text.split("<code>").length > 1) {
             setCode();
             //Find the separated code
             let myFormattedCode = myCode?.at(codeCount)?.split((/[\n]/));
             return (
               //Add the separated code here.
-              <SyntaxHighlighter key = {key} language="javascript" style={nightOwl}>
+              <SyntaxHighlighter key={key} language="javascript" style={nightOwl}>
                 {myCode?.at(codeCount)!}
               </SyntaxHighlighter>
             )
           }
           //Close the code tag
-          else if (text.split("</code>").length > 1)
-          {
+          else if (text.split("</code>").length > 1) {
             isCode = false;
           }
-          
-          //Continue the paragraph. 
-          else if (!isCode)
-          {
-            let imageTextSplit: any = text.split(/(<image_\d>)/);
-            if (imageTextSplit.length > 1 && blogStore.selectedBlog!.photos !== null)
-            {
-            return (imageTextSplit.map((imageText: any, i = 100): any => {
-              i += 1;
-              let photoMatches = imageText.match(/(<image_\d>)/);
-              if(photoMatches !== null)
-              {
-                let photoArray = photoMatches[0].match(/(\d)/) as any;
-                let srcImage = blogStore.selectedBlog?.photos?.filter(x => x.order == photoArray[0].toString());
-                let srcImageReference = srcImage![0];
-                return (
-                  <Image key={i} src={`${srcImageReference.url}`} />
 
-                );
-              }
-              else
-              {
-                return (
-                  <Paragraph key={i} className="base-text-color" style={{ fontSize: "1.5em" }}>
-                    {imageText}
-                  </Paragraph>
-                )
-              }
-            }));
+          //Continue the paragraph. 
+          else if (!isCode) {
+            let imageTextSplit: any = text.split(/(<image_\d>)/);
+            if (imageTextSplit.length > 1 && blogStore.selectedBlog!.photos !== null) {
+              return (imageTextSplit.map((imageText: any, i = 100): any => {
+                i += 1;
+                let photoMatches = imageText.match(/(<image_\d>)/);
+                if (photoMatches !== null) {
+                  let photoArray = photoMatches[0].match(/(\d)/) as any;
+                  let srcImage = blogStore.selectedBlog?.photos?.filter(x => x.order == photoArray[0].toString());
+                  let srcImageReference = srcImage![0];
+                  return (
+                    <Image key={i} src={`${srcImageReference.url}`} />
+
+                  );
+                }
+                else {
+                  return (
+                    <Paragraph key={i} className="base-text-color" style={{ fontSize: "1.5em" }}>
+                      {imageText}
+                    </Paragraph>
+                  )
+                }
+              }));
 
             }
-            else
-            {
+            else {
               return (
                 <Paragraph key={key} className="base-text-color" style={{ fontSize: "1.5em" }}>
                   {text}
                 </Paragraph>
-                )
+              )
             }
-            
+
           }
           // if (text.split(/(<image_\d>)/).length > 1)
           // {
           //   let test = text.split(/(<image_\d>)/);
           //   console.log(test);
           // }
-      })}
+        })}
       </Col>
-      
+
+      {blogStore.selectedBlog?.id &&
+        <CommentBox blogId={blogStore.selectedBlog!.id} />
+      }
+
     </Fragment>
   );
 }

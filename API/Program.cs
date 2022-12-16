@@ -2,6 +2,7 @@ using System.Text;
 using API.Extensions;
 using API.Middleware;
 using API.Services;
+using API.SignalR;
 using Application.Blogs;
 using Application.Core;
 using Application.Interfaces;
@@ -57,6 +58,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = false,
             ValidateAudience = false
         };
+        opt.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context => 
+            {
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/chat")))
+                {
+                    context.Token = accessToken; 
+                }
+                return Task.CompletedTask;
+            }
+        };
     });
 
 builder.Services.AddAuthorization(opt =>
@@ -86,7 +100,11 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", policy =>
     {
-        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+        policy
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials()
+        .WithOrigins("http://localhost:3000");
     });
 });
 
@@ -101,6 +119,8 @@ builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection(
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -144,6 +164,8 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 
 app.MapControllers();
+
+app.MapHub<ChatHub>("/chat");
 
 app.UseRouting();
 app.UseAuthorization();

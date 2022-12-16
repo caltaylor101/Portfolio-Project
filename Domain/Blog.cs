@@ -12,8 +12,6 @@ namespace Domain
         public string UrlSuffix { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public AppUser AppUser { get; set; }
-
-        // public string AuthorId { get; set; }
-        // public string AuthorName { get; set; }
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

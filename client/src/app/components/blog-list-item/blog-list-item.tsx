@@ -22,10 +22,6 @@ const BlogListItem = ({ blog }: Props) => {
     function handleDeleteBlog(id: string) {
         setTarget(id);
         blogStore.deleteBlog(id);
-        // agent.Blogs.delete(id).then(() => {
-        //     setBlogs([...blogs.filter(x => x.id !== id)]);
-        //     setSubmitting(false);
-        // })
     }
 
     function selectBlog(id: string, url: string) {

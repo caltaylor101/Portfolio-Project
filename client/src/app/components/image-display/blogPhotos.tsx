@@ -7,10 +7,8 @@ import { Photo } from "../../models/photo";
 import { InfoCircleOutlined } from "@ant-design/icons";
 
 interface Props {
-    // photos: Photo[];
     isProfilePicture: boolean;
 }
-
 
 export default observer(function BlogPhotos({ isProfilePicture }: Props) {
 
@@ -38,27 +36,27 @@ export default observer(function BlogPhotos({ isProfilePicture }: Props) {
 
     return (
         <Fragment>
-            <Row style={{ paddingBottom: '25px', overflowX: 'hidden', height:396 }} >
+            <Row style={{ paddingBottom: '25px', overflowX: 'hidden', height: 396 }} >
 
                 {profileStore.loadingPhotos
                     ?
                     <>
-                        <Col xs={{span: 24, offset: 0}} lg={{span: 4, offset: 4}} span={4} offset={4} style={{ paddingTop: '10px', minHeight: 350 }}>
+                        <Col xs={{ span: 24, offset: 0 }} lg={{ span: 4, offset: 4 }} span={4} offset={4} style={{ paddingTop: '10px', minHeight: 350 }}>
                             <Card style={{ width: '100%' }} cover={<Skeleton.Image active={true} style={{ height: 300, width: '100%', paddingTop: '20%' }} />} >
 
                             </Card>
                         </Col>
-                        <Col xs={{span: 24, offset: 0}} lg={4} span={4} style={{ paddingTop: '10px', minHeight: 350 }}>
+                        <Col xs={{ span: 24, offset: 0 }} lg={4} span={4} style={{ paddingTop: '10px', minHeight: 350 }}>
                             <Card style={{ width: '100%' }} cover={<Skeleton.Image active={true} style={{ height: 300, width: '100%', paddingTop: '20%' }} />} >
 
                             </Card>
                         </Col>
-                        <Col xs={{span: 24, offset: 0}} lg={4} span={4} style={{ paddingTop: '10px', minHeight: 350 }}>
+                        <Col xs={{ span: 24, offset: 0 }} lg={4} span={4} style={{ paddingTop: '10px', minHeight: 350 }}>
                             <Card style={{ width: '100%' }} cover={<Skeleton.Image active={true} style={{ height: 300, width: '100%', paddingTop: '20%' }} />} >
 
                             </Card>
                         </Col>
-                        <Col xs={{span: 24, offset: 0}} lg={4} span={4} style={{ paddingTop: '10px', minHeight: 350 }}>
+                        <Col xs={{ span: 24, offset: 0 }} lg={4} span={4} style={{ paddingTop: '10px', minHeight: 350 }}>
                             <Card style={{ width: '100%' }} cover={<Skeleton.Image active={true} style={{ height: 300, width: '100%', paddingTop: '20%' }} />} >
 
                             </Card>
@@ -67,7 +65,7 @@ export default observer(function BlogPhotos({ isProfilePicture }: Props) {
                     :
                     <>
                         {profileStore.getPhotos?.map((image, i) => (
-                            <Col xs={{span: 24, offset: 0}} md={{span:16, offset: 4}} lg={{span: 4, offset:(i % 4 === 0) ? 4 : 0}} span={4} offset={(i % 4 === 0) ? 4 : 0} style={{ paddingTop: '10px', minHeight: 350 }} key={i}>
+                            <Col xs={{ span: 24, offset: 0 }} md={{ span: 16, offset: 4 }} lg={{ span: 4, offset: (i % 4 === 0) ? 4 : 0 }} span={4} offset={(i % 4 === 0) ? 4 : 0} style={{ paddingTop: '10px', minHeight: 350 }} key={i}>
                                 {/* Made as a string otherwise it doesn't calculate the boolean correctly */}
                                 {image.isMainProfilePicture.toString() === 'True' ?
                                     <Card cover={<Image src={`${image.url}`} style={{ maxHeight: 300, maxWidth: '100%', width: 'auto', paddingTop: '20%' }} />} style={{ width: '100%', height: '100%', justifyContent: 'center', border: '5px solid #32CD32' }}>

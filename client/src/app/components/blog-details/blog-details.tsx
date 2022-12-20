@@ -44,21 +44,15 @@ const BlogDetails = () => {
 
   const { blogStore } = useStore();
   const { selectedBlog } = blogStore;
-  // const [currentBlog, setCurrentBlog] = useState<BlogModel | null>(null);
   const { urlSuffix } = useParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // blogStore.getBlog(urlSuffix!);
-    // setCurrentBlog(blogStore.selectedBlog!);
-    // console.log(currentBlog);
   }, []);
 
   useEffect(() => {
     if (selectedBlog !== undefined) {
       window.sessionStorage.setItem("blog", JSON.stringify(selectedBlog));
-      // setCurrentBlog(selectedBlog);
-
     }
   }, []);
 
@@ -69,9 +63,7 @@ const BlogDetails = () => {
         if (exampleBlog === null || exampleBlog.urlSuffix !== urlSuffix) {
           blogStore.getBlog(urlSuffix!);
         }
-        // setCurrentBlog(exampleBlog);
         blogStore.selectedBlog = exampleBlog;
-        // blogStore.selectedBlog!.date = new Date(blogStore.selectedBlog!.date);
       }
     } catch (error) {
       console.log(error);
@@ -95,12 +87,10 @@ const BlogDetails = () => {
 
   const { height, width } = useWindowDimensions();
 
-
   if (blogStore.loading) return <LoadingComponent content={"Loading..."} />
   return (
     <Fragment>
       {isVisible &&
-
         <Anchor offsetTop={height - 100}>
           <Link href="#top" className='base-text-color' style={{ fontSize: '1.5em' }}>&nbsp; Back Up <ArrowUpOutlined className='base-text-color' style={{ fontSize: '1.5em' }} /></Link>
         </Anchor>
@@ -109,14 +99,11 @@ const BlogDetails = () => {
         <Typography.Paragraph style={{
           borderBottom: "5px solid white"
         }}>
-
           <Typography.Title
             level={1}
             className='base-text-color'
-
           >
             {blogStore.selectedBlog?.title}
-
           </Typography.Title>
           <Typography.Title
             level={3}
@@ -124,31 +111,8 @@ const BlogDetails = () => {
             style={{ textAlign: 'right', lineHeight: '0' }}
           >
             {blogStore.selectedBlog?.date !== undefined ? format(new Date(blogStore.selectedBlog?.date! + 'Z'), 'dd MMM yyyy h:mm aa') : null}
-
           </Typography.Title>
         </Typography.Paragraph>
-
-        {/* <Paragraph style={{
-          borderBottom: "2px dashed white"
-        }}>
-          <Typography.Title
-            level={3}
-            className='base-text-color'
-            style={{
-              borderBottom: "2px dashed white"
-            }}
-          >
-            Description:
-          </Typography.Title>
-
-          <Typography.Text
-            className='base-text-color'
-            style={{ fontSize: '1.6em' }}
-          >
-            {blogStore.selectedBlog?.description}
-          </Typography.Text>
-        </Paragraph> */}
-
 
         {myBody?.map((text, key) => {
 
@@ -203,11 +167,6 @@ const BlogDetails = () => {
             }
 
           }
-          // if (text.split(/(<image_\d>)/).length > 1)
-          // {
-          //   let test = text.split(/(<image_\d>)/);
-          //   console.log(test);
-          // }
         })}
       </Col>
 

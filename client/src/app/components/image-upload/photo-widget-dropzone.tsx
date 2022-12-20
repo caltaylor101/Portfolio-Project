@@ -24,7 +24,6 @@ export default function PhotoWidgetDropzone({setFiles}: Props) {
         borderColor: 'green',
     }
 
-
   const onDrop = useCallback((acceptedFiles: any) => {
     setFiles(acceptedFiles.map((file:any) => Object.assign(file, {
         preview: URL.createObjectURL(file)
@@ -35,15 +34,10 @@ export default function PhotoWidgetDropzone({setFiles}: Props) {
 
     return (
         <Fragment>
-
                 <div {...getRootProps()} style={isDragActive ? { ...dzStyles, ...dzActive } : dzStyles} >
                     <UploadOutlined size={64} />
                     <input {...getInputProps()} />
-                
-                
                 </div>
-            
         </Fragment>
-    
   )
 }

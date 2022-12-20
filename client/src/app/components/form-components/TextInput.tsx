@@ -17,13 +17,6 @@ interface Props {
 
 export default function TextInput(props: Props) {
     const [field, meta] = useField(props.name);
-    function getWindowDimensions() {
-        const { innerWidth: width, innerHeight: height } = window;
-        return {
-          width,
-          height
-        };
-      }
     
     const gutter = ([props.gutterV, props.gutterH] as Gutter);
     

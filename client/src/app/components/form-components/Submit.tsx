@@ -32,9 +32,7 @@ export default observer(function Submit(props: Props) {
                 <Button type="primary" danger={true} size="large" onClick={() => navigate(routeLinks.blogList)} >Cancel</Button>
                 :
                 <Button type="primary" danger={true} size="large" onClick={() => modalStore.closeModal()} >Cancel</Button>
-                
             }
-                
             </Col>
         </Row>
     )

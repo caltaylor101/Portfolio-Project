@@ -19,7 +19,6 @@ export default function TextArea(props: Props) {
             <Col xs={{span: 1, offset: 1}} md={{span:16}} lg={{span:2, offset:2}} xl={{span:2, offset:2}} span={1}>
                 <label className="base-text-color">{props.label}</label>
             </Col>
-            {/* <Col offset={1} span={12}> */}
             <Col md={2} lg={2}></Col>
             <Col xs={{span:24, offset:1}} sm={24} md={{span: 16, offset: 4}} lg={{span: 12, offset: 4}} xl={{span: 12, offset: 5}} >
                 <Form.Item validateStatus={meta.touched && !!meta.error ? 'error' : 'success'} help={meta.touched && !!meta.error ? <Alert type="error" message={capitalizeFirstLetter(props.name) + ' is a required field'} style={{ padding: '0', paddingLeft: '10px' }} /> : null}>

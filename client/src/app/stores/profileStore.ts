@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Photo } from "../models/photo";
 import { Profile } from "../models/profile";
@@ -23,25 +23,21 @@ export default class ProfileStore {
     }
 
     get isCurrentUser() {
-        if (store.userStore.user && this.profile)
-        {
+        if (store.userStore.user && this.profile) {
             return store.userStore.user.username === this.profile.username;
         }
         return false;
     }
 
     get getPhotos() {
-        if (this.isCurrentUser)
-        {
-            // console.log(this.photos);
+        if (this.isCurrentUser) {
             return this.photos;
-            // return this.profile?.photos.filter(x => x.isProfilePicture === false && x.blogId === null);
         }
         return null;
     }
 
     loadPhotos = async (isProfilePicture: boolean) => {
-        this.loadingPhotos = true; 
+        this.loadingPhotos = true;
         try {
             const photos = await agent.Account.getPhotos(isProfilePicture);
             runInAction(() => {
@@ -59,7 +55,7 @@ export default class ProfileStore {
         try {
             const profile = await agent.Profiles.get(username);
             runInAction(() => {
-                this.profile = profile; 
+                this.profile = profile;
                 this.loadingProfile = false;
             })
         }
@@ -77,8 +73,7 @@ export default class ProfileStore {
             runInAction(() => {
                 if (this.profile) {
                     this.photos?.push(photo);
-                    if (photo.isProfilePicture && photo.isMainProfilePicture)
-                    {
+                    if (photo.isProfilePicture && photo.isMainProfilePicture) {
                         store.userStore.setImage(photo.url);
                         this.profile.profileImage = photo.url;
                     }
@@ -134,7 +129,7 @@ export default class ProfileStore {
                 if (profile.displayName && profile.displayName !== store.userStore.user?.displayName) {
                     store.userStore.setDisplayName(profile.displayName);
                 }
-                this.profile = {...this.profile, ...profile as Profile};
+                this.profile = { ...this.profile, ...profile as Profile };
                 this.loading = false;
             })
         }

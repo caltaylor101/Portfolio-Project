@@ -13,11 +13,11 @@ interface Props {
 
 export default observer(function LoginForm({ isBackRedirect }: Props) {
     const { userStore, modalStore } = useStore();
-    const { Title} = Typography;
+    const { Title } = Typography;
     return (
         <Fragment>
             <Typography>
-                <Title style={{color: 'white', textAlign: 'center'}}>Login {isBackRedirect && <Fragment> or Register Now:  <Button type='primary' className='success-btn' onClick={() => modalStore.openModal(<RegisterForm />)} >Register</Button></Fragment>}</Title>
+                <Title style={{ color: 'white', textAlign: 'center' }}>Login {isBackRedirect && <Fragment> or Register Now:  <Button type='primary' className='success-btn' onClick={() => modalStore.openModal(<RegisterForm />)} >Register</Button></Fragment>}</Title>
             </Typography>
             <Formik
                 initialValues={{ email: '', password: '', error: null }}
@@ -34,14 +34,10 @@ export default observer(function LoginForm({ isBackRedirect }: Props) {
                                 </Col>
                             </Row>
                         }
-                            <Submit handleSubmit={handleSubmit} isSubmitting={isSubmitting} dirty={dirty} isValid={isValid} />
+                        <Submit handleSubmit={handleSubmit} isSubmitting={isSubmitting} dirty={dirty} isValid={isValid} />
                     </Form>
                 )}
-
             </Formik>
-            
-            
         </Fragment>
-
-            )
+    )
 })

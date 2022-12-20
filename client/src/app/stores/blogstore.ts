@@ -63,16 +63,6 @@ export default class BlogStore {
         }
     }
 
-    // get groupedBlogs() {
-    //     return Object.entries(
-    //         this.blogsByDate.reduce((blogs, blog) => {
-    //             const date = blog.date.toISOString().split('T')[0];
-    //             blogs[date] = blogs[date] ? [...blogs[date], blog] : [blog];
-    //             return blogs;
-    //         }, {} as {[key: string]: Blog[]} )
-    //     )
-    // }
-
     loadBlogs = async (isUserDashboard: boolean) => {
         if(this.blogRegistry.size == 0) this.setLoadingInitial(true);
         try {

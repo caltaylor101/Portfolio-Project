@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Comments;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace API.SignalR
@@ -17,6 +18,7 @@ namespace API.SignalR
             
         }
 
+        [Authorize]
         public async Task SendComment(CreateComment.Command command)
         {
             var comment = await _mediator.Send(command);
@@ -24,7 +26,7 @@ namespace API.SignalR
             await Clients.Group(command.BlogId.ToString())
                 .SendAsync("ReceiveComment", comment.Value);
         }
-
+        [Authorize]
         public override async Task OnConnectedAsync()
         {
             var httpContext = Context.GetHttpContext();

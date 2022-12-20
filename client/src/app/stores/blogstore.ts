@@ -219,6 +219,10 @@ export default class BlogStore {
         }
     }
 
+    clearSelectedBlog = () => {
+        this.selectedBlog = undefined; 
+    }
+
     
 
 }

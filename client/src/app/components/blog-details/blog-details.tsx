@@ -78,6 +78,7 @@ const BlogDetails = () => {
     }
   }, []);
 
+
   //Find all the <code></code> tags and separate them from the body. 
   let myCode = blogStore.selectedBlog?.body.match(/(?<=<code>\s+).*?(?=\s+<\/code>)/gs);
   //Divide the body by all the new lines

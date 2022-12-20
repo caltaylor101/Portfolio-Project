@@ -44,8 +44,6 @@ export default observer(function NavBar() {
         )
     }
         
-    
-
     return (
         <Layout className="layout">
             <div className="logo" id='top'>
@@ -58,7 +56,6 @@ export default observer(function NavBar() {
             <Menu
                 className="menu"
                 mode="horizontal"
-                // defaultSelectedKeys={['1']}
         defaultSelectedKeys={['2']}
 
                 items={items}

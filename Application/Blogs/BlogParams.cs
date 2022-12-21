@@ -8,7 +8,6 @@ namespace Application.Blogs
 {
     public class BlogParams : PagingParams
     {
-        
         public string? Category { get; set; }
     }
 }

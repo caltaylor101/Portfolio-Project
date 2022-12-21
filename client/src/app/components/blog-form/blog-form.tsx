@@ -39,6 +39,7 @@ function BlogForm() {
 
     const options = [
         { label: 'Game-Dev', value: 'Game-Dev' },
+        { label: '.NET', value: '.NET' }, 
         { label: 'React', value: 'React' }, 
         { label: 'C#', value: 'C#' }, 
         { label: 'LeetCode', value: 'LeetCode' }, 

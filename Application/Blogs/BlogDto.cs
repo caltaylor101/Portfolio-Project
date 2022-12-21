@@ -9,7 +9,7 @@ namespace Application.Blogs
         public string Category { get; set; }
         public string Body { get; set; }
         public string UrlSuffix { get; set; }
-        public string AppUser { get; set; }
+        public UserBlogInfoDto AppUser { get; set; }
 
     }
 }

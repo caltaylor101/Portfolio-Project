@@ -1,5 +1,6 @@
 using Domain;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
@@ -38,6 +39,7 @@ namespace Infrastructure
                 }
             }
 
+            
 
             if (!context.Blogs.Any())
             {
@@ -164,6 +166,35 @@ namespace Infrastructure
 
                 await context.Blogs.AddRangeAsync(blogs);
                 await context.SaveChangesAsync();
+            }
+
+
+            if (!context.Photos.Any())
+            {
+
+                var user = await context.Users.Include(p => p.Photos)
+                    .FirstOrDefaultAsync(x => x.UserName == "bob");
+
+                var photo = new Photo
+                {
+                    Url = "https://res.cloudinary.com/dpkqjbts6/image/upload/v1668208626/djpqynpv3duc47mc0qdg.png",
+                    Id = "djpqynpv3duc47mc0qdg",
+                    IsMainProfilePicture = true,
+                    IsProfilePicture = true,
+                    BlogId = null,
+                    Order = 0, 
+                };
+
+                user.Photos.Add(photo);
+
+                foreach (var thing in user.Photos)
+                {
+                    Console.WriteLine("Hello this is the thing: " + thing.Url);
+                }
+
+
+                context.SaveChangesAsync();
+
             }
         }
     }

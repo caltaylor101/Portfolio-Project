@@ -1,4 +1,5 @@
 import { Photo } from "./photo";
+import { User } from "./user";
 
 export interface Blog {
     id: string;
@@ -8,6 +9,6 @@ export interface Blog {
     category: string;
     body: string;
     urlSuffix: string;
-    appUser?: string;
+    appUser?: User;
     photos?: Photo[];
 }

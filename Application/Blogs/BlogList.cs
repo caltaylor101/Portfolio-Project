@@ -43,9 +43,6 @@ namespace Application.Blogs
                 .ProjectTo<BlogDto>(_mapper.ConfigurationProvider)
                 .AsQueryable();
 
-                //var blogsToReturn = _mapper.Map<List<BlogDto>>(blogs);
-
-
                 return Result<PagedList<BlogDto>>.Success(
                     await PagedList<BlogDto>.CreateAsync(blogQuery, request.Params.PageNumber, request.Params.PageSize)
                 );

@@ -1,4 +1,5 @@
-import { Col, Card, Button, Typography, Row, Space, Popconfirm } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { Col, Card, Button, Typography, Row, Space, Popconfirm, Avatar, Image } from "antd";
 import { format } from "date-fns";
 import { observer } from "mobx-react-lite";
 import { Fragment, useState } from "react";
@@ -40,7 +41,17 @@ const BlogListItem = ({ blog }: Props) => {
                 <Card className="blog-list-card">
                     <Row>
                         <Col span={24}>
-                            <Typography.Title underline className="base-text-color" level={1}>{blog.title}</Typography.Title>
+                            <Typography.Title underline className="base-text-color" level={1}>{blog.title} <Avatar
+                                style={{ border: '1px solid teal', float: 'right' }}
+                                size={{ xs: 24, sm: 32, md: 30, lg: 30, xl: 50, xxl: 50 }}
+                                icon= {
+                                    blog.appUser?.image !== null ? 
+                                    <Image
+                                        preview={false}
+                                        src={blog.appUser?.image} /> : 
+                                    <UserOutlined style={{fontSize: '1.5em'}} />} 
+                            /></Typography.Title>
+                            
                         </Col>
                     </Row>
                     <Card
@@ -50,12 +61,19 @@ const BlogListItem = ({ blog }: Props) => {
                                 <Row>
                                     <Col xs={{span: 24}} md={{span:24}} span={12}><span style={{ color: "white", fontWeight: "lighter" }}>Published on: {blog.date !== undefined ?  format(new Date(blog.date + 'Z'), 'dd MMM yyyy h:mm aa') : null}</span></Col>
                                     <Col xs={{span: 24}} md={{span:24}} span={12}>
-                                        <Typography.Title style={{ textAlign: 'right' }} className='base-text-color' level={4}>By: {blog.appUser}</Typography.Title>
+                                        <Typography.Title style={{ textAlign: 'right' }} className='base-text-color' level={4}>By: {blog.appUser?.displayName} </Typography.Title>
+                                        
                                     </Col>
                                 </Row>
                             </Fragment>}
                     >
                         <p>{blog.description}</p>
+                        {blog.photos?.map(photo => {
+                            console.log(blog.photos?.length);
+                            return (
+                                photo.isMainProfilePicture
+                            );
+                        })}
 
                     </Card>
                     <Col>

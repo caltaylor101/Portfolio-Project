@@ -1,4 +1,5 @@
-import { Button, Card, Col, Popconfirm, Row, Space, Typography } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Button, Card, Col, Popconfirm, Row, Space, Typography, Image } from "antd";
 import { format, formatDistanceToNow } from "date-fns";
 import { observer } from "mobx-react-lite";
 import { Fragment, useEffect } from "react";
@@ -28,29 +29,31 @@ export default observer(function CommentBox({ blogId }: Props) {
             <ChatForm />
             <div className="blog-list">
                 {commentStore.comments.map(comment => (
-                    <Col key={comment.id} style={{marginTop: '20px'}} xs={{span:22, offset:1}}  sm={{span:22, offset:1}} md={{span:16, offset:4}} lg={{span: 10, offset: 4}}>
-                        <Card className="blog-list-card">
-                            <Card
-                                className="blog-list-card"
-                                title={
-                                    <Fragment>
-                                        <Row >
-                                            <Col xs={{ span: 24 }} md={{ span: 24 }} span={12}>
-                                                <span style={{ color: "white", fontWeight: "lighter" }}>
-                                                    {/* Published on: {format(new Date(comment.createdAt + 'Z'), 'dd MMM yyyy h:mm aa')} */}
-                                                    <>Commented {formatDistanceToNow(comment.createdAt)} ago</>
-                                                </span>
-                                            </Col>
-                                            <Col xs={{ span: 24 }} md={{ span: 24 }} span={12}>
-                                                <Typography.Title style={{ textAlign: 'right' }} className='base-text-color' level={4}>By: {comment.displayName}</Typography.Title>
-                                            </Col>
-                                        </Row>
-                                    </Fragment>}
-                            >
-                                <p style={{whiteSpace: 'pre-wrap'}}>{comment.body}</p>
+                    <Col className="blog-list-card" key={comment.id} style={{ marginTop: '1px', padding: '20px' }} xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 16, offset: 4 }} lg={{ span: 10, offset: 4 }}>
+                        <Fragment>
+                            <Row >
+                                <Col xs={{ span: 24 }} md={{ span: 24 }} span={12}>
+                                    <span style={{ color: "white", fontWeight: "lighter" }}>
+                                        {/* Published on: {format(new Date(comment.createdAt + 'Z'), 'dd MMM yyyy h:mm aa')} */}
 
-                            </Card>
-                        </Card>
+                                        <Typography.Title className='base-text-color' level={5}><Avatar
+                                style={{ border: '1px solid teal' }}
+                                size={{ xs: 24, sm: 32, md: 30, lg: 30, xl: 50, xxl: 50 }}
+                                icon= {
+                                    comment.image !== null ? 
+                                    <Image
+                                        preview={false}
+                                        src={comment.image} /> : 
+                                    <UserOutlined style={{fontSize: '1.5em'}} />} />&nbsp;&nbsp;&nbsp;{comment.displayName}</Typography.Title>
+
+                                        <p>Commented {formatDistanceToNow(comment.createdAt)} ago</p>
+                                    </span>
+                                </Col>
+                                <Col xs={{ span: 24 }} md={{ span: 24 }} span={12}>
+                                </Col>
+                            </Row>
+                        </Fragment>
+                                <p style={{ whiteSpace: 'pre-wrap', fontSize: '1.2em' }}>{comment.body}</p>
                     </Col>
                 ))}
 

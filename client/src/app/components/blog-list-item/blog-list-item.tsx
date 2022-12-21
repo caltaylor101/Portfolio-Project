@@ -79,7 +79,7 @@ const BlogListItem = ({ blog }: Props) => {
                     <Col>
                         <Space size='middle'>
                             <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, `/read-blog/${blog.urlSuffix}`)}>Read</Button>
-                            {blog.appUser == userStore.user?.username &&
+                            {blog.appUser?.username == userStore.user?.username &&
                                 <Fragment>
                                     <Button style={{ marginTop: "55px" }} onClick={() => selectBlog(blog.id, routeLinks.blogEditForm)}>Edit</Button>
 

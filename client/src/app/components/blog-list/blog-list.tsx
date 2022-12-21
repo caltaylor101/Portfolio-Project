@@ -22,6 +22,7 @@ export default observer(function BlogList({isUserDashboard}: Props){
     const categories = [
         'All Categories',
         'Game-Dev',
+        '.NET',
         'React',
         'C#',
         'LeetCode'
